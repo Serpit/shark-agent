@@ -26,6 +26,10 @@
 - [connections.md](connections.md) — 值得连接的人 / 社群 / 关键节点
 - [risks.md](risks.md) — 过时/诈骗/夸大模式库,新文章对照排雷
 
+## 方法论库(可执行 SOP)
+
+- [methods/community-demand-discovery.md](methods/community-demand-discovery.md) — 社群平台需求挖掘 SOP(小红书 / Reddit / X 通用,6 步)
+
 ## 维护规则
 
 - 每条新增/更新都要顺手把这份 INDEX 同步上,避免出现孤立文件。

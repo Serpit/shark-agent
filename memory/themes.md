@@ -23,7 +23,7 @@
 - **核心需求假设**:海外开发者、企业内部团队、小团队或个体商家存在足够具体的效率/自动化/开发流程痛点,可以用 1-2 周 MVP 小工具解决,并通过订阅、按量计费、一次性付费或 App 内购变现。
 - **画像匹配**:高。用户核心能力是技术开发,在海外创业公司做 App 开发,懂海外产品上线与基础盈利模式;时间约 18 小时/周、预算 1 万、目标 3 个月内找到真实付费用户,与小工具/Micro SaaS 验证节奏匹配。
 - **验证成本**:低-中。可先用 3 小时 BRD 法验证需求,再做 1-2 周 MVP;冷启动可走 Reddit/社区、Product Hunt、App Store、Chrome Store、SEO、冷邮件等免费或低成本渠道。
-- **可行性证据**:[2026-04-indie-saas-3h-brd-validation.md](findings/2026-04-indie-saas-3h-brd-validation.md)(给出写代码前的 6 步 BRD 调研 SOP、GO/NO-GO 框架、定价和痛点验证方法);[2026-04-do-it-yourself-mindset.md](findings/2026-04-do-it-yourself-mindset.md)(强调方向要靠最小验证打出来,不是长期空想);[youtube-ai-faceless-channel-sop.md](findings/youtube-ai-faceless-channel-sop.md)(可借用"抄 MVP、具象化需求、自动化前算时间成本"等通用方法)
+- **可行性证据**:[2026-04-indie-saas-3h-brd-validation.md](findings/2026-04-indie-saas-3h-brd-validation.md)(给出写代码前的 6 步 BRD 调研 SOP、GO/NO-GO 框架、定价和痛点验证方法);[2026-04-do-it-yourself-mindset.md](findings/2026-04-do-it-yourself-mindset.md)(强调方向要靠最小验证打出来,不是长期空想);[youtube-ai-faceless-channel-sop.md](findings/youtube-ai-faceless-channel-sop.md)(可借用"抄 MVP、具象化需求、自动化前算时间成本"等通用方法);[2026-04-wechat-miniprogram-ai-matrix.md](findings/2026-04-wechat-miniprogram-ai-matrix.md)(国内小程序矩阵实战印证"AI 让单产品试错成本降到几天 + 几十元,可跑矩阵";选需求三标准/AI 三句话开发可直接平移到 Chrome Extension / 轻 SaaS / 小工具 App)
 - **风险/未知**:
   - 目前还没有具体子赛道,不能停留在"做一个小工具"这种空泛层面
   - 用户缺少互联网以外的垂直行业知识,进入强行业垂直前必须先补 domain insight
