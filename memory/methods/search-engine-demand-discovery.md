@@ -30,6 +30,19 @@
 - 你工作流中重复执行的动作(转格式 / 查询 / 校验 / 对比 / 计算)对应的搜索词
 - 海外同事 / Reddit / Indie Hackers / r/SaaS 反复抱怨"is there a tool that..."
 
+**词根联想法(高 ROI)**(来源:[2026-04-hot-keyword-quick-site.md](../findings/2026-04-hot-keyword-quick-site.md)):
+格式:`[领域词] + [需求词根]`,例如 `AI + generator → AI generator`、`Sora + watermark remover → Sora AI Watermark Remover`。
+
+**26 个常用需求词根库**:
+generator, creator, maker, builder, helper, assistant, tool, directory, template, converter, editor, optimizer, checker, detector, humanizer, planner, tracker, summarizer, transcriber, writer, viewer, monitor, simulator, comparator, solver, extractor
+
+**热词信号源(用于发现新词根组合)**(来源同上):
+| 方法 | 动作 |
+|---|---|
+| Google Trends 词根联想 | 用词根组合先看"过去 7 天"找上升趋势,再拉"过去 30 天"验证长期潜力 |
+| Twitter/X 监控账号 | @op7418(歸藏)、@dotey(宝玉)、@imxiaohu(小互) + OpenAI/Anthropic 官号 |
+| Hugging Face Spaces | huggingface.co/spaces — AI 公司常在此首发新模型 |
+
 **反例**:凭空想"AI 教育工具有没有市场" — 太宏大无法挖。
 
 **输出**:3-5 个具体关键词,例如 `expense tracker for freelancers`、`json to csv converter no signup`、`subscription dashboard for indie devs`。
