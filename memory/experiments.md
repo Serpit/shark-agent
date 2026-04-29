@@ -97,18 +97,19 @@
   10. 未来 3 个月，我会怎么验证一个方向值不值得做
 - **置顶自我介绍草稿**:我是一名做海外 App 开发的技术人，正在记录自己的创业探索、独立开发尝试和 AI 提效实践。这里不卖成功学，只记录真实的判断、试错和复盘。
 
-## 技术型出海小工具候选池调研
+## 技术型出海小工具候选池调研(Web-first)
 
-- **状态**:planned(个人 IP 优先后,本实验降为并行探索;不急于立即进入产品调研)
+- **状态**:**parked(2026-04-29 转,等支付通道解决 + SEO 站跑通后再启动)**
 - **关联方向**:[技术型出海小工具 / B2B 微 SaaS](themes.md#技术型出海小工具--b2b-微-saas)
-- **待验证假设**:在开发者、海外 App 用户、企业内部效率、小团队营销获客这几个入口中,能找到至少 1 个适合 1-2 周 MVP、3 个月内触达真实付费用户的小工具方向。
-- **时间盒**:第一轮 1 周,最多调研 3 个候选方向;每个候选方向 3-6 小时。
+- **待验证假设**:在开发者、海外 App 用户、企业内部效率、小团队营销获客这几个入口中,能找到至少 1 个适合 1-2 周 **Web** MVP、3 个月内触达真实付费用户的小工具方向。
+- **时间盒**:第一轮 1 周,调研 2-3 个候选方向;每个候选 3-6 小时。
 - **预算上限**:0-500 元,只用于必要的工具查询或小额验证;不做大额投放。
+- **产品形态约束**:Web-first(Web SaaS / Chrome Extension / 开发者工具站点),不评估 App 形态候选。理由见 [profile.md 方向筛选权重](profile.md#方向筛选权重)。
 - **成功标准**:
   - 至少 1 个候选方向满足 3 个不同平台/来源验证的真实痛点
   - 有明确目标用户和付费理由
-  - MVP 能在 1-2 周内完成
-  - 有至少 1 条低成本冷启动渠道
+  - Web MVP 能在 1-2 周内完成,域名 + Cloudflare Pages + Stripe 三件套即可上线
+  - 有至少 1 条低成本冷启动渠道(SEO / Reddit / PH / Chrome Store / 冷邮件)
   - 收费模式能覆盖服务器、API、工具成本
 - **失败标准**:
   - 找不到跨平台重复出现的痛点
@@ -116,11 +117,64 @@
   - 获客渠道不可达或完全依赖烧钱投放
   - MVP 范围超过 2 周,或需要用户侧重度集成/迁移
 - **执行步骤**:
-  - 从 4 个入口各列 3 个候选痛点:开发者自己的痛点、海外 App 用户痛点、企业内部效率痛点、小团队营销获客痛点
-  - 第一轮优先观察 2 个方向:`mobile subscription app`、`expense tracker`;暂缓 `note app`、`language learning app`
-  - 再补 1 个来自开发者/企业效率/小团队获客入口的候选,凑齐 3 个方向
-  - 对每个候选套用 BRD 调研法:趋势、竞品差评、用户画像、市场规模、定价、GO/NO-GO
-  - 每个候选产出一页调研卡:竞品表、痛点频次、目标用户、MVP 范围、收费方式、首批获客渠道
-  - 选 1 个 GO 候选进入 1-2 周 MVP 实验
+  - **需求发现路径**:跑 [search-engine-demand-discovery.md](methods/search-engine-demand-discovery.md) SOP,**从搜索引擎(Google)挖需求**,而非从 App 评论挖。理由见 [principles.md#需求发现路径要匹配产品分发生态](principles.md#需求发现路径要匹配产品分发生态)
+  - **Step A**:用 SOP 第 1 步从用户自己的搜索行为列 3-5 个候选关键词(15 分钟)
+  - **Step B**:跑 SOP 第 2-3 步三维探针 + SERP 缺口验证,过滤到 2 个候选(每个 30 分钟)
+  - **Step C**:对 2 个候选跑 SOP 第 4-6 步,产出每个候选 1 页 BRD(每个候选 3-6 小时)
+  - 选 1 个 GO 候选进入 1-2 周 Web MVP 实验
+- **候选池参考(非锁定,需用 SOP 跑过)**:
+  - `expense tracker (Web)` — 上轮保留,但 SERP 头部多为 Mint/QuickBooks 大厂,需要找细分场景(freelancer multi-currency / SaaS founder ARR tracker 之类)才有缺口
+  - `i18n 翻译管理工具` — 关键词如 `i18n tool open source` / `translation management for indie devs`,需 SOP 验证 SERP 缺口
+  - **从 SOP Step 1 跑出的新候选**(用户自己最近在 Google 搜过、没找到满意结果的关键词)
+- **不再作为候选**(需求源与产品形态错配,违反 [principles.md#需求发现路径要匹配产品分发生态](principles.md#需求发现路径要匹配产品分发生态)):
+  - ~~海外 App 评论/差评分析工具~~ — 需求源是 App Store 评论,用户群在 App 生态内
+  - ~~订阅 App dashboard / 分析工具~~ — 需求源是 App 订阅数据,用户群在 App 生态内
+  - ~~Reddit 热帖监控~~ — 这是社群驱动需求(对应 community-demand-discovery SOP),不是 search-first
+  - ~~API mock / 调试工具~~ — 路径上偏 Web,但 Postman/Insomnia/Bruno 已饱和,SERP 缺口几乎为零
 - **结果记录**:
   - 2026-04-28:用户暂时没有明确的开发者自我痛点,因此不从"自我痛点"硬切入;第一轮改用外部观察法。用户熟悉/愿意研究的海外产品类型包括 note app、expense tracker、mobile subscription app、language learning app。初筛后决定优先调研 `mobile subscription app` 和 `expense tracker`,因为前者贴近 App 开发/订阅商业化背景,后者与付费意愿和明确痛点更相关。
+  - 2026-04-29(早):基于 App 上架 vs 建站成本对比研究(App Store 首次拒绝率 25-40%、迭代周期 1-3 周、抽成 15-30%;Web 当天部署 + Stripe 3% + 无审核),用户决定**主打 Web 建站为产品形态,App 路径降权**。`mobile subscription app` 移出 BRD 主候选(降为订阅商业化研究素材,服务于个人 IP 内容支柱);`expense tracker` 改 Web 形态后保留;新增 4 个 Web 候选进候选池。
+  - 2026-04-29(晚):用户进一步指出"从 app 差评找到的需求,基本还是在 app 生态里面,不会转移到网页侧",决定**需求发现路径换为搜索引擎驱动**(对应新建的 [search-engine-demand-discovery.md](methods/search-engine-demand-discovery.md) SOP)。原候选池中"海外 App 评论分析工具"+"订阅 App dashboard"两个 dogfood 候选移出(需求源在 App 生态内,违反路径匹配原则);Reddit 监控/API mock 移出(路径不匹配/SERP 已饱和);`expense tracker (Web)` 与 `i18n 翻译管理工具` 仍待 SOP 验证。
+  - 2026-04-29(深):用户基于两条现实约束(**支付通道无 Stripe 资质** + **建站能力前置缺失**),决定**主线切换到百年的 SEO 内容站矩阵 + AdSense**。本实验整体转 parked,等以下两个条件满足后再考虑重启:① SEO 站跑通,建站能力闭环;② 支付通道方案确定(Lemon Squeezy / Paddle 主体 / 海外 LLC)。SaaS 候选不删除,等条件满足后从 SEO 站观察到的 transactional intent 关键词中筛 1 个 BRD 起步。详见 [profile.md 支付通道约束](profile.md#能力与资源) + [themes.md 决策依据](themes.md#技术型出海小工具--b2b-微-saas)。新主线见下方「英文 SEO 内容站矩阵起步」实验。
+
+## 英文 SEO 内容站矩阵起步
+
+- **状态**:running(2026-04-29 启动,M1-M3 主线)
+- **关联方向**:[英文 SEO 内容站矩阵 + AdSense 变现](themes.md#英文-seo-内容站矩阵--adsense-变现)
+- **待验证假设**:用户(技术开发背景 + 18h/周 + 0 建站经验)能否在 3 个月内跑通"选词 → Astro 建站 → 内容生产 → 外链 → AdSense"的完整 SEO 站闭环,并产出 5-10 站矩阵 + 第一笔 AdSense 入账(几美金即 GO)。
+- **时间盒**:3 个月(2026-05 至 2026-07),M1/M2/M3 各有阶段产出
+- **预算上限**:
+  - M1:**0-200 元**(域名 + 基础工具,Cloudflare Pages 免费)
+  - M2:**0-500 元**(可能 Ahrefs Lite / 关键词工具订阅 1 个月做选词)
+  - M3:**0-500 元**(继续选词 + 必要时小额外链投入)
+  - 全程合计 < 1500 元,远低于 1 万预算上限
+- **成功标准(3 个月分阶段)**:
+  - M1:**1 站上线**——域名注册、Astro + Tailwind + Cloudflare Pages 模板跑通、5-10 篇内容已发布、Google Search Console 已提交、至少 1 个关键词被收录
+  - M2:**3-5 站铺开**——单站上线时间压到 4-6 小时;启动外链系统(Claude Code Skill 化);AdSense 申请提交
+  - M3:**5-10 站矩阵 + 第一笔 AdSense 入账**——DR 突破 10-20;AdSense 已通过且有几美金入账;至少 3 个关键词进 Google Top 50
+- **失败标准**:
+  - M1 末第一站未上线 → 建站流程门槛超出 18h/周可承担范围,降级到更轻载体(Carrd / Notion 公开页)
+  - M2 末仍是 1 站 → 不是产能问题,是模板没跑顺,**不要继续上量,先解决模板复用**
+  - M3 末 0 站收录 Google → 关键词选错,必须重跑 [search-engine-demand-discovery.md](methods/search-engine-demand-discovery.md) Step 2-3 收紧门槛(KD<10 + 月搜索量>500)
+- **执行步骤(三阶段)**:
+
+  ### Stage 1(M1 = 2026-05):第一站上线,流程跑通
+  1. **选词**(Week 1):跑 [search-engine-demand-discovery.md](methods/search-engine-demand-discovery.md) Step 1-3,从用户自己最近 google 过的关键词 + Ahrefs Free Keyword Generator 中筛出 1 个 KD<20 + 月搜索量 500-2K + SERP 头部不是大厂的关键词
+  2. **域名 + 模板**(Week 1-2):注册域名(Cloudflare 自带或 Namecheap);克隆 Astro + Tailwind 模板(可参考 [Astro 官方模板库](https://astro.build/themes/));部署到 Cloudflare Pages
+  3. **首版内容**(Week 2-3):AI 生成 5-10 篇内容初版(主关键词 1 篇 + 长尾 4-9 篇);**人工校验**事实准确度、本地表达自然度、主关键词出现位置(标题/H2/首段/最后一段)
+  4. **基础 SEO**(Week 3-4):提交 Google Search Console + Bing Webmaster;sitemap.xml 自动生成;robots.txt 配置;每页 meta description 唯一
+  5. **第一周观察**(Week 4):看 Search Console 是否开始收录;Google Trends 验证选词时的趋势是否稳定
+
+  ### Stage 2(M2 = 2026-06):3-5 站 + 外链系统
+  6. 模板 Skill 化:把 Stage 1 的建站流程封装成 Claude Code Skill(选词输入 + 自动 scaffold + 内容初版生成),目标单站上线 4-6 小时
+  7. 选 2-4 个新关键词,平行铺站
+  8. 启动外链系统:吸收百年的"竞品外链 + 半自动化提交"思路,**先手动跑 30-50 个高质量站点**(资源站 / 行业 directory),再考虑自动化
+  9. AdSense 申请:每站独立申请或主站申请(规则常变,M2 中段查最新)
+
+  ### Stage 3(M3 = 2026-07):矩阵铺开 + 数据决策
+  10. 站点扩到 5-10 个,DR 目标 10-20
+  11. 月底 review 数据:哪类关键词收录快、哪类卡住、哪些站权重起得快
+  12. **SaaS 路径决策**:回头评估 SEO 站观察期间是否有 transactional intent 关键词背后能升级 SaaS;同时启动 Lemon Squeezy / Paddle 主体调研
+
+- **结果记录**:
+  - 2026-04-29:实验启动。状态切 running,主线由"Web SaaS BRD"调整为"SEO 内容站矩阵起步"。等待用户在 M1 第一周完成关键词筛选(SOP Step 1-3 输出)。

@@ -19,21 +19,25 @@
 
 ## 技术型出海小工具 / B2B 微 SaaS
 
-- **状态**:explore(目前与 profile 匹配最高,但仍缺具体细分赛道和真实需求证据)
+- **状态**:explore(2026-04-29 调整:**降为并行 BRD**,不再要求 M1-M3 必出 GO 候选;主线让位给 SEO 内容站矩阵。降级原因见下方"决策依据"段)
 - **核心需求假设**:海外开发者、企业内部团队、小团队或个体商家存在足够具体的效率/自动化/开发流程痛点,可以用 1-2 周 MVP 小工具解决,并通过订阅、按量计费、一次性付费或 App 内购变现。
 - **画像匹配**:高。用户核心能力是技术开发,在海外创业公司做 App 开发,懂海外产品上线与基础盈利模式;时间约 18 小时/周、预算 1 万、目标 3 个月内找到真实付费用户,与小工具/Micro SaaS 验证节奏匹配。
 - **验证成本**:低-中。可先用 3 小时 BRD 法验证需求,再做 1-2 周 MVP;冷启动可走 Reddit/社区、Product Hunt、App Store、Chrome Store、SEO、冷邮件等免费或低成本渠道。
-- **可行性证据**:[2026-04-indie-saas-3h-brd-validation.md](findings/2026-04-indie-saas-3h-brd-validation.md)(给出写代码前的 6 步 BRD 调研 SOP、GO/NO-GO 框架、定价和痛点验证方法);[2026-04-do-it-yourself-mindset.md](findings/2026-04-do-it-yourself-mindset.md)(强调方向要靠最小验证打出来,不是长期空想);[youtube-ai-faceless-channel-sop.md](findings/youtube-ai-faceless-channel-sop.md)(可借用"抄 MVP、具象化需求、自动化前算时间成本"等通用方法);[2026-04-wechat-miniprogram-ai-matrix.md](findings/2026-04-wechat-miniprogram-ai-matrix.md)(国内小程序矩阵实战印证"AI 让单产品试错成本降到几天 + 几十元,可跑矩阵";选需求三标准/AI 三句话开发可直接平移到 Chrome Extension / 轻 SaaS / 小工具 App)
+- **可行性证据**:[2026-04-indie-saas-3h-brd-validation.md](findings/2026-04-indie-saas-3h-brd-validation.md)(给出写代码前的 6 步 BRD 调研 SOP、GO/NO-GO 框架、定价和痛点验证方法);[2026-04-do-it-yourself-mindset.md](findings/2026-04-do-it-yourself-mindset.md)(强调方向要靠最小验证打出来,不是长期空想);[youtube-ai-faceless-channel-sop.md](findings/youtube-ai-faceless-channel-sop.md)(可借用"抄 MVP、具象化需求、自动化前算时间成本"等通用方法);[2026-04-wechat-miniprogram-ai-matrix.md](findings/2026-04-wechat-miniprogram-ai-matrix.md)(国内小程序矩阵实战印证"AI 让单产品试错成本降到几天 + 几十元,可跑矩阵";选需求三标准/AI 三句话开发可直接平移到 Chrome Extension / 轻 SaaS / 小工具 App);[2026-04-claude-code-sideline-100k.md](findings/2026-04-claude-code-sideline-100k.md)(作者把外链自动化方法论 + Skill 包 + 平台流程库打包卖了几千块,印证"经验产品化"路径——不必非做 SaaS,把高频痛苦可复用流程整理出来就是小产品;eat your own dog food 是最好的 idea 来源)
 - **风险/未知**:
   - 目前还没有具体子赛道,不能停留在"做一个小工具"这种空泛层面
   - 用户缺少互联网以外的垂直行业知识,进入强行业垂直前必须先补 domain insight
   - 最大风险不是技术实现,而是找不到真实痛点、付费用户和稳定获客渠道
   - 需要避免独立开发者低价陷阱,不要靠免费/极低价吸引无付费意愿用户
+- **决策依据(2026-04-29 降级)**:
+  - **支付通道现实约束**:用户当前无 Stripe 资质,SaaS 直接收款链路不通(详见 [profile.md 支付通道约束](profile.md#能力与资源))。在解决 Lemon Squeezy / Paddle 等 Merchant of Record 主体之前,SaaS 月订阅模式无法闭环。
+  - **建站能力前置缺失**:用户尚未走过完整建站流程(选词 / Astro / Cloudflare / 外链 / SEO),这是出海主线的基础能力,需要先在低风险载体(SEO 内容站)上跑通,再迁移到 SaaS。
+  - **SEO 内容站的双重价值**:既能积累建站能力,又能在收款受限期通过 AdSense 拿到第一笔小额自然收入,且与 Web SaaS 共享技术栈(Astro + Cloudflare + 关键词分析)。
 - **下一步动作**:
-  - 用 BRD 法调研 3 个候选小工具方向,每个方向只花 3-6 小时做 GO/NO-GO
-  - 优先从开发者自己的痛点、海外 App 用户痛点、企业内部效率痛点、小团队营销获客痛点中选题
-  - 每个候选必须产出:竞品表、差评/痛点频次表、目标用户画像、收费方式、MVP 范围、首批获客渠道
-  - 如果 3 个候选里有 1 个满足 GO 条件,进入 experiments 做 1-2 周 MVP
+  - **产品形态优先级:Web-first**(Web SaaS / Chrome Extension / 开发者工具站点)。App 形态降权,只保留 `mobile subscription app` 作为订阅商业化研究素材,不作为自建 MVP 候选。
+  - **当前阶段不强求出 GO 候选**——SEO 内容站矩阵跑通后,根据流量观察 + 支付通道进展,再决定是否启动 SaaS BRD。
+  - **并行允许的轻量动作**:在跑 SEO 站时若发现某个关键词背后是 SaaS 需求(transactional intent + 现有付费产品),记录到候选池,等支付通道解决后再启动 BRD。
+  - 长期保留的 BRD 方法论:[search-engine-demand-discovery.md](methods/search-engine-demand-discovery.md) + [2026-04-indie-saas-3h-brd-validation.md](findings/2026-04-indie-saas-3h-brd-validation.md) 钦哥 6 步法。
 
 ## 外贸 B2B 小语种深度本地化(中东 + 西语美洲)
 
@@ -63,6 +67,26 @@
   - 订单特征是「小单、多样、要货急」,对资金周转和柔性供应链要求高,纯个人 SOHO 难以支撑
   - 缺乏具体子赛道判断(具体哪类工具/哪类家居)
 - **下一步动作**:暂时 parking,优先做小语种方向
+
+## 英文 SEO 内容站矩阵 + AdSense 变现
+
+- **状态**:**validating(2026-04-29 升级为 M1-M3 主线候选)**——支付通道约束 + 建站能力前置 两重原因(详见决策依据段),从原本"M3 之后并行练手"提前为"现在就启动"
+- **核心需求假设**:针对**最近才出现搜索量、竞争度低**的英文长尾关键词需求(工具型/查询型/换算型/小众场景)做内容站矩阵,通过 AI 批量生成内容 + 人工校验 + 外链打权重,排名起来后通过 Google AdSense 持续变现。**核心假设**:在英文搜索生态里仍存在足量"大厂没做或做得烂、有真实搜索量、低权重新站可短期内打到首页"的细分长尾。
+- **画像匹配**:中-高。**优点**:技术开发能力可直接套 Astro + Tailwind + Cloudflare Pages 模板批量化;Claude Code Skill / Agent / Hook 工作流让单站从选词到上线压缩到一个下午;符合 profile "免费/低成本冷启动渠道"和"长期复利型资产";不消耗用户当前 IP 实验时间盒(完全可后台跑)。**缺点**:与"找到真实付费用户"目标不直接对齐(广告分成≠用户付费),不能验证 profile 最优先的"找需求"能力;且短期 ROI 远低于工具型 SaaS,M1-M3 阶段不应作为主线。
+- **验证成本**:中。建站成本几乎为 0(Cloudflare Pages 免费额度足够),但**外链建设是真金白银的时间成本**——作者半自动化外链系统跑下来 6 站 2 周 300+ 外链,需要 Ahrefs 订阅($99-249/月)和持续投入;**资产成型周期 9-18 个月**,与 profile "3 个月内看到反馈"硬约束冲突。
+- **可行性证据**:[2026-04-claude-code-sideline-100k.md](findings/2026-04-claude-code-sideline-100k.md)(作者 4 个月上线二三十个英文 SEO 站,Astro + Tailwind + Cloudflare Pages 模板单站 2-3 小时上线,半自动化外链系统让 DR 从 0 突破 40-50,目前月广告收入"几十美金且在涨";SOP 涵盖选词/建站/内容/外链/变现五个环节)
+- **风险/未知**:
+  - 资产周期与 profile "3 个月反馈"硬约束冲突——若投入此方向必须明确"这是 9-18 个月才见效的并行实验,不能挤占 M1-M3 主线时间"
+  - 单证据,需要交叉印证另一个英文 SEO 实战(尤其是 2025-2026 年 Google 算法变化后的实战)
+  - Google AdSense 单价对小流量站极低,二三十个站才月入几十美金,放大到月千美金需要更多站点 + 流量爆款 + 持续外链投入
+  - 外链建设有"灰色"边界——作者明确放弃博客评论 spam,但行业大量"PBN / 私域博客网络"打法本质是规则边缘;用户应锁死在"白帽 + 半自动化"路径
+  - 英文内容质量门槛——AI 生成 + 人工校验里"人工校验"对非母语者是真实成本
+- **下一步动作(2026-04-29 升级为主线后)**:
+  - **期望重新校准**:M1-M3 不追求收入达标,目标是"流程跑通 + 5-10 站上线 + DR 起势 + 第一笔 AdSense 入账(哪怕几美金)"。**3 个月反馈 = 流程闭环验证 + 第一波关键词收录,不是钱**。如果到 M3 末仍把"月入几十美金"当不达标,会陷入心理负反馈,违反 [principles.md#不要裸辞创业](principles.md#不要裸辞创业-心态急是反模式)
+  - **执行节奏**:跟百年的 SOP 走——Astro + Tailwind + Cloudflare Pages 模板;选词用 [search-engine-demand-discovery.md](methods/search-engine-demand-discovery.md) SOP;外链建设吸收百年的"竞品外链 + 半自动化提交"思路(M2 启动);AdSense 申请放在 M2-M3
+  - **Claude Code 工程化范式**:作者的 Skill / Agent / Hook 模式直接套用——选词 Skill / 建站 Agent / 提交 Hook,把 shark-agent 项目本身就升级为 SEO 工作台
+  - **风险锁死**:坚持白帽 + 半自动化,不碰 PBN / 博客评论 spam(原文已警告,见 [risks.md](risks.md))
+  - 具体启动动作见 [experiments.md 英文 SEO 内容站矩阵起步](experiments.md#英文-seo-内容站矩阵起步)
 
 ## YouTube 中文 AI 不出镜频道(faceless)
 

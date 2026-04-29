@@ -29,6 +29,7 @@
 ## 方法论库(可执行 SOP)
 
 - [methods/community-demand-discovery.md](methods/community-demand-discovery.md) — 社群平台需求挖掘 SOP(小红书 / Reddit / X 通用,6 步)
+- [methods/search-engine-demand-discovery.md](methods/search-engine-demand-discovery.md) — 搜索引擎需求发现 SOP(Web/SaaS 出海,6 步,与社群版对位)
 
 ## 维护规则
 
