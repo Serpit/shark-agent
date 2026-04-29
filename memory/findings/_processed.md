@@ -9,6 +9,7 @@
 | 2026-04-28 | (URL 来源) https://my.feishu.cn/wiki/Wp7owTPsbiwJDrkuJ2ScxWGcnHc | wiki-id:Wp7owTPsbi | kept | [2026-04-foreign-trade-b2b-newbie-sop.md](2026-04-foreign-trade-b2b-newbie-sop.md) |
 | 2026-04-28 15:30 | raw/我花3小时调研了一个出海产品，发现90%的独立开发者第一步就走错了.md | 51a1551f002b | kept | [2026-04-indie-saas-3h-brd-validation.md](2026-04-indie-saas-3h-brd-validation.md) |
 | 2026-04-29 | (URL 来源) https://my.feishu.cn/wiki/EliBwKRLeiFx28kFViKcSH3ynQe | wiki-id:EliBwKRLei | kept | [2026-04-wechat-miniprogram-ai-matrix.md](2026-04-wechat-miniprogram-ai-matrix.md) |
+| 2026-04-29 | raw/00后用Claude Code做副业,4个月变现超10万:方法和数据全公开.md | bab6d02a8e72 | kept | [2026-04-claude-code-sideline-100k.md](2026-04-claude-code-sideline-100k.md) |
 
 > 处理结果取值:`kept` (已写 finding) / `dropped` (噪音过滤掉) / `flagged` (有风险已记入 risks.md)。
 > 被丢弃的文章也要登记,避免反复处理同一篇。
