@@ -176,5 +176,27 @@
   11. 月底 review 数据:哪类关键词收录快、哪类卡住、哪些站权重起得快
   12. **SaaS 路径决策**:回头评估 SEO 站观察期间是否有 transactional intent 关键词背后能升级 SaaS;同时启动 Lemon Squeezy / Paddle 主体调研
 
+### 候选关键词池(待 Step 2-3 验证)
+
+> 等可切美区 IP 后,挨个跑三维探针(Trends / Ahrefs KD / SERP 头部形态)再决定是否建站。
+
+#### 热词路径候选
+
+- **领域词:`GPT Image 2`**(2026-04-30 录入,信号源:用户在 X / 媒体观察到热度大)
+  - **判断**:OpenAI 官方词,搜索量大但官方页 SEO 权重极高,**只能挑官方不会做的子需求**(prompts 库 / 对比 / alternative / examples gallery)
+  - **候选关键词组合**(按 ROI 排):
+    - ⭐⭐⭐ `gpt image 2 prompt generator`(transactional,联盟 + AdSense 入口强)
+    - ⭐⭐⭐ `gpt image 2 prompts`(prompt 库,可做长页 + 分类)
+    - ⭐⭐⭐ `gpt image 2 vs midjourney` / `vs flux` / `vs nano banana`(commercial,联盟变现强)
+    - ⭐⭐ `gpt image 2 alternative`(commercial,提前占位防限流/收费)
+    - ⭐⭐ `gpt image 2 examples` / `gallery`(吸量,变现弱)
+    - ⭐ `gpt image 2 watermark remover`(先确认是否真有水印再做)
+  - **直接 pass**:`gpt image 2 generator`(官方就是答案,打不过 openai.com)
+  - **未做的验证(等切美区 IP 后补)**:
+    - Google Trends 7 天 / 30 天走势(看是否上升)
+    - Ahrefs Free Keyword Generator 月搜索量 + KD
+    - 无痕窗口 google.com 美区 IP,看 SERP 头部 10 位是否被 OpenAI 官方 + 大博客占满
+
 - **结果记录**:
   - 2026-04-29:实验启动。状态切 running,主线由"Web SaaS BRD"调整为"SEO 内容站矩阵起步"。等待用户在 M1 第一周完成关键词筛选(SOP Step 1-3 输出)。
+  - 2026-04-30:用户选定**热词路径**为先行尝试方向(与百年长尾路径互补)。录入第一个领域词候选 `GPT Image 2` + 7 个候选关键词组合。三维探针验证因当前网络环境不便切美区 IP 推迟,候选池入库待后续推进。

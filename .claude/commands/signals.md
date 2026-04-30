@@ -21,6 +21,7 @@ printf %s "<原文>" | shasum -a 256 | cut -c1-12
 - `memory/profile.md` — 拿到适配度判定的权重
 - `memory/risks.md` — 拿到已知风险模式,评估真伪要对照
 - `memory/timeline.md` — 判断时机是否匹配当前阶段
+- `memory/methods/axiom-scan.md` — 拿到 9 条公理逐项问句,第 3 步真伪判定时强制对照
 
 ### 3. 写 signal 文件
 在 `memory/signals/` 下用 `YYYY-MM-DD-<英文-slug>.md` 命名(slug 从风向标主题提炼,3–5 个连字符词)。文件内容严格按下面三段式,**不要复述原文**(原文存档放最末尾的「原文备份」区块即可):
@@ -48,7 +49,7 @@ printf %s "<原文>" | shasum -a 256 | cut -c1-12
 ## 3. 真伪与风险
 **判定**:可信 / 存疑 / 疑似炒作
 
-对照 `risks.md` 已知模式给依据。如果发现新风险模式,本次同步追加到 `risks.md` 并在这里链接过去。
+必须先按 [axiom-scan.md](memory/methods/axiom-scan.md) 公理清单 9 条扫一遍,触发哪几条标注「公理 X 冲突」;之后再对照 `risks.md` 已知模式给依据。如果发现新风险模式,本次同步追加到 `risks.md` 并在这里链接过去。
 
 ## 行动建议
 一句话:**深入研究** / **持续观察** / **不跟**,以及给出理由。
