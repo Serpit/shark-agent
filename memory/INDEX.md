@@ -38,6 +38,7 @@
 - [methods/community-demand-discovery.md](methods/community-demand-discovery.md) — 社群平台需求挖掘 SOP(小红书 / Reddit / X 通用,6 步)
 - [methods/search-engine-demand-discovery.md](methods/search-engine-demand-discovery.md) — 搜索引擎需求发现 SOP(Web/SaaS 出海,6 步,与社群版对位)
 - [methods/benchmark-five-filters.md](methods/benchmark-five-filters.md) — themes 候选五重过滤（骨架版，同模式/同阶段/同合规/同需求层/同验证）
+- [methods/x-tweet-writing-templates.md](methods/x-tweet-writing-templates.md) — X 推文起草 SOP(4 开头 + 10 模板 + 3 Thread + 发布前三问)
 
 ## 维护规则
 

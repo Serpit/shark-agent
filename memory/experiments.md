@@ -84,18 +84,23 @@
   - `创业记录`:记录自己在做什么、学到什么、踩了什么坑
   - `产品拆解`:拆海外 App、订阅商业化、独立开发案例
   - `方法总结`:把调研、判断、提效、验证过程提炼成可复用方法
-- **10 条首发内容选题**:
-  1. 为什么我想把 `技术开发视角的海外创业探索` 作为主线
-  2. 我为什么更想做 `X`，而不是先追求大而全的个人 IP
-  3. 海外 App 开发里，最容易被低估的不是技术而是什么
-  4. 我怎么看独立开发出海这件事：适合谁，不适合谁
-  5. 一个技术人如何把 AI 用在调研、写作和开发里
-  6. 为什么我现在更关注“真实付费用户”而不是“流量”
-  7. 海外产品商业化里，订阅模式为什么值得继续研究
-  8. 程序员想做个人品牌，第一步应该先做什么
-  9. 我对“创业探索”这件事的边界和节奏
-  10. 未来 3 个月，我会怎么验证一个方向值不值得做
-- **置顶自我介绍草稿**:我是一名做海外 App 开发的技术人，正在记录自己的创业探索、独立开发尝试和 AI 提效实践。这里不卖成功学，只记录真实的判断、试错和复盘。
+- **起草 SOP**:每条推文按 [methods/x-tweet-writing-templates.md](methods/x-tweet-writing-templates.md) 走 Step 1-5(选题 → 选结构 → 填内容 → 改第一行 → 发布前三问)。10 条首发选题的推荐结构见下表(可调,作为起草锚点):
+
+| # | 选题 | 推荐结构 | 推荐开头型 |
+|---|---|---|---|
+| 1 | 为什么我把 `技术开发视角的海外创业探索` 作为主线 | 观点宣言 | 直接宣言型 |
+| 2 | 我为什么更想做 X,而不是先追求大而全的个人 IP | 认知颠覆 | 反差型 |
+| 3 | 海外 App 开发里,最容易被低估的不是技术而是什么 | 认知颠覆 / 框架输出 | 反差型 |
+| 4 | 独立开发出海:适合谁,不适合谁 | 对比分析 | 直接宣言型 |
+| 5 | 一个技术人如何把 AI 用在调研、写作和开发里 | 清单 / 教学实操 | 数字锚定型 |
+| 6 | 为什么我现在更关注"真实付费用户"而不是"流量" | 观点宣言 / 认知颠覆 | 直接宣言型 |
+| 7 | 海外产品商业化里,订阅模式为什么值得继续研究 | 观点宣言 | 直接宣言型 |
+| 8 | 程序员想做个人品牌,第一步应该先做什么 | 教学实操 / 框架输出 | 直接宣言型 |
+| 9 | 我对"创业探索"这件事的边界和节奏 | 框架输出 | 反差型 |
+| 10 | 未来 3 个月,我会怎么验证一个方向值不值得做 | 过程透明 / 教学实操 | 数字锚定型 |
+
+- **发布前三问铁律**(摘自 method,strict):① 第一行能让人停下来吗?② 读完能带走一个具体的东西吗?③ 把署名换成别人还成立吗?**第三问能成立 → 回去加只有你知道的细节 + 只有你会下的判断**。
+- **置顶自我介绍草稿**:我是一名做海外 App 开发的技术人,正在记录自己的创业探索、独立开发尝试和 AI 提效实践。这里不卖成功学,只记录真实的判断、试错和复盘。
 
 ## 技术型出海小工具候选池调研(Web-first)
 
@@ -180,10 +185,46 @@
 
 > 等可切美区 IP 后,挨个跑三维探针(Trends / Ahrefs KD / SERP 头部形态)再决定是否建站。
 
+#### 长尾路径候选 — 羽毛球教学/装备(2026-05-02 录入,源自 [talks/2026-05-02-overseas-badminton-community-idea.md](talks/2026-05-02-overseas-badminton-community-idea.md))
+
+**信号源**:用户作为 6 年球龄爱好者列出 5 个中文教学查询(高远球 / 握拍 / 发力 / 步伐 / 劈杀),agent 翻译并扩展为英文词族 + 商业衍生。**变现路径**:AdSense + Amazon Affiliate(教学:装备 内容比例建议 7:3)。**预警**:基础术语(badminton clear / footwork / grip)头部被 Badminton Insight / Badminton Bible / Badminton Famly 等 DR 30-50 站占据,新站短期打不进——**必须挑长尾 + commercial 衍生词**。
+
+**优先验证子集(8 个,Step 2 三维探针)**:
+
+| #   | 候选词                                  | 类型         | 假设                    |
+| --- | ------------------------------------ | ---------- | --------------------- |
+| 1   | `panhandle grip badminton`           | 教学长尾       | 具体握法,头部空,小众但精准        |
+| 2   | `badminton footwork drills`          | 教学长尾       | 训练动作型,可能 KD<20        |
+| 3   | `how to do slice smash in badminton` | 教学长尾       | 进阶技术,头部少              |
+| 4   | `badminton wrist snap drills`        | 教学长尾       | 发力具体动作                |
+| 5   | `best badminton shoes for footwork`  | commercial | **变现核心,Affiliate 入口** |
+| 6   | `best badminton racket for clear`    | commercial | **变现核心,Affiliate 入口** |
+| 7   | `best badminton overgrip`            | commercial | **变现核心,小额复购**         |
+| 8   | `how to hit deeper badminton clears` | 教学长尾       | 痛点清晰(打不远)             |
+
+**完整词族备选**(Step 2 子集 NO-GO 后从此池继续抽):
+- 高远球:`badminton clear` / `how to do a badminton clear` / `badminton overhead clear technique` / `badminton clear vs drop`
+- 握拍:`badminton grip` / `how to hold a badminton racket` / `badminton forehand grip` / `badminton backhand grip` / `how to switch grip in badminton`
+- 发力:`how to hit harder in badminton` / `badminton power generation` / `badminton finger power` / `badminton kinetic chain` / `how to generate power in badminton smash`
+- 步伐:`badminton footwork` / `basic badminton footwork` / `badminton footwork patterns` / `how to improve badminton footwork`
+- 劈杀:`badminton slice smash` / `badminton cut smash` / `badminton slice smash technique` / `slicing smash badminton`
+
+**结果记录**:
+- 2026-05-02 Step 1 完成:候选词族登记
+- 2026-05-02 Step 2 完成 — **整池 NO-GO,本方向归档**:
+  - 8/8 全部 NO-GO:7 个 "No keyword ideas",`badminton footwork drills` <100/Easy KD,`best badminton overgrip` <100/N/A KD
+  - 触发 SOP 红线"<200/月即使 KD=0 也撑不起流量"
+  - **结构性归因**:垂直运动 + 英文教学/装备型 SEO 三重生态错配(亚洲非英语区用户基础盘 / 教学媒介是 YouTube 而非 Google / 欧美羽毛球小众)
+  - **沉淀**:[risks.md 新条目「垂直运动 + 英文教学/装备型 SEO 内容站陷阱」](risks.md#垂直运动--英文教学装备型-seo-内容站陷阱亚洲主流运动尤甚)+ [talks/2026-05-02-overseas-badminton-community-idea.md](talks/2026-05-02-overseas-badminton-community-idea.md) 第 6 段
+  - **教训叠加 GPT Image 2**:两次 NO-GO 共同根因 = "不同信号源的热度不能跨生态外推"——社交热度/dogfood 触感 ≠ Google 搜索量,**唯一作数指标 = Ahrefs Free 美区绝对月搜索量**
+  - **不再回看完整词族备选** — 整个赛道生态错配,继续抽词只是浪费时间
+
 #### 热词路径候选
 
-- **领域词:`GPT Image 2`**(2026-04-30 录入,信号源:用户在 X / 媒体观察到热度大)
-  - **判断**:OpenAI 官方词,搜索量大但官方页 SEO 权重极高,**只能挑官方不会做的子需求**(prompts 库 / 对比 / alternative / examples gallery)
+- **领域词:`GPT Image 2`**(2026-04-30 录入,信号源:用户在 X / 媒体观察到热度大;**2026-05-01 NO-GO**)
+  - **NO-GO 数据(2026-05-01)**:Ahrefs Free 美区数据,父级 `gpt image 2` 月搜索量 <100,12 个相关变体全部 <100/月,`gpt image 2 prompts` 显示 No keyword ideas;Trends 4-22 峰值 100 → 5-01 衰减到 28(9 天 -72%)。整个候选池触发 SOP 红线(搜索量 <200/月即使 KD=0 也撑不起流量),pass。
+  - **教训**:社交热度 ≠ 搜索热度。X / 媒体观察到的"热度大"是采购信号,但建站需要的是 Google 搜索流量,必须用 Ahrefs 验证绝对月搜索量才作数。用户讨论 GPT Image 2 时实际可能搜的是父级老词(chatgpt image generator / openai image ai)或直接在 ChatGPT 内使用,根本不搜。
+  - **判断(失效,留作历史记录)**:OpenAI 官方词,搜索量大但官方页 SEO 权重极高,**只能挑官方不会做的子需求**(prompts 库 / 对比 / alternative / examples gallery)
   - **候选关键词组合**(按 ROI 排):
     - ⭐⭐⭐ `gpt image 2 prompt generator`(transactional,联盟 + AdSense 入口强)
     - ⭐⭐⭐ `gpt image 2 prompts`(prompt 库,可做长页 + 分类)
@@ -200,3 +241,4 @@
 - **结果记录**:
   - 2026-04-29:实验启动。状态切 running,主线由"Web SaaS BRD"调整为"SEO 内容站矩阵起步"。等待用户在 M1 第一周完成关键词筛选(SOP Step 1-3 输出)。
   - 2026-04-30:用户选定**热词路径**为先行尝试方向(与百年长尾路径互补)。录入第一个领域词候选 `GPT Image 2` + 7 个候选关键词组合。三维探针验证因当前网络环境不便切美区 IP 推迟,候选池入库待后续推进。
+  - 2026-05-01:跑 Ahrefs Free 三维探针(Trends + Volume,SERP 维度因 VPN blocked 跳过)。**`GPT Image 2` 候选池整体 NO-GO**:父级与 12 个变体全部 <100/月,触发 SOP 红线。教训沉淀:**社交热度 ≠ 搜索热度**——X / 媒体的曝光度是社群指标,Google 搜索量才是建站可变现的指标,二者经常背离。新候选池等用户下一个热词输入。

@@ -16,5 +16,6 @@
 | @op7418(歸藏) | AI 趋势嗅觉 | X 账号常第一时间转发新 AI 模型/工具发布,是热词快站选词的关键信号源之一;网站 guizang.ai 收录 AI 工具 | X: https://x.com/op7418 ;网站: guizang.ai | [2026-04-hot-keyword-quick-site.md](findings/2026-04-hot-keyword-quick-site.md) |
 | @dotey(宝玉) | AI 趋势嗅觉 / 技术翻译 | X 账号常第一时间转发新 AI 模型/工具发布,是热词快站选词的关键信号源之一 | X: https://x.com/dotey | [2026-04-hot-keyword-quick-site.md](findings/2026-04-hot-keyword-quick-site.md) |
 | @imxiaohu(小互) | AI 趋势嗅觉 | X 账号常第一时间转发新 AI 模型/工具发布,是热词快站选词的关键信号源之一 | X: https://x.com/imxiaohu | [2026-04-hot-keyword-quick-site.md](findings/2026-04-hot-keyword-quick-site.md) |
+| @iamsveachen | 独立开发 / SEO 内容站 / web 出海 | 独立开发者,前 6 个 SEO 站全平 + 第 7 站 5 天 146K GSC 展示,在 X 公开复盘"翻 Reddit 评论喂 AI 做 SEO" + "上线 24 小时迭代" + "多次下注心理建设";路径与 shark-agent 用户 M1-M3 主线 1:1 对位,**心理建设样本**(承认前 6 失败的真实记录,不是事后包装);可作为同频独立开发者长期跟踪 | X: https://x.com/iamsveachen(原文 https://x.com/iamsveachen/status/2049777274069885056) | [2026-05-new-keyword-5days-146k-impressions.md](findings/2026-05-new-keyword-5days-146k-impressions.md) |
 
 > 如果只是泛泛提到的人(例如某行业大佬),不必登记。只记真正可能成为节点的人。

@@ -11,6 +11,9 @@
 | 2026-04-29 | (URL 来源) https://my.feishu.cn/wiki/EliBwKRLeiFx28kFViKcSH3ynQe | wiki-id:EliBwKRLei | kept | [2026-04-wechat-miniprogram-ai-matrix.md](2026-04-wechat-miniprogram-ai-matrix.md) |
 | 2026-04-29 | raw/00后用Claude Code做副业,4个月变现超10万:方法和数据全公开.md | bab6d02a8e72 | kept | [2026-04-claude-code-sideline-100k.md](2026-04-claude-code-sideline-100k.md) |
 | 2026-04-29 | raw/热词建站,日入过万.md | 3f454d1f4aa6 | kept | [2026-04-hot-keyword-quick-site.md](2026-04-hot-keyword-quick-site.md) |
+| 2026-05-01 17:07 | raw/新词上线5天146K展示，我做对了什么.md | c6cd46308811 | kept | [2026-05-new-keyword-5days-146k-impressions.md](2026-05-new-keyword-5days-146k-impressions.md) |
+| 2026-05-01 | (URL 来源) https://my.feishu.cn/docx/IorDdri1XoVH8SxXFOBcrSkUnrb | docx-id:IorDdri1Xo | kept | [2026-05-reddit-need-mining-sop.md](2026-05-reddit-need-mining-sop.md) |
+| 2026-05-02 | (inline 投喂) 熊老板的 AI 学习圈 / Mr. Panda 2026-04-30《X 爆款推文写作模板》 | inline:x-tweet-templ | kept | [2026-04-x-tweet-writing-templates.md](2026-04-x-tweet-writing-templates.md) |
 
 > 处理结果取值:`kept` (已写 finding) / `dropped` (噪音过滤掉) / `flagged` (有风险已记入 risks.md)。
 > 被丢弃的文章也要登记,避免反复处理同一篇。
