@@ -2,7 +2,7 @@
 
 > **定位**:从 Google 搜索行为反推 Web 产品需求的可执行方法论。**面向 Web/SaaS 出海主线**,与 [community-demand-discovery.md](community-demand-discovery.md)(社群驱动)形成对位——同一套底层逻辑,信号源换成搜索引擎。
 >
-> **来源**:本 SOP 在教练对话中整合而成(2026-04-29),底层 6 步框架与 [community-demand-discovery.md](community-demand-discovery.md) 同构,关键替换是把"平台搜索/收藏/评论"换成"Google 搜索量/SERP 缺口/People also ask";与 [`2026-04-indie-saas-3h-brd-validation.md`](../findings/2026-04-indie-saas-3h-brd-validation.md) 的 6 步 BRD 法对接(本 SOP 是 BRD 的"找需求"前置)。
+> **来源**:本 SOP 在教练对话中整合而成(2026-04-29),底层 6 步框架与 [community-demand-discovery.md](community-demand-discovery.md) 同构,关键替换是把"平台搜索/收藏/评论"换成"Google 搜索量/SERP 缺口/People also ask";与 [`2026-04-indie-saas-3h-brd-validation.md`](../findings/2026-04-indie-saas-3h-brd-validation.md) 的 6 步 BRD 法对接(本 SOP 是 BRD 的"找需求"前置)。2026-05-19 吸收 [`2026-05-seo-site-demand-conversion-chain.md`](../findings/2026-05-seo-site-demand-conversion-chain.md),补充"关键词意图 → SERP 交付物 → 内页体系 → 转化交互"链路。
 
 ## 底层逻辑
 
@@ -59,9 +59,9 @@ generator, creator, maker, builder, helper, assistant, tool, directory, template
 - **搜索量 < 200/月**:即使 KD=0 也撑不起流量,pass
 - **KD > 50 + 头部全是大厂**:1-2 年内打不进 SERP,pass
 
-### Step 3 · 验证"SERP 缺口"(15 分钟)
+### Step 3 · 验证"SERP 缺口"和交付物匹配(15 分钟)
 
-需求真实之后看供给质量。**用无痕窗口 google + 美区 IP**:
+需求真实之后看供给质量。**用无痕窗口 google + 美区 IP**。这一步不只看"能不能打",还要看 Top10 到底在交付什么:
 
 | SERP 头部 10 位的形态 | 判定 |
 |---|---|
@@ -69,6 +69,17 @@ generator, creator, maker, builder, helper, assistant, tool, directory, template
 | 1-2 个 indie 工具(< $20/月,UI 一般)+ Listicle 占多数 | **中等机会**,可切差异化 |
 | Notion / Stripe / Google / Microsoft 的子页 | pass(几乎打不动) |
 | 完全没结果 | **谨慎乐观**——可能真空白也可能没需求,看搜索量是否 > 1K 决策 |
+
+**交付物匹配规则**(来源:[2026-05-seo-site-demand-conversion-chain.md](../findings/2026-05-seo-site-demand-conversion-chain.md)):Top10 主要在交付什么,新站大概率也要先交付同类结果。不要用"我想做工具"覆盖搜索意图。
+
+| 关键词意图 | 常见词 | 应交付 |
+|---|---|---|
+| 学习型 | `how to` / `tutorial` / `meaning` | 教程、解释、步骤内容 |
+| 对比型 | `best` / `vs` / `alternative` | 榜单、测评、对比页 |
+| 工具型 | `tool` / `calculator` / `generator` | 在线工具、即时结果 |
+| 交易型 | `pricing` / `buy` / `coupon` | 产品页、定价页、优惠页 |
+
+**跑偏信号**:有点击没注册;用户只停留在文章页,不进工具页/定价页;用户问的问题集中在"他们真正想要的结果",而不是你做的功能。
 
 ### Step 4 · 抓 1 条"具象搜索意图"(10 分钟)
 
@@ -104,6 +115,18 @@ generator, creator, maker, builder, helper, assistant, tool, directory, template
 - MVP 范围
 - 收费方式(Stripe 月订阅 / 一次性付费 / freemium)
 - 首批获客渠道(SEO 长尾 + Product Hunt + Reddit + 冷邮件)
+
+## 上线页转化检查清单
+
+> 来源:[2026-05-seo-site-demand-conversion-chain.md](../findings/2026-05-seo-site-demand-conversion-chain.md)。用于 Step 6 之后的落地页 / 工具页自检。
+
+- 首屏一句话说清楚:**帮谁在什么场景下得到什么结果**
+- 首屏只放一个主 CTA:立刻使用 / 上传 / 生成
+- 能演示就演示:示例输入 / 示例输出优先于长文解释
+- 关键路径 ≤ 3 步:进入 → 操作 → 出结果
+- 结果页提供保存 / 导出 / 分享,让用户有"带走感"
+- 付费点放在价值最强的时刻:高清导出 / 批量处理 / 去水印 / API
+- 定价写清免费额度、月付/年付限制和收益
 
 ## 工具清单(免费优先)
 

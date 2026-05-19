@@ -95,24 +95,24 @@
 ## 先验需求再投产能——BRD 优于 IDE
 
 - **陈述**:打开 IDE 之前,先用 3 小时把"有没有人愿意为此付钱"调研清楚;独立开发者 90% 失败首因是没调研。AI 编程让 MVP 从 2 个月压到 2 周,但调研 AI 替不了你——**写代码是最贵的赌博,调研是最便宜的投资**。3 小时足以做 70% 调研,够做 GO/NO-GO 判断;NO-GO 不是失败,是省下 3 个月。
-- **信心等级**:strong(三条独立证据,且与既有"先发再迭代"形成时间序补完——验证之后才是 v0.1)
-- **形成依据**:[2026-04-indie-saas-3h-brd-validation.md](findings/2026-04-indie-saas-3h-brd-validation.md)(作者 pngtrid 先写 2 周代码上线才发现市场被占满,后改为 2 天调研重定位 1 个月变现 5K;给出 6 步 BRD SOP 与 GO/NO-GO 框架);[2026-04-foreign-trade-b2b-newbie-sop.md](findings/2026-04-foreign-trade-b2b-newbie-sop.md)(作者 19 年被女鞋营销话术裹挟未做调研,9 万启动金 3 个月烧光,触底负债 60w);[2026-04-wechat-miniprogram-ai-matrix.md](findings/2026-04-wechat-miniprogram-ai-matrix.md)(作者明确"选需求半天足够筛出一个好方向,选错了怎么努力都白搭",并给出可执行的三标准——功能单一 / 场景清晰 / 无头部产品;实战路径=打开微信搜"检测/换算/查询"看现有产品多烂)
+- **信心等级**:strong(四条独立证据,且与既有"先发再迭代"形成时间序补完——验证之后才是 v0.1)
+- **形成依据**:[2026-04-indie-saas-3h-brd-validation.md](findings/2026-04-indie-saas-3h-brd-validation.md)(作者 pngtrid 先写 2 周代码上线才发现市场被占满,后改为 2 天调研重定位 1 个月变现 5K;给出 6 步 BRD SOP 与 GO/NO-GO 框架);[2026-04-foreign-trade-b2b-newbie-sop.md](findings/2026-04-foreign-trade-b2b-newbie-sop.md)(作者 19 年被女鞋营销话术裹挟未做调研,9 万启动金 3 个月烧光,触底负债 60w);[2026-04-wechat-miniprogram-ai-matrix.md](findings/2026-04-wechat-miniprogram-ai-matrix.md)(作者明确"选需求半天足够筛出一个好方向,选错了怎么努力都白搭",并给出可执行的三标准——功能单一 / 场景清晰 / 无头部产品;实战路径=打开微信搜"检测/换算/查询"看现有产品多烂);[2026-05-seo-site-demand-conversion-chain.md](findings/2026-05-seo-site-demand-conversion-chain.md)(SEO 站语境下补充"有搜索量不等于有付费意愿":关键词必须先做意图分类、SERP Top10 交付物拆解、用户原声三次重复验证,再进入落地页和工具开发)
 - **根公理**:公理 3（智力不直接变现——"调研 3 小时"是把智力变现的第一步（判断值不值得做）成本压缩到最低，避免直接写代码这种"最贵的赌博"）
 - **关联公理**:公理 6（"先调研"消解"不做调研直接写代码"背后的心理卡点——急于看到产出、害怕调研结果否定想法）、公理 4（BRD 阶段必须确认"有人愿意付钱"——如果调研只回答了"有没有需求"但没回答"愿不愿意付钱"，等于用需求数据替代收入数据）
 - **适用边界**:适用于商业方向选择/MVP 立项;**与"先发再迭代"互补不冲突**——本原则解决"该不该做",先发再迭代解决"决定做之后如何启动"。3 小时是首次破冰的数量级,完全陌生赛道实际需 1-2 天熟练后才能压到 3 小时
 - **首次记录**:2026-04-28
-- **最近更新**:2026-04-29
+- **最近更新**:2026-05-19
 
 ## 差评是金矿,3-4 星是产品需求文档
 
 - **陈述**:做需求挖掘时,**用户怒火比用户夸赞值钱 100 倍**。不要看竞品官网,要看用户在哪里骂竞品。1 星看核心痛点,3-4 星看"差那一点"——那就是切入点;真痛点判定 = 同一痛点 ≥3 次 + 来自不同平台。"竞品知道问题但一直没改"就是你的护城河。**做 SEO 落地页时,用户原话词应直接进入 title/description/H1,不要被产品语言替换**(2026-05-01 补充)。**关注重心不是"好不好",而是"为什么选 / 反复出现的理由 / 情绪词 & 场景词"**——这是把"看差评"升级为"读共识结构"的更精细粒度(2026-05-01 补充)。
-- **信心等级**:strong(三条独立证据,跨"产品需求挖掘"、"SEO 落地页文案"、"需求工具链化"三个粒度都印证;且第三证据把方法论从手工升级为 RPA 自动化,具备规模化条件)
-- **形成依据**:[2026-04-indie-saas-3h-brd-validation.md](findings/2026-04-indie-saas-3h-brd-validation.md)(给出三层平台 + 四路搜索 + 五步看法 SOP,案例从 G2/Reddit/Trustpilot 翻出 remove.bg 真实定价/额度痛点,30 分钟产出痛点频次表);[2026-05-new-keyword-5days-146k-impressions.md](findings/2026-05-new-keyword-5days-146k-impressions.md)(作者把"翻 Reddit 评论 → 提炼用户原话 → 喂 AI 写 SEO title/H1"作为第 7 站起量的关键差异点,**新粒度=用户原话直接进入 SEO 标签**,不是粗暴 prompt"写一个 SEO friendly 的 title");[2026-05-reddit-need-mining-sop.md](findings/2026-05-reddit-need-mining-sop.md)(**第三证据,工具链化**:Reddit Answers + Atlas 侧边栏总结被采纳答案,关注"为什么选 / 反复出现的理由 / 情绪词 & 场景词"三件事;再用八爪鱼 RPA 自动监控 Subreddit 落到飞书多维表的 4 字段:**痛点 / 场景 / 情绪 / 对比对象**——这是把手工差评挖掘 SOP 升级为可持续运行的需求监控系统,直接产出爆款选题 + 产品功能优先级 + 广告文案三类资产)
+- **信心等级**:strong(四条独立证据,跨"产品需求挖掘"、"SEO 落地页文案"、"需求工具链化"、"SERP 交付物校准"四个粒度都印证;且第三证据把方法论从手工升级为 RPA 自动化,具备规模化条件)
+- **形成依据**:[2026-04-indie-saas-3h-brd-validation.md](findings/2026-04-indie-saas-3h-brd-validation.md)(给出三层平台 + 四路搜索 + 五步看法 SOP,案例从 G2/Reddit/Trustpilot 翻出 remove.bg 真实定价/额度痛点,30 分钟产出痛点频次表);[2026-05-new-keyword-5days-146k-impressions.md](findings/2026-05-new-keyword-5days-146k-impressions.md)(作者把"翻 Reddit 评论 → 提炼用户原话 → 喂 AI 写 SEO title/H1"作为第 7 站起量的关键差异点,**新粒度=用户原话直接进入 SEO 标签**,不是粗暴 prompt"写一个 SEO friendly 的 title");[2026-05-reddit-need-mining-sop.md](findings/2026-05-reddit-need-mining-sop.md)(**第三证据,工具链化**:Reddit Answers + Atlas 侧边栏总结被采纳答案,关注"为什么选 / 反复出现的理由 / 情绪词 & 场景词"三件事;再用八爪鱼 RPA 自动监控 Subreddit 落到飞书多维表的 4 字段:**痛点 / 场景 / 情绪 / 对比对象**——这是把手工差评挖掘 SOP 升级为可持续运行的需求监控系统,直接产出爆款选题 + 产品功能优先级 + 广告文案三类资产);[2026-05-seo-site-demand-conversion-chain.md](findings/2026-05-seo-site-demand-conversion-chain.md)(在 SEO 站语境下进一步要求"用户原声"参与交付物校准:记录用户抱怨、理想结果、现有替代方案,同一抱怨出现 3 次以上才继续,避免只看搜索量和 SERP 而误判真实需求)
 - **适用边界**:适用于成熟赛道(竞品已经存在,有公开评价数据);**不适用于全新品类**(没有竞品就没有差评可挖,得换成用户访谈/痛点观察)。要警惕单平台回音壁(Reddit 天然反付费),必须多平台交叉
 - **根公理**:公理 4（流量≠收入——"差评"的价值在于它暴露了竞品的收入流失点。用户怒火=竞品正在损失收入的地方,你的切入点=竞品的收入盲区）
 - **关联公理**:公理 1（差评挖掘的前提是"竞品模式可观测"——成熟赛道有公开评价数据,模式结构透明,所以公理 1 的"抄模式"才有了数据基础）
 - **首次记录**:2026-04-28
-- **最近更新**:2026-05-01
+- **最近更新**:2026-05-19
 
 ## 用数量博概率——做 N 个 v0.1,胜过赌 1 个完美
 
@@ -151,13 +151,13 @@
 ## 需求发现路径要匹配产品分发生态
 
 - **陈述**:**需求发现的"信号源"必须与产品的"分发生态"匹配,否则找到的痛点用户不会迁移到你的产品形态**。Web/SaaS 产品 ← Google 关键词搜索量 + SERP 缺口 + AnswerThePublic;App 产品 ← App Store 评论 + TestFlight + 应用内反馈;Chrome Extension ← Chrome Store 评论 + Reddit r/chrome;社群型产品 ← 平台内搜索 + 评论 + 收藏(对应 [community-demand-discovery.md](methods/community-demand-discovery.md))。**反例**:用 App 差评挖到的痛点拿去做 Web 工具——这些用户已经习惯在 App 生态里找解决方案,不会迁移到浏览器侧。
-- **信心等级**:supported(2026-05-01 升级:本项目 dogfood 判断 + 一条独立 finding 印证 Web/SaaS 场景下"Google + Reddit"双信号源的工具化路径)
-- **形成依据**:用户在选择 BRD 候选时主动指出:"从 app 里的差评找到的需求,基本还是在 app 生态里面,不会转移到网页侧"——这是 dogfood 判断,与 [methods/community-demand-discovery.md](methods/community-demand-discovery.md) 形成方法论对位;[2026-05-reddit-need-mining-sop.md](findings/2026-05-reddit-need-mining-sop.md)(**Web/SaaS 场景的具体落地**:**SEMrush(Google 关键词搜索量) + Reddit(社区讨论)** 双信号源组合——前者锁定方向(KD 0-14 + CPC > 0.01 = 有量 + 有变现),后者验证真伪(被采纳答案 + 反复出现理由 + 情绪词)。这正是 Web/SaaS 产品分发生态对应的需求发现 SOP,印证"需求信号源必须匹配产品分发生态"的硬约束;反向也说明:做 App/小程序产品时不能直接套这套,应换 App Store 评论 / Reddit r/<对应平台>)
+- **信心等级**:supported(2026-05-19 升级:本项目 dogfood 判断 + 两条独立 finding 印证 Web/SaaS 场景下"Google + Reddit + SERP 交付物"的组合路径)
+- **形成依据**:用户在选择 BRD 候选时主动指出:"从 app 里的差评找到的需求,基本还是在 app 生态里面,不会转移到网页侧"——这是 dogfood 判断,与 [methods/community-demand-discovery.md](methods/community-demand-discovery.md) 形成方法论对位;[2026-05-reddit-need-mining-sop.md](findings/2026-05-reddit-need-mining-sop.md)(**Web/SaaS 场景的具体落地**:**SEMrush(Google 关键词搜索量) + Reddit(社区讨论)** 双信号源组合——前者锁定方向(KD 0-14 + CPC > 0.01 = 有量 + 有变现),后者验证真伪(被采纳答案 + 反复出现理由 + 情绪词)。这正是 Web/SaaS 产品分发生态对应的需求发现 SOP,印证"需求信号源必须匹配产品分发生态"的硬约束;反向也说明:做 App/小程序产品时不能直接套这套,应换 App Store 评论 / Reddit r/<对应平台>);[2026-05-seo-site-demand-conversion-chain.md](findings/2026-05-seo-site-demand-conversion-chain.md)(补充第三个信号层:**SERP Top10 交付物**。同一个 Google 关键词背后可能是教程、榜单、工具或交易页,需求发现不仅要匹配平台生态,还要匹配搜索意图对应的交付物)
 - **适用边界**:适用于工具型/SaaS/内容产品的**需求发现阶段**;赛道已验证、做迭代优化时可混用多源信号(差评 + 关键词 + 用户访谈),不必拘泥单一信号源。**实操含义**:启动 BRD 前先确定产品形态,再选对应的需求挖掘 SOP,不要倒过来"先有候选再选 SOP"
 - **根公理**:公理 1（模式独立于人——产品分发生态（用户在哪发现/购买/使用产品）是"模式结构"的维度之一。需求信号源的匹配规则本质是"按模式选工具",而非跨模式通用）
 - **关联公理**:无（独立维度,与其他公理不交叉）
 - **首次记录**:2026-04-29
-- **最近更新**:2026-05-01
+- **最近更新**:2026-05-19
 
 ## 不要裸辞创业——心态急是反模式
 
