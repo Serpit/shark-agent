@@ -32,6 +32,29 @@
 
 - [talks/](talks/) — 教练咨询记录（/talk 命令产物，6 段式：问题/分类/公理扫描/追问/消解/行动）
 
+## 外部顾问建议(随咨询增长,由 `seo-advisor` skill 触发)
+
+> 与 `findings/`(他人经验)、`signals/`(机会情报)平行的第三条管道:**他人观点**。
+> **观点不是数据**——必须过公理扫描 + 与 GSC 实测对质才能落盘,且**不可回流 principles.md**。
+
+- [advice/_processed.md](advice/_processed.md) — 已评估建议清单(问题 / 来源 / 采纳判定)
+- [advice/](advice/) — 每条建议的三段式:原始建议 / 公理扫描与辩证 / 采纳判定
+
+## 数据源接入手册(怎么拿到数据)
+
+> 与 `methods/`(怎么判断)分层:这里只讲**取数路径、字段含义、已知陷阱**。
+> 每个源都带一条硬约束:**拉数前先说清结果会落到哪个动作,答不上来就不查**(公理 6)。
+
+- [sources/gsc.md](sources/gsc.md) — Google Search Console(**自有真值**,与第三方估算冲突时以它为准),工具 [`scripts/gsc.py`](../scripts/gsc.py)
+
+**取数入口已封装成 skill**(会话中按话题自动触发,不用手动记路径):
+
+| skill | 管什么 | 信任等级 |
+|---|---|---|
+| `seo-data` | GSC 自有站数据 | **真值** |
+| `seo-competitor` | Ahrefs / Semrush / SimilarWeb(3ue 面板) | 第三方估算 |
+| `seo-advisor` | 哥飞 SEO Agent 问答 | **他人观点,需辩证** |
+
 ## 方法论库(可执行 SOP)
 
 - [methods/axiom-scan.md](methods/axiom-scan.md) — 公理扫描 SOP（摄入文章/signals/教练对话三场景,9 条逐项问句）

@@ -9,7 +9,7 @@ memory updates.
 
 这是一个帮助用户从「生财有术」社群文章中提炼有价值信息、并推动用户把洞察转成行动的教练型 agent。用户会把原始文章数据投喂进来,agent 负责筛选、拆解、甄别,把结论沉淀到**项目内**的记忆系统中,同时持续把内容和洞察收束成可执行的下一步。
 
-仓库当前还没有源码,只有数据与记忆两类目录。后续添加程序化代码时,在本文件补充对应的运行/测试说明,并同步更新 `CLAUDE.md`。
+仓库以数据与记忆为主,另有少量取数脚本放在 `scripts/`(见下方「脚本」)。后续添加程序化代码时,在本文件补充对应的运行/测试说明,并同步更新 `CLAUDE.md`。
 
 ## 教练身份
 
@@ -127,6 +127,8 @@ agent 不是只做总结的分析器,而是陪用户持续推进目标的教练�
 - `memory/connections.md` — 值得连接的人 / 社群
 - `memory/risks.md` — 过时/诈骗/夸大模式库
 - `memory/talks/` — 教练咨询记录（`/talk` 命令产物）
+- `memory/sources/` — 数据源接入手册(取数路径 / 字段含义 / 已知陷阱),与 `methods/`(怎么判断)分层
+- `memory/advice/` — 外部顾问建议存档(`seo-advisor` skill 产物,三段式:原始建议 / 公理扫描与辩证 / 采纳判定)
 - `memory/methods/axiom-scan.md` — 公理扫描 SOP
 - `memory/methods/benchmark-five-filters.md` — themes 候选五重过滤
 
@@ -222,6 +224,52 @@ shark-agent 完全独立运行，dbskill 公理已内化为 `memory/axioms.md`�
 - `raw/`:用户投喂的原始文章数据存放目录。读取时不要假设固定格式,先观察实际文件类型再处理。
 - `memory/`:所有结构化记忆,项目的真相之源。**不要**把同一条信息同时写在多个文件里——以 finding 为唯一原文,聚合视图只放链接。
 - 文件命名用稳定的英文 slug,必要时加 `YYYY-MM` 日期前缀,避免标题文本变化导致历史断裂。
+- `memory/sources/`:数据源接入手册。**与 `methods/` 严格分层**——`sources/` 只讲「怎么拿到数据、字段是什么、有哪些坑」,`methods/` 只讲「拿到之后怎么判断」。
+- `scripts/`:取数脚本。凭证一律存仓库外(`~/.config/shark-agent/`),**绝不入库**。
+
+## 数据源使用纪律
+
+拉任何外部数据前,先回答一句:**这次查询的结果会落到哪个具体动作?** 答不上来就不要查。
+
+原因见 [`memory/axioms.md`](memory/axioms.md) 公理 6——外部数据源天然会把节奏拉回「再调研一下」,而 [`timeline.md`](memory/timeline.md) 从 2026-07 起已进入试错阶段。agent 发现用户在没有明确动作出口的情况下反复要求拉数,应主动追问一次。
+
+**信任分级(冲突时按此裁决)**:
+
+| 层级 | 来源 | 落盘规则 |
+|---|---|---|
+| 真值 | GSC 自有数据 | 可直接写进 `experiments.md` 结果记录 |
+| 趋势可信 / 绝对值不可信 | Google Trends | 只作趋势判据,不作量级判据 |
+| 第三方估算 | SimilarWeb / SEMrush / Ahrefs | 必须标来源 + 拉取日期;与 GSC 冲突时**一律以 GSC 为准** |
+| 他人观点 | 外部顾问 / agent 问答 | **禁止直接落 memory**,必须先过 `methods/axiom-scan.md` |
+
+## 脚本
+
+`scripts/` 下的工具一律零依赖(纯 Python stdlib),不需要 venv。
+
+| 脚本 | 用途 | 手册 |
+|---|---|---|
+| [`scripts/gsc.py`](scripts/gsc.py) | Google Search Console 取数:关键词/页面报表、CTR 漏损点、改动前后对比、单页收录诊断 | [`memory/sources/gsc.md`](memory/sources/gsc.md) |
+
+```bash
+python3 scripts/gsc.py --help          # 子命令一览
+python3 scripts/gsc.py sites           # 验证凭证是否可用
+```
+
+新增脚本时:同步在这张表补一行,并在 `memory/sources/` 写对应手册。
+
+## Skills(信息源入口)
+
+`.claude/skills/` 下三个 skill 封装了外部信息源,**按对话话题自动触发**,不需要手动记路径或命令。
+三者的信任等级不同,裁决规则见上方「数据源使用纪律」。
+
+| skill | 管什么 | 信任等级 | 产物落点 |
+|---|---|---|---|
+| `seo-data` | 四个自有站的 GSC 数据(脚本 + ego 网页版双路径) | **真值** | `experiments.md` 结果记录 |
+| `seo-competitor` | Ahrefs / Semrush / SimilarWeb,经 3ue 共享面板 | 第三方估算 | `themes.md` / `experiments.md` 候选词池 |
+| `seo-advisor` | 哥飞 SEO Agent 问答 | **他人观点** | `memory/advice/`,**必须先过公理扫描** |
+
+`seo-advisor` 的输出是本项目第三条摄入管道(前两条是 `findings/` 他人经验、`signals/` 机会情报)。
+它与 `/signals` 同规则:**不可回流 `principles.md`**——方法论只从自有实践和 findings 沉淀。
 
 ## 兼容性要求
 
