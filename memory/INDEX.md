@@ -62,6 +62,7 @@
 - [methods/search-engine-demand-discovery.md](methods/search-engine-demand-discovery.md) — 搜索引擎需求发现 SOP(Web/SaaS 出海,6 步,与社群版对位)
 - [methods/benchmark-five-filters.md](methods/benchmark-five-filters.md) — themes 候选五重过滤（骨架版，同模式/同阶段/同合规/同需求层/同验证）
 - [methods/x-tweet-writing-templates.md](methods/x-tweet-writing-templates.md) — X 推文起草 SOP(4 开头 + 10 模板 + 3 Thread + 发布前三问)
+- [methods/x-cold-start-and-amplification.md](methods/x-cold-start-and-amplification.md) — X 冷启动与放大 SOP(Premium/置顶推文/大 V 互动/信息监控/变现优先级)
 
 ## 维护规则
 
