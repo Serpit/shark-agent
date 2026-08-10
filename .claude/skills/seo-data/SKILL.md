@@ -1,13 +1,13 @@
 ---
 name: seo-data
-description: 查四个自有站(baxianfans / partfit3d / aidepixelate / easyframes)的 Google Search Console 真实搜索数据——关键词排名、点击、曝光、CTR、收录状态、404、改动前后对比。当对话涉及"排名怎么样""有没有流量""CTR 为什么这么低""收录了吗""这个词表现如何""改完有没有效果""站点数据""搜索表现""GSC""Search Console"时使用。也用于任何需要用自有真实数据支撑决策的场景(选词复盘、变现路径判断、扩量决策)。
+description: 查自有站的 Google Search Console 真实搜索数据——关键词排名、点击、曝光、CTR、收录状态、404、改动前后对比。当对话涉及"排名怎么样""有没有流量""CTR 为什么这么低""收录了吗""这个词表现如何""改完有没有效果""站点数据""搜索表现""GSC""Search Console"时使用。也用于任何需要用自有真实数据支撑决策的场景(选词复盘、变现路径判断、扩量决策)。
 ---
 
 # 自有站搜索数据(GSC)
 
-四个站的**真值来源**。第三方工具(SimilarWeb / SEMrush / Ahrefs)都是估算,**冲突时一律以本 skill 的数据为准**。
+自有站的**真值来源**。第三方工具(SimilarWeb / SEMrush / Ahrefs)都是估算,**冲突时一律以本 skill 的数据为准**。
 
-完整手册:[`memory/sources/gsc.md`](../../../memory/sources/gsc.md) —— 字段含义、5 个陷阱、property 类型说明在那里,本文件只放触发后的执行路径。
+完整手册:[`memory/sources/gsc.md`](../../../memory/sources/gsc.md) —— **站点清单**(唯一维护处,新增站点只改这里)、字段含义、5 个陷阱、property 类型说明都在那里,本文件只放触发后的执行路径。
 
 ## 第一步:先问出口(不可跳过)
 
@@ -29,14 +29,8 @@ python3 scripts/gsc.py sites          # 先验证凭证是否可用
 
 ### siteUrl 传参
 
-四个站都是**网址前缀属性**,结尾斜杠不能省:
-
-| 站 | 传这个 |
-|---|---|
-| baxianfans | `https://baxianfans.com/` |
-| partfit3d | `https://partfit3d.com/` |
-| aidepixelate | `https://aidepixelate.com/` |
-| easyframes | `https://easyframes.app/` |
+站点清单(siteUrl、类型)见 [`memory/sources/gsc.md` 「Property 清单」](../../../memory/sources/gsc.md#property-清单)——那是唯一维护处,新增站点不要在本文件重复登记。
+均为**网址前缀属性**,结尾斜杠不能省。不确定当前有哪些站时,直接 `python3 scripts/gsc.py sites` 现查,比对着旧清单猜更准。
 
 ### 问题 → 命令
 
