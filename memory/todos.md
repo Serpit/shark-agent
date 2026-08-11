@@ -63,6 +63,11 @@
   - **为什么值得单列**:品牌词排不上第 1 通常意味着 Google 还没把这个站当成一个"实体",影响的是整站信任信号,不只是一个词
   - **预计耗时**:1 小时
 
+- [ ] **2026-08-25** · M4 · 回查 partfit3d 免费目录外链审核状态
+  - **动作**:检查 Startup Collections 与 [WebsiteHunt](https://www.websitehunt.co/websites/partfit-3d) 是否通过审核、是否形成可抓取直链;把结果回写 [experiments.md](experiments.md#结果记录)
+  - **降级路径**:若仍未上线,不付费插队,转向 3D-printing 资源页 outreach / Show HN(需现成 HN 登录)
+  - **预计耗时**:15 分钟
+
 - [ ] **2026-08-11** · M4 · 修 partfit3d 的 trailing slash 冲突(**解 34 条未收录,ROI 最高**)
   - **动作**:把 canonical + og:url + sitemap.xml 全部改成**不带**结尾斜杠,与 Cloudflare 现有去斜杠行为对齐(不动服务器);顺手把 307 改 301
   - **为什么**:sitemap 说收录 `/about/` → 307 跳到 `/about` → canonical 又指回 `/about/`,**没有 URL 能自我声明 canonical**。30 个内容页(含工具主页 `/tools/3mf-splitter-online`)+ 4 条「已发现」全卡在这

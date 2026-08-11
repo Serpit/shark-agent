@@ -420,6 +420,28 @@
     这是唯一能验真词族量级的办法。**但变现路径仍未定——词族再大,不解决工具站怎么赚钱,
     只是换了个更大的分母。** 变现决策仍是 M4 的第一阻塞项。
 
+  - **2026-08-11 · partfit3d 免费外链首批提交(目录 + 现有链接核验,agent 用 ego 实操)**
+
+    **动作出口**:给 partfit3d 补品牌/发现信号,并建立可复查的提交记录;不把外链当作 canonical/404 修复的替代。
+
+    **已核验现有链接**:`https://tg.noisework.cn/posts/11353` 已被 Google 收录,页面有 2 个直达
+    `https://partfit3d.com/` 的链接,`rel="noopener"`,无 `nofollow`。
+
+    | 渠道 | 提交状态 | 链接形态 | 备注 |
+    |---|---|---|---|
+    | Startup Collections | ✅ 2026-08-11 进入免费审核队列 | 待审核,暂无公开 listing URL | 表单回执“您的回复已记录”;未付 $10 插队费 |
+    | WebsiteHunt | ✅ 已建公开详情页,`Pending review` | 免费版使用站内追踪跳转 `/go/23356/`,不是直链 | [PartFit 3D](https://www.websitehunt.co/websites/partfit-3d);免费队列约 12+ 月 |
+
+    **剔除记录**:twelve.tools(要求首页反链)、SimpleLister / What Launched Today / ToolsFine
+    (免费名额关闭或付费)、Unloc / 700.tools / Wewaat(失效)、Toolbase(受众强制限定公司阶段,
+    与个人 maker 不匹配)、HN / 10words(无现成登录或需新建密码)。
+
+    **判断**:本轮目标是拿到“可核验的真实提交记录”,不是堆数量。立即生效的高质量直链仍只有
+    noisework;两条新目录提交要等审核,WebsiteHunt 免费追踪链的 SEO 权重低。
+
+    **复查节点**:2026-08-25 回查 Startup Collections / WebsiteHunt 审核状态;若未上线,不加钱插队,
+    转向 3D-printing 资源页 outreach / Show HN(需用户现成 HN 登录)。
+
 ## CSV → QBO 转换器(付费工具站,2026-08-10 跑完 keyword-hunt 第二轮 Step 0-5)
 
 - **状态**:planned(Step 1-5 完成,等 Step 6)
