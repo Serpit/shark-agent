@@ -26,18 +26,33 @@
 
 ### todo
 
-- [ ] **2026-08-09** · M4 · partfit3d 新建 `/3mf-to-stl` + `/stl-to-3mf` 两个页面(**新主线**)
+- [ ] **2026-08-09**(2026-08-11 升回优先)· M4 · 修 partfit3d 的 title + meta description(**当前 ROI 最高**)
+  - **动作**:按序改 `split 3mf` → `split3mf` → `split3dmf` 的落地页 title/meta,加动作词与差异点(免费 / 无需上传 / 浏览器内完成)。主战场是 `/tools/3mf-splitter-online/` 一页——它单页占 486 曝光。改之前无痕 + 美区 IP 实搜 `split 3mf`,确认不是被 AI Overview 截流
+  - **⚠️ 2026-08-11 期望订正**:原写"3 个月上限 +10 次点击,做完就走"——**那个数字算错了分母**。
+    `split 3mf` 实测约 **1,180 曝光/月**、当前 CTR 仅 0.3%,同样的修复对应的是**几十次点击/月**。
+    这个站漏的是转化不是流量,**1-2 小时投入,当前性价比最高的动作**
+  - **关联**:[experiments.md 2026-08-11 曝光量订正](experiments.md#结果记录)
+  - **预计耗时**:1-2 小时
+
+- [ ] **2026-08-09**(2026-08-11 重新定性)· M4 · partfit3d 新建 `/3mf-to-stl` + `/stl-to-3mf` 两个页面
   - **动作**:一页一词,TDK 精准命中(`Convert 3MF to STL Online Free` 这类),拆分工具做站内互链导流。后端逻辑与现有拆分功能复用率高
-  - **为什么**:`split 3mf` 实测约 84 曝光/月是死路;相邻转换词族 Semrush 口径 ~10K+/月、KD 13-24。**站不用弃,弃的是主攻词**——DR=0 无权重积累,换词代价约等于零
+  - **为什么**:相邻转换词族 Semrush 口径 ~10K+/月、KD 13-24,比当前词族(实测 ~1,180 曝光/月)约大 8 倍
+  - **⚠️ 2026-08-11 定性变更**:原写「`split 3mf` 约 84 曝光/月**是死路**,必须换主攻词」——**前提数字错了**。
+    当前词族活着且在涨,这条**从"救命动作"降为常规扩量选择**,与上面的 title/meta 修复**并行,不冲突**
   - **⚠️ 两个第三方源打架**(Semrush `3mf to stl` 4400/KD19 vs 哥飞实测 24000/KD47.9),**不要按任一数字做预期**,上线后用 GSC 验真
   - **关联**:[experiments.md 3MF 词族扩展](experiments.md#结果记录) · [advice 部分采纳](advice/2026-08-09-partfit3d-pivot-or-abandon.md)
   - **预计耗时**:两个页面各 2-3 小时
 
-- [ ] **2026-08-09** · M4 · 修 partfit3d 的 title + meta description(**已降级,不再是主线**)
-  - **动作**:漏损队列已跑出(见下方已完成项),按序改 `split 3mf` → `split3mf` → `split3dmf` 的落地页 title/meta,加动作词与差异点(免费 / 无需上传 / 浏览器内完成)。改之前无痕 + 美区 IP 实搜 `split 3mf`,确认不是被 AI Overview 截流
-  - **⚠️ 期望校准**:全部修到位,3 个月**上限约 +10 次点击(≈3 次/月)**。值得做(一次性 1-2 小时),但**不要当成能改变局面的动作**,做完就走
-  - **关联**:[experiments.md partfit3d query 级下钻](experiments.md#结果记录)
-  - **预计耗时**:1-2 小时
+- [ ] **2026-08-11** · M4 · 回测 KGR/intitle,决定它在 SOP 里留还是删
+  - **动作**:对 4 个已知结局的主攻词跑 `intitle:"关键词"` —— `split 3mf`(跑出量)/ `depixelate`(跑出量)/ `all wishes come true`(跑出量)/ `framdrop`(几乎无量),算 KGR,看它能否分辨出这三类。分母取不到的词只记 intitle 绝对值
+  - **为什么**:该方法目前在 [SOP Step 2](methods/search-engine-demand-discovery.md) 里挂着 🚧 待验证标记,**不能作 GO 依据**。回测通过才摘标记,不通过就删掉——不留"看着有道理但没验过"的条目
+  - **关联**:[advice/2026-08-11-gefei-kgr-intitle.md](advice/2026-08-11-gefei-kgr-intitle.md)
+  - **预计耗时**:30-40 分钟(4 次 Google 查询 + 查已有的搜索量数据)
+
+- [ ] **2026-08-18** · M4 · 复拉 partfit3d GSC,确认 ~3,780 曝光/月 是水位还是尖峰
+  - **动作**:`python3 scripts/gsc.py queries "https://partfit3d.com/" --days 7`,与 08-11 的 882 曝光/周对比。若回落到几十/周,说明 08 月首周是一次性尖峰,[experiments.md 08-11 订正](experiments.md#结果记录)的速率结论要按复拉值改写
+  - **为什么**:该速率只有一周观测(前一周仅 90 次,周环比 +880%),排名未变而曝光暴涨,尚不能确认是自然爬坡
+  - **预计耗时**:10 分钟
 
 - [ ] **2026-08-09** · M4 · 查 partfit3d 品牌词 `partfit` 为什么只排 4.4 位
   - **动作**:自己的品牌名没排到第 1(15 曝光 0 点击),是站点权重/实体识别问题,与 title 无关。查:首页是否有明确品牌实体标记(Organization schema / about 页 / 一致的 brand naming)、`partfit` 这个词是否被其他实体占据

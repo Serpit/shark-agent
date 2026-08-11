@@ -6,6 +6,8 @@
 | 咨询时间(UTC+8) | 问题摘要 | 来源 | 采纳判定 | advice 链接 |
 |---|---|---|---|---|
 | 2026-08-09 | partfit3d 加转换功能还是弃站 | 哥飞 SEO Agent | 部分采纳 | [2026-08-09-partfit3d-pivot-or-abandon.md](2026-08-09-partfit3d-pivot-or-abandon.md) |
+| 2026-08-11 | KGR + intitle 选词标准 | 哥飞(社群原话 + 公众号,用户转述) | 部分采纳 | [2026-08-11-gefei-kgr-intitle.md](2026-08-11-gefei-kgr-intitle.md) |
 
 > 采纳判定:`采纳` / `部分采纳` / `不采纳`
-> 来源:目前只有 哥飞 SEO Agent(seo.web.cafe,deepseek-v4-flash)
+> 来源:哥飞 SEO Agent(seo.web.cafe,deepseek-v4-flash);或哥飞公开内容(社群 / 公众号)经用户转述
+> **转述类来源的额外要求**:原文可能截断或有二次加工,落盘时标注哪些是原话、哪些是转述者归纳
