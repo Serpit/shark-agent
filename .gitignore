@@ -4,3 +4,4 @@ memory/.obsidian/
 .claude/settings.local.json
 __pycache__/
 *.pyc
+outputs/
