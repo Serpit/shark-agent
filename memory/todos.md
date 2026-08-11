@@ -52,9 +52,11 @@
   - **关联**:[experiments.md 3MF 词族扩展](experiments.md#结果记录) · [advice 部分采纳](advice/2026-08-09-partfit3d-pivot-or-abandon.md)
   - **预计耗时**:两个页面各 2-3 小时
 
-- [ ] **2026-08-09** · M4 · 修 partfit3d 的 title + meta description(**已降级,不再是主线**)
-  - **动作**:漏损队列已跑出(见下方已完成项),按序改 `split 3mf` → `split3mf` → `split3dmf` 的落地页 title/meta,加动作词与差异点(免费 / 无需上传 / 浏览器内完成)。改之前无痕 + 美区 IP 实搜 `split 3mf`,确认不是被 AI Overview 截流
-  - **⚠️ 期望校准**:全部修到位,3 个月**上限约 +10 次点击(≈3 次/月)**。值得做(一次性 1-2 小时),但**不要当成能改变局面的动作**,做完就走
+- [ ] **2026-08-12** · M4 · 跑 partfit3d 的 `split 3mf` TDK 单页实验(**本周高 ROI 一次性动作**)
+  - **动作**:把 `/tools/3mf-splitter-online/` 的 title 改为 `Split 3MF to Fit Your Printer — Free Online Tool`;description 明说「上传 3MF/STL → 选打印机 → 自动切 oversized model → 本地浏览器处理」;H1 改为 `Split 3MF Into Parts That Fit Your Printer`。只改这一页,不要同时改其他页面
+  - **验证**:上线后请求重抓;Google 展示新标题后等 14 天,用等长窗口比较 `split 3mf`。平均位置不变差时 CTR ≥1% 算第一档成功,2-3% 为目标
+  - **为什么升级**:截至 2026-08-09 最近 7 天该词已有 360 曝光,比前 7 天约 99 曝光增长 264%;旧判断「只多 3 次点击/月」来自新站早期小样本,已失效。按当前曝光,CTR 到 1% 可多约 2-3 点击/周,到 3% 可多约 10 点击/周
+  - **SERP 约束**:美区非个性化结果前两名是精确匹配工具站,随后有 AI Overview;当前 PartFit 未稳定在首屏。因此 title 要强调独有结果「fit your printer」,后续仍要并行改善排名,不能把所有低 CTR 都归因于文案
   - **关联**:[experiments.md partfit3d query 级下钻](experiments.md#结果记录)
   - **预计耗时**:1-2 小时
 
