@@ -98,6 +98,13 @@ https://trends.google.com/trends/explore?date=today%2012-m&geo=US&q=<词1>,<词2
   [`methods/search-engine-demand-discovery.md`](../../../memory/methods/search-engine-demand-discovery.md)
   Step 2 仍写着用 Ahrefs Free,**该 SOP 需要按本 skill 的实测修订**。
 
+## 补充源:哥伦布(本 skill 覆盖不到的一层)
+
+Semrush / SimilarWeb / Trends 回答"词多大、多难、在不在涨",**回答不了"这个词已经被谁占了、谁在涨谁在死"**。
+判完 KD 和搜索量后,值得再花两分钟去 [`memory/sources/columbus.md`](../../../memory/sources/columbus.md)
+所记的 `columbus.tools/ai-keyword-rank` 查该词的**出现频次 + 命中站点名单**(按环比增长倒序)。
+同为第三方估算层,但它给的是**按词聚合的竞对全景**,与本 skill 互补而非替代。取数路径和坑见那份手册。
+
 ## 回写
 
 | 拿到什么 | 写到哪 |

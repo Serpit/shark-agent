@@ -235,7 +235,7 @@ shark-agent 完全独立运行，dbskill 公理已内化为 `memory/axioms.md`�
 |---|---|---|
 | 真值 | GSC 自有数据 | 可直接写进 `experiments.md` 结果记录 |
 | 趋势可信 / 绝对值不可信 | Google Trends | 只作趋势判据,不作量级判据 |
-| 第三方估算 | SimilarWeb / SEMrush / Ahrefs | 必须标来源 + 拉取日期;与 GSC 冲突时**一律以 GSC 为准** |
+| 第三方估算 | SimilarWeb / SEMrush / Ahrefs / [哥伦布](memory/sources/columbus.md) | 必须标来源 + 拉取日期;与 GSC 冲突时**一律以 GSC 为准** |
 | 他人观点 | 外部顾问 / agent 问答 | **禁止直接落 memory**,必须先过 `methods/axiom-scan.md` |
 
 ## 脚本
