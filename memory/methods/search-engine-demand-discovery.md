@@ -52,12 +52,22 @@ generator, creator, maker, builder, helper, assistant, tool, directory, template
 | 动作 | 看什么 | 判定阈值 |
 |---|---|---|
 | Google Trends 5 年走势 | 趋势是上升 / 平稳 / 下降 | **下降中直接 pass**;平稳/上升才进 Step 3 |
-| 搜索量 + KD(Ahrefs Free) | 月搜索量 + 难度 0-100 | **理想区间**:搜索量 500-10K + KD < 30(独立开发可打) |
+| 搜索量 + KD(Semrush,见 [`seo-competitor`](../../.claude/skills/seo-competitor/SKILL.md)) | 月搜索量 + 难度 0-100 | **理想区间**:搜索量 500-10K + KD < 30(独立开发可打) |
+| **意图占比(Semrush 关键词概览「意图」字段)** | informational / commercial / transactional 各占多少 | 见下方第三条红线 |
 | People also ask | 列出 4-8 个相关追问 | 追问越具体越好,代表用户场景已成熟 |
 
-**两个红线**:
+**三个红线**:
 - **搜索量 < 200/月**:即使 KD=0 也撑不起流量,pass
 - **KD > 50 + 头部全是大厂**:1-2 年内打不进 SERP,pass
+- **informational 占比 > 90%**:pass。**这条 2026-08-11 新增**,是本 SOP 漏得最惨的一条——
+  `astrocartography` 词族 141.1K/月、长尾 KD 低到 19,看着是金矿,实际 93% informational,
+  能变现的词 KD 58-60 打不动、能打的全是 how-to。详见
+  [`risks.md` 「informational intent 高量词族」伪机会](../risks.md)。
+
+> **查竞争时的操作纪律**(2026-08-11 补,来源同上):
+> 用「月访问量 < X」「DR < X」这类**上限**筛候选没问题,但**判断赛道竞争必须去掉上限重查一遍**。
+> 共用一份带上限的结果去回答"这条赛道谁在做",会让整个头部隐形。
+> 详见 [`risks.md` 「筛选上限自蔽」](../risks.md)。
 
 ### Step 3 · 验证"SERP 缺口"和交付物匹配(15 分钟)
 
