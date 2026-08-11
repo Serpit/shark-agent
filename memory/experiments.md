@@ -273,6 +273,67 @@
     - **重大形态偏离**:计划记录的是「英文 SEO **内容**站 + AdSense」,实际做出来的 4 个站里 **3 个是工具站**(aidepixelate / easyframes / partfit3d),只有 baxianfans 是内容站。工具站内容薄,AdSense 过审难度高于内容站——**变现路径假设需要重新对齐**,不能沿用原计划的 AdSense 主路径。
     - **选词方法实际已换轨**:原 SOP 是"用户报候选词 → Ahrefs 验证",连续两次全池 NO-GO(GPT Image 2 / 羽毛球)后停摆;实际跑通的 4 个站选的是**极长尾工具型词**(`split 3mf` / `depixelate` / `all wishes come true`),这类词 Ahrefs Free 大概率也显示 <100/月却真实有量。**原 SOP 的"月搜索量 >500"红线对工具站不适用**,需要修订。
 
+  - **2026-08-11 · partfit3d 索引诊断(数据源:GSC「网页索引编制」报告 + curl 实测,agent 用 ego 实读)**
+
+    **已编入索引 43 / 未编入索引 60**,四类原因:
+
+    | 原因 | 数量 | 实质 |
+    |---|---:|---|
+    | 备用网页(有适当的规范标记) | **30** | trailing slash 与 canonical 冲突 |
+    | 未找到 (404) | 25 | 三类代码 bug 生成的幽灵 URL |
+    | 已发现-尚未编入索引 | 4 | 同一批页面的带斜杠版本 |
+    | 已抓取-尚未编入索引 | 1 | `/guides/meshy-to-3d-print/` |
+
+    **根因:三处配置自相矛盾,构成死循环**(curl 实测验证)
+
+    - 服务器(Cloudflare Pages):`/about/` → **307** → `/about`(去斜杠)
+    - 页面 canonical + og:url:`https://partfit3d.com/about/`(**带**斜杠)
+    - sitemap.xml(40 条 loc):全部**带**斜杠
+
+    Google 抓 sitemap 里的 `/about/` 被 307 跳到 `/about`,而 `/about` 的 canonical 又指回 `/about/`。
+    **没有任何一个 URL 能自我声明为 canonical** → 不带斜杠那版判「备用网页」(30 条),
+    带斜杠那版停在「已发现」(4 条)。**一个配置矛盾吃掉 60 条未收录里的 34 条。**
+    且 307 是临时重定向,不传递权重,应为 301。
+
+    被卡住的是**全部内容页**:21 个 `/printers/*`、全部 `/guides/*`、2 个 `/compare/*`、`/about`,
+    **连工具主页 `/tools/3mf-splitter-online` 都在内**。
+
+    **25 个 404 的真实构成 —— 零条真死链,全是链接生成 bug**
+
+    | 类型 | 数量 | 样例 |
+    |---|---:|---|
+    | 模板变量 `$slug` 未插值 | 14 | `/printers/$slug/printers/creality-k1c` |
+    | 相对链接缺前导斜杠 → 路径段重复 | 8 | `/guides/cut-stl-file-into-parts/guides/cut-stl-file-into-parts` |
+    | Next.js route group 括号泄漏进 URL | 3 | `/(pages)/about`、`/(legals)/privacy` |
+
+    > **⚠️ 修正 todos.md 原动作**:原待办写的是「判断死链还是已删页,能 301 的 301」。**方向错了** ——
+    > 没有页面需要 301,需要的是修三处链接生成逻辑。改完 bug 让 Google 重抓,25 条自然消失。
+
+    **对 partfit3d 判断的影响**:2026-08-09 下钻算出的「CTR 修复天花板 ≈10 次点击/3 个月」,
+    是在**全部内容页未收录**的前提下测得的。天花板结论本身不变(主攻词族确实小),
+    但「整站只有拼写变体族在跑」这个观察,**部分是收录 bug 造成的,不全是选词问题**。
+    修复后应重测一次再定 partfit3d 的去留。
+
+    **修复优先级**:① 统一 trailing slash(解 34 条,最省事是把 canonical/og:url/sitemap 全改成不带斜杠,
+    与 Cloudflare 现有去斜杠行为对齐,不动服务器;顺手 307→301)② 修 `$slug` 未插值 ③ 修相对链接 ④ 修 route group 泄漏。
+    **源码不在 `~/workspace` 下,代码级修复待用户提供仓库路径。**
+
+  - **2026-08-11 · 四站 URL 规范化横向体检(curl 实测)**
+
+    | 站 | 服务器对 `/x/` | canonical | sitemap | 判定 |
+    |---|---|---|---|---|
+    | partfit3d | 307 去斜杠 | **带**斜杠 | **带**斜杠 | ❌ 三方打架(见上条) |
+    | aidepixelate | 307 去斜杠 | 不带 | 不带 | ✅ 一致 |
+    | easyframes | 308 去斜杠 | 不带 | 不带 | ✅ 一致(308 永久跳,优于 307) |
+    | baxianfans | 不跳,全 200 | **恒等于首页** | **不是 XML** | ❌ soft 404 catch-all |
+
+    - **partfit3d 的 trailing slash bug 是单点回归,不是技术栈通病** —— 另两个工具站配置正确。
+    - **baxianfans 是另一种病**:任意不存在 URL(实测 `/zzz-not-a-real-page-9987`)返回 **200 + 首页内容 + canonical 指向首页**,
+      典型 soft 404 catch-all;且 `sitemap.xml` 被 catch-all 吞掉,`content-type: text/html` 返回首页 HTML,**GSC 读不到**。
+    - **⚠️ 修正 todos.md「提三站收录率」的动作方向**:原写的是「补内容厚度 + 内链 + 重新提交 sitemap」。
+      对 baxianfans **无效** —— 它的未收录根因是站点没有多页结构 + sitemap 不是有效 XML,不是内容薄。
+      aidepixelate / easyframes 的未收录才可能是内容/内链问题,需分开处理。
+
   - **2026-08-11 · GA4 两项目拆分(数据源:Google Analytics 网页版,agent 用 ego 实读)**
     - 配置发现:`partfit3d` 媒体资源下同时挂了两个网站数据流——`https://partfit3d.com/` 与 `https://aidepixelate.com/`。因此原始「报告概况」会把两个项目混合统计,但数据可按 `主机名` 拆开。
     - 已在 GA4 保存两个可复用比较对象:`PartFit3D` = 主机名完全匹配 `partfit3d.com`;`AIDepixelate` = 主机名包含 `aidepixelate.com`(含子域名)。此后任意标准报告都可直接应用这两个比较对象。
