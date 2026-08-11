@@ -155,6 +155,31 @@
 - **关联公理**:准公理 B（谷歌 2024-2025 对 AI 低质内容打压加剧,该窗口期已收紧；mass-produced AI content 政策与 YouTube reused content 收紧同源）、准公理 C（用数量替代模式判断——堆量本身不是模式,选词+人工校验+节奏才是）
 - **首次记录**:2026-05-13
 
+## 成熟 SaaS 品类的 alternatives / vs 词被厂商内容营销占据,不是联盟站的地盘
+
+- **触发关键词**:`<竞品品牌> alternatives` / `<竞品品牌> vs <竞品品牌>` / `best <成熟 SaaS 品类>`,并且工具显示 **KD 低(14-25)+ CPC 高($7-25)**。看起来像「低难度高价值」的完美交集。
+- **判定依据**(2026-08-09,`keyword-hunt` Step 4 自测,6 个词逐个扫 Top 10 全部出站链接):
+
+  | 词 | 月量 / KD / CPC | Top 10 联盟链接数 | 占位者 |
+  |---|---|---|---|
+  | `surfer seo alternatives` | 880 / 21 / $10.72 | **0** | nightwatch.io / seranking.com / mangools.com / useomnia.com |
+  | `convertkit alternatives` | 320 / 17 / $13.13 | 1 | sender.net / beehiiv.com / brevo.com / selzy.com |
+  | `convertkit vs mailchimp` | 720 / 22 / $7.85 | **0** | zapier / gravityforms / kit.com / sendx.io |
+  | `best email marketing software for small business` | — / 60 / $23 | **0** | zapier / mailtrap / mailchimp / emailoctopus / hubspot |
+  | `best ai tool for proposal writing` | 110 / 23 / **$16.59** | **0** | autogenai / xait / usemotion / manus |
+
+  **CPC 最高的那几个词,联盟链接一条都没有。** 占位的全是竞品厂商自己的博客。
+- **结构性原因**:融过资的 SaaS 养内容团队专打竞品词,ROI 远高于付 20-30% 联盟佣金。他们不需要联盟站,所以这些词上**根本没有佣金在流动**。KD 量的是外链门槛,量不到厂商内容团队的持续投入 —— 所以「KD 低」在这类词上是**假蓝海**。
+- **如何使用**:
+  1. `keyword-hunt` **Step 3 的一号筛(CPC > $1)必须补一问:是谁在买这个点击?** 厂商自投的高 CPC,联盟站分不到钱。CPC 高 ≠ 你能赚到。
+  2. 真正的变现信号不是 CPC,是 **Top 10 里有独立发布者挂 Rewardful / FirstPromoter / Impact 链接**。这只能靠 Step 4 实扫,任何关键词工具都给不出。
+  3. **Step 4 永远不可跳过。** 本轮 Step 1-3 全部通过的 12 个候选词,被 Step 4 一次性砍掉 10 个。
+- **反例(该模式不成立的场景)**:窄场景 + 长尾创作者向品类。同日实测 `best ai for novel writing`(110/月 KD22)Top 10 有 2 个独立发布者挂 Sudowrite / Squibler 联盟链接,且排着 Authority Score 8 的极小站。**厂商越小、品类越窄,联盟站的位置越大。**
+- **违反根公理**:公理 4（流量≠收入——CPC 是流量侧的价格信号,被误当成收入侧的可得性信号。词有商业价值 ≠ 这份价值分得到你头上）
+- **关联公理**:准公理 C（在差模式里硬卷——DR 0 个人站去和厂商内容团队抢同一个词,是模式问题不是努力问题）
+- **首次记录**:2026-08-09
+- **状态**:正式条目(6 词全测,0-1 条联盟链接的结果高度一致,且有明确反例界定边界)
+
 ## 无定价分层的"产品成功"案例（违反公理 5）
 
 - **触发关键词**:"产品上线即火爆"、"被 XX 媒体报道后用户暴增"、"自然增长不需要营销"、产品描述中定价信息完全缺失或一笔带过。

@@ -90,6 +90,45 @@
   - **风险锁死**:坚持白帽 + 半自动化,不碰 PBN / 博客评论 spam(原文已警告,见 [risks.md](risks.md))
   - 具体启动动作见 [experiments.md 英文 SEO 内容站矩阵起步](experiments.md#英文-seo-内容站矩阵起步)
 
+## 付费工具站 + 自有收款(Waffo)
+
+- **状态**:validating(2026-08-10 由 `keyword-hunt` 第二轮跑出,Step 1-5 完成,等 Step 6)
+- **前提变更**:用户确认开通 **Waffo**(MoR,Pancake 面向个人、无需 LLC、直打银行账户)。**「无 Stripe 资质」这条卡了三个多月的硬约束解除**,自有收款首次可闭环。见 [profile.md](profile.md#能力与资源)。
+- **核心需求假设**:存在这样一类工具词 —— **输出进入用户的工作流**(不是拿完就走)、用户按月重复使用、SERP 上已有多家独立小站在直接收费、且最弱竞品的引用域 < 30。在这类词上,DR 0 新站能拿到第一笔自有收款。
+- **与 4 个旧站失败的关系**:这是**对失败原因的直接修正**。partfit3d(3MF 拆分)/ aidepixelate(去像素化)的用户是 hobbyist,输出即终点,无复购,不进任何工作流 —— 所以 1338 曝光换来 0 收入不是排名问题,是**收钱场景选错**。
+- **画像匹配**:高。纯前端可做、复用现有 Astro/Cloudflare 技术栈、1-2 周 MVP、目标用户是簿记员/会计(B2B professional,付费意愿明确)。
+- **验证成本**:低。域名 $10 + Waffo 按成功交易计费。
+- **可行性证据**:
+  - **自有实测(最强)**:[experiments.md CSV → QBO 转换器](experiments.md#csv--qbo-转换器付费工具站2026-08-10-跑完-keyword-hunt-第二轮-step-0-5) —— 词族 ~10K/月、KD 1-14、头词 CPC $17.63;Top 10 有 **6 家独立站在收费**($15/$25/$39 订阅 + credits);最弱竞品 `toqbo.com` 仅 **24 引用域**、`filetailored.com` **26 引用域跑出 11.3K 月流量**
+  - **窗口期证据**:`forgegui.com` 2026-03 注册,5 个月、DR 28 进 Stripe 收银台引荐榜第 38 位
+  - **反向证据(界定边界)**:同批 `dst to pes` / `embroidery converter` 量级不成立;`supplement facts label maker` KD 2 但 CPC 仅 $1.57 → 降为备选
+  - **顾问输入(部分采纳)**:[advice/2026-08-10-paid-tool-category.md](advice/2026-08-10-paid-tool-category.md)
+- **风险/未知**:
+  - **Intuit Web Connect(.qbo)条款未查** —— 前置阻塞项,做之前必须确认
+  - **词族约 23% 是 `free` 词**,免费额度设计是成败核心变量,不是附属决定
+  - **转化率 0.1-0.5% 是社群数据不是自有实测**,月 UV 1000-3000 才出第一单的门槛需要自己验
+  - 竞品里有 `docuclipper.com`、`receipt-bot.com` 这类做得较大的,**不是无人区**,是「有钱但还没被大站锁死」
+- **下一步动作**:见 [todos.md](todos.md) 三条 —— 查 Intuit 条款 → 开通 Waffo → 做 MVP。
+
+## 英文联盟内容站(affiliate content site,变现导向)
+
+- **状态**:**parked(2026-08-10)** —— Waffo 打通后自有收款优先级高于联盟。**不删**:Step 4 挖出的「厂商内容营销占据 alternatives 词」是可复用的结构性发现,联盟条款表(Kit / Surfer / Jasper / Sudowrite / Squibler 五字段)未来做联盟变现时可直接取用。
+- ~~**状态**:validating(2026-08-09 由 `keyword-hunt` 流水线跑出,Step 1-5 完成,等 Step 6 实测)~~
+- **核心需求假设**:在**窄场景 + 创作者向**的 SaaS 品类里(而非成熟大品类),存在 KD < 25 且 Top 10 有独立发布者在赚联盟佣金的决策词。DR 0 新发布者可以在这类词上拿到第一笔可提现佣金。
+- **与「SEO 内容站矩阵 + AdSense」的关系**:是它的**变现路径替换版**,不是新方向。原路径假设 AdSense,但实际做出 3/4 是工具站,AdSense 过审难 + 量级不匹配;联盟是当前**唯一「1 次转化即验证」**的载体(无 Stripe 资质,见 [profile.md 支付通道约束](profile.md#能力与资源))。
+- **画像匹配**:高。18h/周可承担(链接预算中值 25 引用域,通过时间盘硬否决);预算 $0-10;佣金 recurring 可复利。
+- **验证成本**:**极低**。Step 6 用平台发布(Medium/Substack)测,1-2 小时 + $0,收录以天计。
+- **可行性证据**:
+  - **自有实测**(强度最高):[experiments.md AI 小说写作联盟词族](experiments.md#ai-小说写作联盟词族出单导向选词2026-08-09-跑完-keyword-hunt-step-0-5) —— 6 个词逐个扫 Top 10 出站链接,`best ai for novel writing` 有 2 个独立发布者挂 Sudowrite / Squibler 联盟链接,SERP 里排着 Authority Score 8 的极小站
+  - **反向证据**(界定边界):同批 5 个高 CPC 词($7-25)联盟链接 0-1 条 → [risks.md 厂商内容营销占据 alternatives 词](risks.md#成熟-saas-品类的-alternatives--vs-词被厂商内容营销占据不是联盟站的地盘)
+  - **顾问输入**(部分采纳):[advice/2026-08-09-affiliate-category-selection.md](advice/2026-08-09-affiliate-category-selection.md)
+- **风险/未知**:
+  - **词族量级小**:单词月量 50-260,合计约 1.3K-1.5K/月。够不够撑出第一笔佣金**未知,只有 Step 6 能答**
+  - **Sudowrite 有 60 天持有期**,即使转化了,到账也要多等两个月 —— 与「3 个月看反馈」硬约束擦边
+  - **10 个 EMD 域名全部可注册** 是双刃:窗口期开着,也可能意味着没人觉得这个盘子值得做
+  - 平台发布(Medium/Substack)是**验证载体不是资产载体**,违反准公理 A(形态决定复利)。第 3 层出现点击后必须迁到自有域名
+- **下一步动作**:见 [experiments.md 执行步骤](experiments.md#执行步骤step-6唯一产生真值的一步)。**注册 Sudowrite Rewardful 联盟 → 写一篇长文发 Medium/Substack → 等 4-6 周看第 3 层。**
+
 ## YouTube 中文 AI 不出镜频道(faceless)
 
 - **状态**:parked(可作为低成本练手,但不作为主线)

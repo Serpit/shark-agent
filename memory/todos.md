@@ -26,6 +26,25 @@
 
 ### todo
 
+- [ ] **2026-08-10** · M4 · 查 Intuit Web Connect(.qbo)的使用条款(**前置风险,阻塞建站**)
+  - **动作**:确认第三方工具生成 `.qbo` 文件是否需要 Intuit 授权 / FID。ProperSoft、MoneyThumb、accountingconverter 都商业化多年说明路是通的,但**做完才发现有授权问题的代价太大**,先花 30 分钟查清
+  - **关联**:[experiments.md CSV → QBO 转换器](experiments.md#csv--qbo-转换器付费工具站2026-08-10-跑完-keyword-hunt-第二轮-step-0-5)
+  - **预计耗时**:30 分钟
+
+- [ ] **2026-08-10** · M4 · 开通 Waffo Pancake 收款(**并行,不阻塞建站**)
+  - **动作**:注册 Waffo,走 Pancake(个人/小团队,无需 LLC);记下实际费率、结算周期、起付线,回写 [profile.md 支付通道](profile.md#能力与资源)
+  - **为什么重要**:这是三个多月来第一次自有收款链路能闭环。**开通结果本身就是一条要落盘的事实**
+  - **预计耗时**:1 小时
+
+- [ ] **2026-08-10** · M4 · 做 CSV → QBO 转换器 MVP(**Step 6,唯一产生真值的一步**)
+  - **动作**:注册域名 + Astro/Cloudflare(现有技术栈);一页一词做 `/csv-to-qbo`、`/qbo-to-csv`、`/csv-to-qbo-converter-free` 三页站内互链;**免费 N 笔/月,超出走 Waffo 付费**
+  - **定价锚点**:竞品实测 $15 / $25 / $39 月订阅 + credits 包。**不要定 $1-5**(见 [risks.md 低价陷阱](risks.md#独立开发者低价定价陷阱))
+  - **⚠️ 免费额度是核心变量,不是附属决定**:词族里约 23% 是 `free` 词,额度校准到「用户每月刚好用完一次」
+  - **预计耗时**:1-2 周
+  - **前置**:上面两条
+
+- [ ] ~~**2026-08-09** · 注册 Sudowrite 联盟 + 发 `best ai for novel writing` 长文~~ — **2026-08-10 作废**,Waffo 通道打通后变现载体从联盟换成自有收款,联盟路径整体降级(数据保留在 [experiments.md](experiments.md))
+
 - [ ] **2026-08-09** · M4 · partfit3d 新建 `/3mf-to-stl` + `/stl-to-3mf` 两个页面(**新主线**)
   - **动作**:一页一词,TDK 精准命中(`Convert 3MF to STL Online Free` 这类),拆分工具做站内互链导流。后端逻辑与现有拆分功能复用率高
   - **为什么**:`split 3mf` 实测约 84 曝光/月是死路;相邻转换词族 Semrush 口径 ~10K+/月、KD 13-24。**站不用弃,弃的是主攻词**——DR=0 无权重积累,换词代价约等于零
