@@ -46,7 +46,9 @@
 > 每个源都带一条硬约束:**拉数前先说清结果会落到哪个动作,答不上来就不查**(公理 6)。
 
 - [sources/gsc.md](sources/gsc.md) — Google Search Console(**自有真值**,与第三方估算冲突时以它为准),工具 [`scripts/gsc.py`](../scripts/gsc.py)
+- [sources/ga4.md](sources/ga4.md) — Google Analytics 4(**自有真值**,管"点进来之后发生了什么",与 GSC 互补),工具 [`scripts/ga4.py`](../scripts/ga4.py)
 - [sources/columbus.md](sources/columbus.md) — 哥伦布 columbus.tools(**第三方估算**,4630 个 AI 工具站的增长样本库),独有能力:按词看"谁在打这个词、谁在涨谁在死";走 ego 浏览器,无脚本
+- [sources/daily-report.md](sources/daily-report.md) — 每日飞书日报(GSC + GA4,每天 10:00 推送),工具 [`scripts/report_daily.py`](../scripts/report_daily.py)
 
 **取数入口已封装成 skill**(会话中按话题自动触发,不用手动记路径):
 

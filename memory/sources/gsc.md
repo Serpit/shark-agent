@@ -4,7 +4,9 @@
 > 第三方工具(SimilarWeb / SEMrush / Ahrefs)的数字都是估算,**与 GSC 冲突时一律以 GSC 为准**。
 >
 > **工具**:[`scripts/gsc.py`](../../scripts/gsc.py),零依赖纯 stdlib,不需要 venv。
-> **凭证**:`~/.config/shark-agent/gsc.json`(仓库外,权限 600,**不进 git**)。
+> **凭证**:`~/.config/shark-agent/google.json`(仓库外,权限 600,**不进 git**)。
+> 与 [GA4](ga4.md) **共用同一次授权**——同一个 GCP 项目下的同一个 OAuth 客户端,scope 里带两个 API。
+> 共享层在 [`scripts/_google.py`](../../scripts/_google.py)。旧路径 `gsc.json` 仍可读,只为兼容。
 
 ## 使用前提(硬约束)
 
@@ -42,7 +44,7 @@ python3 scripts/gsc.py auth --client-secret-file ~/Downloads/client_secret_xxx.j
 ```
 
 浏览器会弹授权页(测试模式下会有「Google 未验证此应用」警告,点「高级」→「继续」)。
-成功后 refresh_token 存盘,**以后不用再授权**。
+成功后 refresh_token 存盘,**以后不用再授权**。这一次授权同时覆盖 GA4,见 [ga4.md](ga4.md)。
 
 验证:
 

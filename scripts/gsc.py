@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Google Search Console 查询工具(零依赖,纯 stdlib)。
 
-用法见 memory/sources/gsc.md。凭证存在仓库外:~/.config/shark-agent/gsc.json
+用法见 memory/sources/gsc.md。凭证存在仓库外:~/.config/shark-agent/google.json
+(与 ga4.py 共用同一次授权,见 scripts/_google.py)
 
-  python3 scripts/gsc.py auth                     # 一次性授权
+  python3 scripts/gsc.py auth                     # 一次性授权(同时覆盖 GA4)
   python3 scripts/gsc.py sites                    # 列出所有 property
   python3 scripts/gsc.py queries <site>           # 关键词级 点击/曝光/CTR/排名
   python3 scripts/gsc.py pages <site>             # 页面级
@@ -16,19 +17,16 @@ import argparse
 import csv
 import json
 import os
-import socket
 import sys
-import urllib.error
 import urllib.parse
-import urllib.request
-import webbrowser
 from datetime import date, timedelta
-from http.server import BaseHTTPRequestHandler, HTTPServer
 
-CONFIG_PATH = os.path.expanduser("~/.config/shark-agent/gsc.json")
-SCOPE = "https://www.googleapis.com/auth/webmasters.readonly"
-TOKEN_URL = "https://oauth2.googleapis.com/token"
-AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth"
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from _google import (  # noqa: E402
+    SCOPES, access_token, api_call as _api_call, client_credentials_from_args,
+    load_config, run_oauth_flow,
+)
+
 API_BASE = "https://searchconsole.googleapis.com"
 
 # GSC 数据回填有延迟,默认窗口结束日往前推 3 天,避免拿到不完整的尾部数据。
@@ -44,131 +42,14 @@ EXPECTED_CTR_11_20 = 0.013
 
 
 # --------------------------------------------------------------------------
-# 凭证与 OAuth
+# 凭证与 OAuth(实现在 _google.py,与 ga4.py 共用同一次授权)
 # --------------------------------------------------------------------------
 
-def load_config():
-    if not os.path.exists(CONFIG_PATH):
-        sys.exit(
-            f"没找到凭证 {CONFIG_PATH}\n"
-            "先跑一次:python3 scripts/gsc.py auth"
-        )
-    with open(CONFIG_PATH) as f:
-        return json.load(f)
-
-
-def save_config(cfg):
-    os.makedirs(os.path.dirname(CONFIG_PATH), exist_ok=True)
-    with open(CONFIG_PATH, "w") as f:
-        json.dump(cfg, f, indent=2)
-    os.chmod(CONFIG_PATH, 0o600)
-
-
-def post_form(url, data):
-    body = urllib.parse.urlencode(data).encode()
-    req = urllib.request.Request(url, data=body, method="POST")
-    req.add_header("Content-Type", "application/x-www-form-urlencoded")
-    try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            return json.load(resp)
-    except urllib.error.HTTPError as e:
-        sys.exit(f"HTTP {e.code} 从 {url}\n{e.read().decode(errors='replace')}")
-
-
-def access_token(cfg):
-    """用 refresh_token 换一个短期 access_token。"""
-    tok = post_form(TOKEN_URL, {
-        "client_id": cfg["client_id"],
-        "client_secret": cfg["client_secret"],
-        "refresh_token": cfg["refresh_token"],
-        "grant_type": "refresh_token",
-    })
-    return tok["access_token"]
-
-
-def free_port():
-    with socket.socket() as s:
-        s.bind(("127.0.0.1", 0))
-        return s.getsockname()[1]
-
-
 def cmd_auth(args):
-    """本地回环 OAuth 流程,拿到长期 refresh_token 存盘。"""
-    client_id = args.client_id
-    client_secret = args.client_secret
-
-    if not client_id or not client_secret:
-        if args.client_secret_file:
-            with open(os.path.expanduser(args.client_secret_file)) as f:
-                blob = json.load(f)
-            node = blob.get("installed") or blob.get("web") or blob
-            client_id = node["client_id"]
-            client_secret = node["client_secret"]
-        else:
-            sys.exit(
-                "需要 OAuth 客户端凭证。二选一:\n"
-                "  --client-secret-file ~/Downloads/client_secret_xxx.json\n"
-                "  --client-id ... --client-secret ...\n"
-                "获取方式见 memory/sources/gsc.md「一次性配置」"
-            )
-
-    port = free_port()
-    redirect_uri = f"http://localhost:{port}"
-    params = {
-        "client_id": client_id,
-        "redirect_uri": redirect_uri,
-        "response_type": "code",
-        "scope": SCOPE,
-        "access_type": "offline",
-        "prompt": "consent",
-    }
-    url = AUTH_URL + "?" + urllib.parse.urlencode(params)
-
-    captured = {}
-
-    class Handler(BaseHTTPRequestHandler):
-        def do_GET(self):
-            qs = urllib.parse.urlparse(self.path).query
-            captured.update(urllib.parse.parse_qs(qs))
-            self.send_response(200)
-            self.send_header("Content-Type", "text/html; charset=utf-8")
-            self.end_headers()
-            ok = "code" in captured
-            msg = "授权成功,回到终端即可。" if ok else "授权失败,看终端输出。"
-            self.wfile.write(f"<html><body><h2>{msg}</h2></body></html>".encode())
-
-        def log_message(self, *a):
-            pass
-
-    server = HTTPServer(("127.0.0.1", port), Handler)
-    print("在浏览器里完成授权(如果没自动打开,手动访问下面这个链接):\n")
-    print(url + "\n")
-    webbrowser.open(url)
-    server.handle_request()
-    server.server_close()
-
-    if "code" not in captured:
-        sys.exit(f"没拿到授权码:{captured}")
-
-    tok = post_form(TOKEN_URL, {
-        "code": captured["code"][0],
-        "client_id": client_id,
-        "client_secret": client_secret,
-        "redirect_uri": redirect_uri,
-        "grant_type": "authorization_code",
-    })
-    if "refresh_token" not in tok:
-        sys.exit(
-            "Google 没返回 refresh_token。通常是这个客户端之前授权过。\n"
-            "去 https://myaccount.google.com/permissions 撤销后重跑。"
-        )
-
-    save_config({
-        "client_id": client_id,
-        "client_secret": client_secret,
-        "refresh_token": tok["refresh_token"],
-    })
-    print(f"✅ 凭证已存到 {CONFIG_PATH}(权限 600)")
+    client_id, client_secret = client_credentials_from_args(args)
+    run_oauth_flow(client_id, client_secret, SCOPES)
+    print("✅ 凭证已存到 ~/.config/shark-agent/google.json(权限 600)")
+    print("   scope 覆盖 Search Console + Analytics,ga4.py 无需再授权一次。")
     print("下一步:python3 scripts/gsc.py sites")
 
 
@@ -177,18 +58,7 @@ def cmd_auth(args):
 # --------------------------------------------------------------------------
 
 def api_call(token, path, payload=None):
-    url = API_BASE + path
-    data = json.dumps(payload).encode() if payload is not None else None
-    req = urllib.request.Request(url, data=data, method="POST" if data else "GET")
-    req.add_header("Authorization", f"Bearer {token}")
-    if data:
-        req.add_header("Content-Type", "application/json")
-    try:
-        with urllib.request.urlopen(req, timeout=60) as resp:
-            return json.load(resp)
-    except urllib.error.HTTPError as e:
-        detail = e.read().decode(errors="replace")
-        sys.exit(f"HTTP {e.code} 从 {path}\n{detail}")
+    return _api_call(token, API_BASE + path, payload)
 
 
 def default_window(days):
@@ -460,7 +330,10 @@ def main():
     sp.set_defaults(func=cmd_inspect)
 
     args = p.parse_args()
-    args.func(args)
+    try:
+        args.func(args)
+    except (RuntimeError, OSError) as e:
+        sys.exit(str(e))
 
 
 if __name__ == "__main__":
