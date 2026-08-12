@@ -186,6 +186,129 @@
 
 > 等可切美区 IP 后,挨个跑三维探针(Trends / Ahrefs KD / SERP 头部形态)再决定是否建站。
 
+#### 订阅型 SaaS 选词第一轮(2026-08-11,Semrush 美区,第三方估算)
+
+**筛选轴**(与之前的工具站选词不同,新增两条准入):① 需求必须**复发**(一次性转换器撑不起订阅);
+② 意图必须 C/T 为主(对齐 [risks.md informational 伪机会](risks.md));③ CPC 作为付费意愿直读数。
+
+| 候选词 | US 量/月 | KD | CPC | 意图 | 词族 | SERP 头部形态 | 判定 |
+|---|---|---|---|---|---|---|---|
+| `competitor price monitoring` | 590 | **12** | **$40.46** | **交易** | 224 词 / 3.2K | pricefy.io(AS33)/ prisync(AS41)/ price2spy(AS35)/ Reddit roast-my-startup **全是 indie 量级,无大厂** | ⭐ **首选** |
+| `llm seo tool` | 1.0K | 32 | $9.38 | 商务 | 172 词 / 8.7K,`best llm seo *` 12 个变体 KD 5-28 | llmrefs(AS36)/ llmclicks(AS25)/ promptrush(AS23)产品页直接进 Top10 | ⭐ 备选,**窗口期风险** |
+| `ai visibility tracker` | 880 | 40 | $12.42 | 商务 | 1.8K 词 / 28.8K | zapier(75)/ seranking(59)/ **ahrefs(73)/ neilpatel(60)** 已占位 | 降级——大厂已进场 |
+| `website change monitor` | 480 | 50 | $5.60 | 商务 | 274 词 / 5.3K | — | 观察 |
+| `uptime monitoring` | 1.6K | 52 | $19.69 | 商务 | 1.4K 词 / 17.7K | UptimeRobot/BetterStack/Pingdom | pass(红海) |
+| `ssl certificate monitoring` | 720 | **27** | $15.34 | 信息 | 163 词 / 3.5K | **SolarWinds / Datadog / Dynatrace / Zabbix / ManageEngine 全是 AS 47-59 企业监控套件** | **pass** |
+| `email verification tool` | 6.6K | 66 | $4.74 | 商务 | 176 词 / 11.7K | ZeroBounce 系,需数据基建 | pass |
+| `keyword rank tracker` | 5.4K | 65 | $12.10 | 商务 | 1.7K 词 / 46.7K | 红海 | pass |
+| `app store optimization tool` | 260 | 67 | $11.26 | 信息 | 80 词 / 1.9K | 美区量太小 | pass |
+| `ai humanizer` | 673K | 87 | $0.96 | 商务 | 10.8K 词 / 2.5M | — | pass(KD 87 + CPC $0.96) |
+| `dynamic qr code` | 1.6K | 35 | $5.89 | 信息 94% | 607 词 / 15.3K | generator 词 KD 88 | pass |
+
+**本轮最重要的方法论产出**:`ssl certificate monitoring` 是 **KD 低但 SERP 全大厂**的活标本——
+Semrush 给 KD 27「容易」,实际 Top10 是 SolarWinds / Datadog / Dynatrace / Grafana / Zabbix / ManageEngine。
+**KD 数值不能替代 SERP 实看**,[SOP Step 3](methods/search-engine-demand-discovery.md#step-3--验证serp-缺口和交付物匹配15-分钟) 不可跳过。
+
+**存疑标记**:`best llm seo checker / checkers / checking tool / checking tools / checking software`
+等 12 个近义变体在 Semrush 里全部落在 390 或 480 这两个整数上,**疑似 AI 生成的合成 query 模式**,
+不排除数据库噪音。该词族取方向不取绝对值,上线后以 GSC 验真。
+
+#### AI 订阅方向:哥伦布种子 → Semrush 验证(2026-08-11,**结构性 NO-GO**)
+
+**方法修正**:上一轮我从自己脑子里列词根(用户当场纠正:「种子应该来自哥伦布的收入」)。
+本轮改为 `columbus.tools/ai-rank?money=subscription&organic=high&sort=visits_mom` → 485 站,
+拉 10 页、本地按 `关键词驱动` 过滤 → 76 站,剔除模型名依赖站 / All-In-One / NSFW / 赌球,
+按重复出现的簇取头词 → Semrush 定生死。
+
+**簇分布**(关键词驱动 + 订阅制 + 高自然搜索,快照 2026-08):
+音频/音乐 14 站 · 图像编辑 9 站 · 视频工具 8 站 · 3D 4 站 · 字幕/漫画翻译 4 站 · AI 检测/人性化 3 站 · 开发者工具 3 站
+
+| 头词 | US 量 | KD | **CPC** | 意图 | SERP 头部 | 判定 |
+|---|---|---|---|---|---|---|
+| `image to stl` | 3.6K | **17** | $1.48 | 信息 | imagetostl.com AS45 / .org AS25 / sloyd AS40 —— **全 indie** | 可打,但**一次性转换,撑不起订阅**;是 partfit3d 的扩量词 |
+| `manga translator` | 3.6K | 58 | $0.76 | **交易 71%** | Chrome 扩展 / ichigoreader AS22 / **GitHub 开源在 Top10** | pass(CPC $0.76 + 开源压价 + 版权风险) |
+| `vocal remover` | 60.5K | 61 | **$0.50** | 信息 | vocalremover.org AS60 / lalal.ai / **Canva 免费捆绑** | pass(量最大、CPC 最低) |
+| `subtitle translator` | 1.3K | 51 | $1.82 | 信息 | 个人项目页 AS34 / **GitHub 开源排第 2** | pass(斯里兰卡/印度/印尼 量均高于美国) |
+| `youtube thumbnail generator` | 1.6K | 65 | $1.27 | 商务 | **Canva / Adobe / ChatGPT 占前 5** | pass |
+| `image to 3d model` | 6.6K | 50 | $1.31 | 信息 | meshy.ai AS50 / tripo3d —— 融资公司 | pass(印度 8.1K > 美国 6.6K) |
+| `ai color analysis` | 1.3K | 35 | $1.01 | 信息 | Reddit SideProject 帖 #1 / manus.im | pass |
+| `token calculator` | 880 | 31 | **$0** | 信息 87% | OpenAI 官方 tokenizer #1 | pass |
+| `ai video ad generator` | 390 | 41 | **$9.31** | 信息 94% | creatify AS47 / HeyGen AS65 / invideo AS67 | pass(CPC 好但量太小 + 融资公司占位) |
+
+### 结论一:C 端 AI 工具词的 CPC 比 B2B 监控类**低一个数量级**
+
+本轮 9 个 AI 词 CPC 全落在 **$0-1.8**;上一轮同日拉的 B2B 词:
+`competitor price monitoring` $40.46 · `brand monitoring tool` $25.66 · `uptime monitoring` $19.69 · `llm seo tool` $9.38。
+
+哥伦布里那些 AI 订阅站能活,靠的是 **10 万-60 万月访问 × 低转化率**,不是高付费意愿。
+**DR 0 + 18h/周拿不到那个流量基数。**
+
+> ⚠️ **CPC 低要分两种,不要一刀切**:成熟品类里 CPC 低 = 市场已给出答案(`vocal remover` 存在多年、$0.50);
+> **全新品类里 CPC 低只是广告主还没跟上**(`best llm seo *` 系列 CPC $0,但头词 `llm seo tool` 有 $9.38)。
+> 判别锚点:**看头词有没有 CPC**,不要只看长尾。
+
+### 结论二(更硬):B2B AI 订阅站在哥伦布里**几乎全是「品牌驱动」**
+
+按 `营销与销售 / 邮件与客服 / 商业与金融 / 招聘与人力 / 数据分析 / 法律` 过滤出 ~44 个订阅站,
+**只有 3 个标记为「关键词驱动」**(lebenslauf.de 德国简历 / bilingualjobs.io / realistichandwriting.com 且 -16.8%)。
+其余全是品牌驱动 —— 流量来自 PH / X / 融资 PR / 社群,[columbus.md](sources/columbus.md) 明写**不可当 SEO 对标**。
+
+**「AI + 订阅 + SEO 获客」是个三角冲突**:
+- AI 里能靠 SEO 拿量的 → C 端创作工具 → 付费意愿薄
+- AI 里付费意愿强的 → B2B → 品牌驱动获客,不是 SEO
+
+~~**交集只有一处:AI 相关 + 服务 B2B + 仍能靠 SEO 拿量** —— 即 `llm seo tool` / AEO-GEO 赛道。
+哥伦布独立印证:`gracker.ai` 122.7K 月访问 · 51.1% 自然搜索 · DR 58。两个独立数据源指向同一处。~~
+**(同日拆解后作废,见下。)**
+
+### 结论三:`gracker.ai` 拆解 —— **上面那条"独立印证"不成立,已推翻**
+
+拆 [`columbus.tools/site/gracker.ai`](https://columbus.tools/site/gracker.ai) 详情页 + Semrush 域名交叉验证(2026-08-11)。
+
+**它的头部关键词一个 AEO 词都没有:**
+
+| 关键词 | 搜索量 | CPC | 带来流量 |
+|---|---|---|---|
+| `have i been pwned` | 392.3K | $0.76 | 2.1K |
+| `dehashed` | 26.3K | $1.79 | 660 |
+| `publicwww` | 15.8K | $4.64 | 630 |
+| `basic linux privillege escalation g0tmilk` | 590 | — | 500 |
+| `dnsdumpster` | 12.7K | $2.24 | 460 |
+
+**全是别人的安全工具品牌词。** Semrush 侧确认结构:**1.8K 页面 / 10,310 关键词**,
+流量最大的页是 `/questions/what-are-the-two-types-of-search-engine-marketing`(占全站 **13.42%**)
+和 `/questions/what-are-examples-of-search-engine-marketing`(5.03%)——**纯 informational 问答页**。
+第一自然搜索竞对是 `cybersectools.com`(网络安全工具目录站),而真正的 AEO 工具 `aeoengine.ai` 只有 4% 重合度。
+
+更离谱的是**缩写碰撞流量**:`scanning electron microscope models`(扫描电镜)排在那个 "search engine marketing" 页上;
+`definition of tbt`(6.6K)、`tbt meaning recurpost` 排在 `/dmg/tbt` 页上。**这部分流量与产品完全无关。**
+
+**gracker.ai 是一个网络安全工具目录 + SEO 问答内容中心,顺带挂了个 AEO 产品。**
+它的 SEO 打法标签也自证:`替代品对比页` + `内容中心` + `工具集群` + `场景页矩阵` + `联盟计划`。
+互动指标同向:停留 **24s** / 页均 2.0 / 跳出 40%,美国仅占 **8.3%**(印度 4.4% 德国 4.4% 越南 4.0%);
+自嘲式细节 —— 一个卖 AI 可见度监控的站,自己的 **AI 助手引荐只占 1.5%**;定价线索 `Free`。
+
+**对判断的影响(必须同时改两条)**:
+
+1. **它不能证明 AEO 赛道能靠 SEO 拿量** —— 它证明的是「安全工具目录 + 问答页矩阵能拿量」,与 AEO 无关。
+   `llm seo tool` 方向**回落为 Semrush 单一数据源支撑**,而该词族本身已有存疑标记
+   (12 个近义变体全落在 390/480 两个整数上)。**证据强度比原判断弱得多。**
+2. 它跑出来的那套打法是**内容站 + 联盟/广告变现**,正是本轮要排除的模式。
+
+**方法论沉淀**:哥伦布的「月访问量 + 自然搜索占比」只说明**站在涨**,不说明**靠什么涨**。
+把一个站的流量规模当成它主打赛道的证据,是本次差点犯的错。
+**规则:引用某站作为"某赛道能靠 SEO 起量"的证据前,必须先看它的头部关键词表,确认流量与产品同源。**
+已补进 [risks.md](risks.md)。
+
+### 附带观察(不作候选,备查)
+
+- **AI 面试作弊助手簇正在死**:beyz.ai -1% / linkjob.ai -2.2% / interviewbee -4.8% / interviewcoder -22.4% /
+  meetassist -14.5% / liveinterview -26.4% —— 6 个站齐跌,且主打"防检测/屏幕共享不可见",
+  撞 [profile.md](profile.md) 明确不做的灰色地带。**整簇排除**
+- `champsignal.com`(早期 B2B SaaS 创始人的竞争情报监控,183.9K,**-19.1%**)—— 与上一轮首选
+  `competitor price monitoring` 是邻居需求,**它在跌**,评估该方向时要一起看
+- `costgoat.com`(监控 AI/云/SaaS 订阅成本与额度,187.2K,-3.3%,DR39)—— 复发需求 + 开发者向,但在跌
+
 #### 长尾路径候选 — 羽毛球教学/装备(2026-05-02 录入,源自 [talks/2026-05-02-overseas-badminton-community-idea.md](talks/2026-05-02-overseas-badminton-community-idea.md))
 
 **信号源**:用户作为 6 年球龄爱好者列出 5 个中文教学查询(高远球 / 握拍 / 发力 / 步伐 / 劈杀),agent 翻译并扩展为英文词族 + 商业衍生。**变现路径**:AdSense + Amazon Affiliate(教学:装备 内容比例建议 7:3)。**预警**:基础术语(badminton clear / footwork / grip)头部被 Badminton Insight / Badminton Bible / Badminton Famly 等 DR 30-50 站占据,新站短期打不进——**必须挑长尾 + commercial 衍生词**。
