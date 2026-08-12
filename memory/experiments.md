@@ -542,6 +542,12 @@ Semrush 给 KD 27「容易」,实际 Top10 是 SolarWinds / Datadog / Dynatrace 
     本地浏览器处理」;请求重抓后等 14 天,用等长窗口比较 `split 3mf`。第一档成功线为在平均位置没有明显上升
     (变差)的前提下 CTR ≥1%;目标线 2-3%。
 
+    **2026-08-12 · 上线状态确认(curl 实读)**:title 与 description 已生效,与建议文案一致(description 用词略有出入但
+    信息点齐全)。**H1 用户决定这轮不改**(仍是旧文案),理由:H1 不进 SERP 摘要,不影响 CTR,这轮实验只测 title/description
+    对 CTR 的影响,H1 留到 CTR 结果出来后再单独评估(那是降跳出率的动作,不是这次要测的变量)。
+    `gsc.py inspect` 显示 `lastCrawlTime` 仍是 `2026-08-11T00:45`(上线前),**Google 还没用新标题重抓**,
+    14 天对比窗口的起点必须等重抓确认后才能定,不能从代码上线日算。待办见 [todos.md](todos.md#todo)。
+
   - **2026-08-09 · 3MF 词族扩展(数据源:Semrush keywordmagic,第三方估算)**
 
     **起因**:上一条结论说"扩量必须靠加词族",于是用 `3mf` 做种子词查词族。结果推翻了"这个站没救"的直觉。

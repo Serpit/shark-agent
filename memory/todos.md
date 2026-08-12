@@ -67,13 +67,29 @@
   - **关联**:[advice/2026-08-11-gefei-kgr-intitle.md](advice/2026-08-11-gefei-kgr-intitle.md)
   - **预计耗时**:30-40 分钟(4 次 Google 查询 + 查已有的搜索量数据)
 
-- [ ] **2026-08-12** · M4 · 跑 partfit3d 的 `split 3mf` TDK 单页实验(**本周高 ROI 一次性动作**)
-  - **动作**:把 `/tools/3mf-splitter-online/` 的 title 改为 `Split 3MF to Fit Your Printer — Free Online Tool`;description 明说「上传 3MF/STL → 选打印机 → 自动切 oversized model → 本地浏览器处理」;H1 改为 `Split 3MF Into Parts That Fit Your Printer`。只改这一页,不要同时改其他页面
+- [x] **2026-08-12 完成** · M4 · 跑 partfit3d 的 `split 3mf` TDK 单页实验(title + description 已上线)
+  - **动作**:`/`(即 `/tools/3mf-splitter-online/` 对应首页)title 已改为 `Split 3MF to Fit Your Printer — Free Online Tool`,description 已改为「Fit oversized STL and 3MF models to your 3D printer. Orient, cut, verify every part, and export slicer-ready 3MF or STL files. No uploads or CAD required.」——curl 实读确认已生效
+  - **H1 明确不改**:用户 2026-08-12 决定这轮先不动 H1(仍是旧文案 `Split STL & 3MF Files Online / No Uploads Required.`)。原因:H1 不进 SERP 摘要,不影响 CTR,改了也测不出这次实验的效果,反而混淆"CTR 变化到底是不是 title/description 带来的"这个归因。H1 改法已想好(`Auto-Split STL & 3MF to Fit Your Printer` + `No Uploads Required.`),留到这轮 CTR 结果出来后再单独决定要不要做(那时候是奔着降跳出率去,不是奔着 CTR)
   - **验证**:上线后请求重抓;Google 展示新标题后等 14 天,用等长窗口比较 `split 3mf`。平均位置不变差时 CTR ≥1% 算第一档成功,2-3% 为目标
   - **为什么升级**:截至 2026-08-09 最近 7 天该词已有 360 曝光,比前 7 天约 99 曝光增长 264%;旧判断「只多 3 次点击/月」来自新站早期小样本,已失效。按当前曝光,CTR 到 1% 可多约 2-3 点击/周,到 3% 可多约 10 点击/周
   - **SERP 约束**:美区非个性化结果前两名是精确匹配工具站,随后有 AI Overview;当前 PartFit 未稳定在首屏。因此 title 要强调独有结果「fit your printer」,后续仍要并行改善排名,不能把所有低 CTR 都归因于文案
   - **关联**:[experiments.md partfit3d query 级下钻](experiments.md#结果记录)
-  - **预计耗时**:1-2 小时
+
+- [ ] **2026-08-12** · M4 · 去 Search Console 网页版手动点「请求编入索引」(**阻塞 CTR 实验计时,script 不支持这步**)
+  - **动作**:登录 `search.google.com/search-console`,选 `partfit3d.com` property,URL 检查工具输入 `https://partfit3d.com/`,点「请求编入索引」。2026-08-12 用 `gsc.py inspect` 确认 `lastCrawlTime` 还停在 `2026-08-11T00:45`(改动前),说明 Google 还没抓到新标题
+  - **为什么现在做**:14 天对比窗口必须从 Google 真正展示新标题开始算,不然会把"旧标题还在跑"的时间也算进实验窗口,拉低看到的效果
+  - **预计耗时**:5 分钟
+
+- [ ] **2026-08-15**(视手动请求重抓后的确认时间调整)· M4 · 确认 Google 已用新标题重抓 partfit3d
+  - **动作**:`python3 scripts/gsc.py inspect https://partfit3d.com/ https://partfit3d.com/`,看 `lastCrawlTime` 是否已晚于 2026-08-12 上线时间;必要时用 site: 搜索或无痕窗口肉眼确认 SERP 标题已更新
+  - **确认后**:把重抓确认日期记回 [experiments.md](experiments.md#结果记录),作为 14 天对比窗口的**真正起点**(而不是代码上线日),同步更新下面「回收数据」条目的日期
+  - **预计耗时**:10 分钟
+
+- [ ] **2026-08-26**(占位,待上条确认重抓日期后改准)· M4 · 回收 partfit3d TDK 实验数据,判定 GO/NO-GO
+  - **动作**:`python3 scripts/gsc.py compare https://partfit3d.com/ ...`(或 `queries --days 14`),取重抓后等长 14 天窗口的 `split 3mf` CTR / 平均位置,与改前基线(2026-07-27~08-09:459 曝光 / 1 点击 / CTR 0.2% / 平均位置 9.4)对比
+  - **判定线**:平均位置未明显变差 + CTR ≥1% = 第一档成功;≥2-3% = 目标线;若 14 天后 CTR 仍 <0.5% 且位置未变,判定文案不是主因,回头看 SERP 结构(AI Overview / 竞品占位)
+  - **结果无论好坏都要回写**:[experiments.md](experiments.md#结果记录) 结果记录段 + 本文件对应条目转 done/blocked
+  - **预计耗时**:15 分钟
 
 - [ ] **2026-08-18** · M4 · 复拉 partfit3d GSC,确认 ~3,780 曝光/月 是水位还是尖峰
   - **动作**:`python3 scripts/gsc.py queries "https://partfit3d.com/" --days 7`,与 08-11 的 882 曝光/周对比。若回落到几十/周,说明 08 月首周是一次性尖峰,[experiments.md 08-11 订正](experiments.md#结果记录)的速率结论要按复拉值改写
