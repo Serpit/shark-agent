@@ -261,10 +261,11 @@ python3 scripts/report_daily.py --dry-run   # 日报试跑,不发飞书
 
 新增脚本时:同步在这张表补一行,并在 `memory/sources/` 写对应手册。
 
-## Skills(信息源入口)
+## Skills
 
-`.claude/skills/` 下三个 skill 封装了外部信息源,**按对话话题自动触发**,不需要手动记路径或命令。
-三者的信任等级不同,裁决规则见上方「数据源使用纪律」。
+`.claude/skills/` 下的 skill **按对话话题自动触发**,不需要手动记路径或命令。分两层:
+
+### 信息源层(三个,信任等级不同,裁决规则见上方「数据源使用纪律」)
 
 | skill | 管什么 | 信任等级 | 产物落点 |
 |---|---|---|---|
@@ -274,6 +275,16 @@ python3 scripts/report_daily.py --dry-run   # 日报试跑,不发飞书
 
 `seo-advisor` 的输出是本项目第三条摄入管道(前两条是 `findings/` 他人经验、`signals/` 机会情报)。
 它与 `/signals` 同规则:**不可回流 `principles.md`**——方法论只从自有实践和 findings 沉淀。
+
+### 编排层(调用上面三个,不自己取数)
+
+| skill | 管什么 | 何时触发 |
+|---|---|---|
+| `keyword-hunt` | **新站出单导向选词流水线**(6 步:锁联盟 → 拉词族 → 四维筛 → 变现验证 → 可打性 → 单页实测) | "找个新词""再建一个站""这次要能出单" |
+
+`keyword-hunt` 是 [`methods/search-engine-demand-discovery.md`](memory/methods/search-engine-demand-discovery.md)
+的**出单导向变体**:一号筛从「月搜索量」换成「CPC + 竞争密度」,验证终点从「看排名」换成「看联盟后台点击」。
+给**已有站**找扩展词不走它,直接用 `seo-competitor`。
 
 ## 兼容性要求
 

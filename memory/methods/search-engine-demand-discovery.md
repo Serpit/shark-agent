@@ -2,6 +2,12 @@
 
 > **定位**:从 Google 搜索行为反推 Web 产品需求的可执行方法论。**面向 Web/SaaS 出海主线**,与 [community-demand-discovery.md](community-demand-discovery.md)(社群驱动)形成对位——同一套底层逻辑,信号源换成搜索引擎。
 >
+> **⚠️ 2026-08-09 分叉**:本 SOP 是**流量导向**版(一号筛 = 月搜索量 >500,终点 = 看排名)。
+> 目标是「让新站出单」时,改走 `keyword-hunt` skill(`.claude/skills/keyword-hunt/SKILL.md`)——
+> 它把一号筛换成 **CPC + 竞争密度**、量的门槛放宽到 200、终点换成**看联盟后台点击**。
+> 分叉原因:4 站实测跑通了「选词→排名」但 3 个月 0 收入,瓶颈已从流量换位到变现。
+> 本文件仍适用于:给已有站扩词、内容选题、非变现导向的需求探测。
+>
 > **来源**:本 SOP 在教练对话中整合而成(2026-04-29),底层 6 步框架与 [community-demand-discovery.md](community-demand-discovery.md) 同构,关键替换是把"平台搜索/收藏/评论"换成"Google 搜索量/SERP 缺口/People also ask";与 [`2026-04-indie-saas-3h-brd-validation.md`](../findings/2026-04-indie-saas-3h-brd-validation.md) 的 6 步 BRD 法对接(本 SOP 是 BRD 的"找需求"前置)。2026-05-19 吸收 [`2026-05-seo-site-demand-conversion-chain.md`](../findings/2026-05-seo-site-demand-conversion-chain.md),补充"关键词意图 → SERP 交付物 → 内页体系 → 转化交互"链路。
 
 ## 底层逻辑

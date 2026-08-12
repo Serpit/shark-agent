@@ -6,6 +6,8 @@
 | 咨询时间(UTC+8) | 问题摘要 | 来源 | 采纳判定 | advice 链接 |
 |---|---|---|---|---|
 | 2026-08-09 | partfit3d 加转换功能还是弃站 | 哥飞 SEO Agent | 部分采纳 | [2026-08-09-partfit3d-pivot-or-abandon.md](2026-08-09-partfit3d-pivot-or-abandon.md) |
+| 2026-08-09 | 联盟内容站选哪个品类 + AI 小说词族可打性(keyword-hunt 两轮合并) | 哥飞 SEO Agent | 部分采纳(**后被 Waffo 通道打通取代**) | [2026-08-09-affiliate-category-selection.md](2026-08-09-affiliate-category-selection.md) |
+| 2026-08-10 | 有自有收款后该做哪类付费工具站(keyword-hunt 重跑 Step 1) | 哥飞 SEO Agent | 部分采纳 | [2026-08-10-paid-tool-category.md](2026-08-10-paid-tool-category.md) |
 | 2026-08-11 | KGR + intitle 选词标准 | 哥飞(社群原话 + 公众号,用户转述) | 部分采纳 | [2026-08-11-gefei-kgr-intitle.md](2026-08-11-gefei-kgr-intitle.md) |
 | 2026-08-11 | 截品牌词(alternatives/vs)打法成本 + 能否撑订阅 | 哥飞 SEO Agent | 部分采纳 | [2026-08-11-brand-keyword-interception-cost.md](2026-08-11-brand-keyword-interception-cost.md) |
 

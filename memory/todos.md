@@ -26,15 +26,33 @@
 
 ### todo
 
-- [ ] **2026-08-09**(2026-08-11 升回优先)· M4 · 修 partfit3d 的 title + meta description(**当前 ROI 最高**)
-  - **动作**:按序改 `split 3mf` → `split3mf` → `split3dmf` 的落地页 title/meta,加动作词与差异点(免费 / 无需上传 / 浏览器内完成)。主战场是 `/tools/3mf-splitter-online/` 一页——它单页占 486 曝光。改之前无痕 + 美区 IP 实搜 `split 3mf`,确认不是被 AI Overview 截流
+- [ ] ~~**2026-08-09**(2026-08-11 升回优先)· M4 · 修 partfit3d 的 title + meta description~~ —
+  **2026-08-12 被更精确的 TDK 单页实验取代**(见下方 2026-08-12 条目,基于同日 SERP 诊断给出具体文案)
+  - 原动作:按序改 `split 3mf` → `split3mf` → `split3dmf` 的落地页 title/meta,加动作词与差异点(免费 / 无需上传 / 浏览器内完成)。主战场是 `/tools/3mf-splitter-online/` 一页——它单页占 486 曝光
   - **⚠️ 2026-08-11 期望订正**:原写"3 个月上限 +10 次点击,做完就走"——**那个数字算错了分母**。
-    `split 3mf` 实测约 **1,180 曝光/月**、当前 CTR 仅 0.3%,同样的修复对应的是**几十次点击/月**。
-    这个站漏的是转化不是流量,**1-2 小时投入,当前性价比最高的动作**
+    `split 3mf` 实测约 **1,180 曝光/月**、当前 CTR 仅 0.3%,同样的修复对应的是**几十次点击/月**
   - **关联**:[experiments.md 2026-08-11 曝光量订正](experiments.md#结果记录)
-  - **预计耗时**:1-2 小时
 
-- [ ] **2026-08-09**(2026-08-11 重新定性)· M4 · partfit3d 新建 `/3mf-to-stl` + `/stl-to-3mf` 两个页面
+- [ ] **2026-08-10** · M4 · 查 Intuit Web Connect(.qbo)的使用条款(**前置风险,阻塞建站**)
+  - **动作**:确认第三方工具生成 `.qbo` 文件是否需要 Intuit 授权 / FID。ProperSoft、MoneyThumb、accountingconverter 都商业化多年说明路是通的,但**做完才发现有授权问题的代价太大**,先花 30 分钟查清
+  - **关联**:[experiments.md CSV → QBO 转换器](experiments.md#csv--qbo-转换器付费工具站2026-08-10-跑完-keyword-hunt-第二轮-step-0-5)
+  - **预计耗时**:30 分钟
+
+- [ ] **2026-08-10** · M4 · 开通 Waffo Pancake 收款(**并行,不阻塞建站**)
+  - **动作**:注册 Waffo,走 Pancake(个人/小团队,无需 LLC);记下实际费率、结算周期、起付线,回写 [profile.md 支付通道](profile.md#能力与资源)
+  - **为什么重要**:这是三个多月来第一次自有收款链路能闭环。**开通结果本身就是一条要落盘的事实**
+  - **预计耗时**:1 小时
+
+- [ ] **2026-08-10** · M4 · 做 CSV → QBO 转换器 MVP(**Step 6,唯一产生真值的一步**)
+  - **动作**:注册域名 + Astro/Cloudflare(现有技术栈);一页一词做 `/csv-to-qbo`、`/qbo-to-csv`、`/csv-to-qbo-converter-free` 三页站内互链;**免费 N 笔/月,超出走 Waffo 付费**
+  - **定价锚点**:竞品实测 $15 / $25 / $39 月订阅 + credits 包。**不要定 $1-5**(见 [risks.md 低价陷阱](risks.md#独立开发者低价定价陷阱))
+  - **⚠️ 免费额度是核心变量,不是附属决定**:词族里约 23% 是 `free` 词,额度校准到「用户每月刚好用完一次」
+  - **预计耗时**:1-2 周
+  - **前置**:上面两条
+
+- [ ] ~~**2026-08-09** · 注册 Sudowrite 联盟 + 发 `best ai for novel writing` 长文~~ — **2026-08-10 作废**,Waffo 通道打通后变现载体从联盟换成自有收款,联盟路径整体降级(数据保留在 [experiments.md](experiments.md))
+
+- [ ] **2026-08-09**(2026-08-11 重新定性,新主线)· M4 · partfit3d 新建 `/3mf-to-stl` + `/stl-to-3mf` 两个页面
   - **动作**:一页一词,TDK 精准命中(`Convert 3MF to STL Online Free` 这类),拆分工具做站内互链导流。后端逻辑与现有拆分功能复用率高
   - **为什么**:相邻转换词族 Semrush 口径 ~10K+/月、KD 13-24,比当前词族(实测 ~1,180 曝光/月)约大 8 倍
   - **⚠️ 2026-08-11 定性变更**:原写「`split 3mf` 约 84 曝光/月**是死路**,必须换主攻词」——**前提数字错了**。
@@ -49,6 +67,14 @@
   - **关联**:[advice/2026-08-11-gefei-kgr-intitle.md](advice/2026-08-11-gefei-kgr-intitle.md)
   - **预计耗时**:30-40 分钟(4 次 Google 查询 + 查已有的搜索量数据)
 
+- [ ] **2026-08-12** · M4 · 跑 partfit3d 的 `split 3mf` TDK 单页实验(**本周高 ROI 一次性动作**)
+  - **动作**:把 `/tools/3mf-splitter-online/` 的 title 改为 `Split 3MF to Fit Your Printer — Free Online Tool`;description 明说「上传 3MF/STL → 选打印机 → 自动切 oversized model → 本地浏览器处理」;H1 改为 `Split 3MF Into Parts That Fit Your Printer`。只改这一页,不要同时改其他页面
+  - **验证**:上线后请求重抓;Google 展示新标题后等 14 天,用等长窗口比较 `split 3mf`。平均位置不变差时 CTR ≥1% 算第一档成功,2-3% 为目标
+  - **为什么升级**:截至 2026-08-09 最近 7 天该词已有 360 曝光,比前 7 天约 99 曝光增长 264%;旧判断「只多 3 次点击/月」来自新站早期小样本,已失效。按当前曝光,CTR 到 1% 可多约 2-3 点击/周,到 3% 可多约 10 点击/周
+  - **SERP 约束**:美区非个性化结果前两名是精确匹配工具站,随后有 AI Overview;当前 PartFit 未稳定在首屏。因此 title 要强调独有结果「fit your printer」,后续仍要并行改善排名,不能把所有低 CTR 都归因于文案
+  - **关联**:[experiments.md partfit3d query 级下钻](experiments.md#结果记录)
+  - **预计耗时**:1-2 小时
+
 - [ ] **2026-08-18** · M4 · 复拉 partfit3d GSC,确认 ~3,780 曝光/月 是水位还是尖峰
   - **动作**:`python3 scripts/gsc.py queries "https://partfit3d.com/" --days 7`,与 08-11 的 882 曝光/周对比。若回落到几十/周,说明 08 月首周是一次性尖峰,[experiments.md 08-11 订正](experiments.md#结果记录)的速率结论要按复拉值改写
   - **为什么**:该速率只有一周观测(前一周仅 90 次,周环比 +880%),排名未变而曝光暴涨,尚不能确认是自然爬坡
@@ -59,18 +85,42 @@
   - **为什么值得单列**:品牌词排不上第 1 通常意味着 Google 还没把这个站当成一个"实体",影响的是整站信任信号,不只是一个词
   - **预计耗时**:1 小时
 
-- [ ] **2026-08-09** · M4 · 清理 partfit3d 的 25 个 404
-  - **动作**:Search Console →「网页」报告导出 404 列表,判断是死链还是已删页;能 301 的 301,不该存在的从 sitemap 移除
+- [ ] **2026-08-25** · M4 · 回查 partfit3d 免费目录外链审核状态
+  - **动作**:检查 Startup Collections 与 [WebsiteHunt](https://www.websitehunt.co/websites/partfit-3d) 是否通过审核、是否形成可抓取直链;把结果回写 [experiments.md](experiments.md#结果记录)
+  - **降级路径**:若仍未上线,不付费插队,转向 3D-printing 资源页 outreach / Show HN(需现成 HN 登录)
+  - **预计耗时**:15 分钟
+
+- [ ] **2026-08-11** · M4 · 修 partfit3d 的 trailing slash 冲突(**解 34 条未收录,ROI 最高**)
+  - **动作**:把 canonical + og:url + sitemap.xml 全部改成**不带**结尾斜杠,与 Cloudflare 现有去斜杠行为对齐(不动服务器);顺手把 307 改 301
+  - **为什么**:sitemap 说收录 `/about/` → 307 跳到 `/about` → canonical 又指回 `/about/`,**没有 URL 能自我声明 canonical**。30 个内容页(含工具主页 `/tools/3mf-splitter-online`)+ 4 条「已发现」全卡在这
+  - **关联**:[experiments.md partfit3d 索引诊断](experiments.md#结果记录)
+  - **前置**:需要 partfit3d 源码仓库路径(不在 `~/workspace` 下)
+  - **预计耗时**:30 分钟
+
+- [ ] **2026-08-11** · M4 · 修 partfit3d 三类链接生成 bug(**25 个 404 的真正成因**)
+  - **动作**:① `$slug` 未插值(14 条)—— 查 `/printers` 列表页链接生成 ② 相对链接缺前导斜杠导致路径段重复(8 条)—— 全局搜 `href="` 后不是 `/` 或 `http` 的 ③ route group 括号泄漏(3 条)—— `(pages)` `(legals)` 不该出现在 URL 里
+  - **⚠️ 原待办方向是错的**:写的是「能 301 的 301」,但**没有一条是真死链**。改完 bug 让 Google 重抓,25 条自然消失,不需要任何重定向
+  - **前置**:同上,需要仓库路径
   - **预计耗时**:1-2 小时
+
+- [ ] ~~**2026-08-09** · 清理 partfit3d 的 25 个 404~~ — **2026-08-11 拆分并修正**,见上面两条(诊断发现零死链,是链接生成 bug + trailing slash 冲突)
 
 - [ ] **2026-08-09** · M4 · 定工具站的变现路径(**决策项,阻塞其他扩量动作**)
   - **动作**:确认 AdSense 当前状态(已申请?已过?被拒?);若工具站过审困难,评估替代路径:内容站 baxianfans 单独申请 AdSense / 工具站走付费额度 / Lemon Squeezy
   - **为什么优先**:原计划的 AdSense 假设建立在"内容站"上,实际 3/4 是工具站,**这个决定影响后面所有动作的方向**
   - **预计耗时**:1 小时调研 + 1 次决策
 
-- [ ] **2026-08-09** · M4 · 提三站收录率
-  - **动作**:aidepixelate / baxianfans / easyframes 共 24 页卡在「已发现-尚未编入索引」。补内容厚度 + 内链 + 重新提交 sitemap
+- [ ] **2026-08-11** · M4 · 修 baxianfans 的 soft 404 catch-all + 无效 sitemap
+  - **动作**:① 让不存在的路由真正返回 404(现在任意 URL 返回 200 + 首页内容 + canonical 指向首页)② 让 `/sitemap.xml` 输出真 XML(现在 `content-type: text/html`,被 catch-all 吞了,**GSC 读不到**)
+  - **⚠️ 修正原动作方向**:原待办写「补内容厚度 + 内链」,对 baxianfans 无效 —— 根因是站点没有多页结构 + sitemap 无效,不是内容薄
+  - **关联**:[experiments.md 四站 URL 规范化横向体检](experiments.md#结果记录)
+  - **预计耗时**:1-2 小时
+
+- [ ] **2026-08-09** · M4 · 提 aidepixelate / easyframes 收录率
+  - **动作**:两站 URL 规范化已实测正确(canonical / sitemap / 重定向三方一致),**排除了配置问题**,未收录才可能真是内容厚度/内链问题。补内容 + 内链 + 重新提交 sitemap
   - **预计耗时**:每站 2-3 小时
+
+- [ ] ~~**2026-08-09** · 提三站收录率~~ — **2026-08-11 拆分**,baxianfans 是配置问题另立一条,另两站保留原动作
 
 - [ ] **2026-08-09** · IP · 把 4 站上线全过程补成内容
   - **动作**:真实素材已经有了(选词换轨、7 月才收录、CTR 0.6% 的坑),X 停在 1 条。先发 1 条:"4 个站,1338 次曝光,31 次点击 —— 排名不是问题,点击才是"

@@ -399,6 +399,79 @@ Semrush 给 KD 27「容易」,实际 Top10 是 SolarWinds / Datadog / Dynatrace 
       > `split 3mf` 实测约 **1,180 曝光/月**(见下方 08-11 订正),远在 200 红线之上、也落在 500-10K 理想区间内,从来没有低于过红线。
       > 真正的漏洞不是阈值,而是**第三方工具返回"不可用"被当成了 0**。已按此改 [SOP Step 2](methods/search-engine-demand-discovery.md#step-2--三维探针每个关键词-15-分钟)。
 
+  - **2026-08-11 · partfit3d 索引诊断(数据源:GSC「网页索引编制」报告 + curl 实测,agent 用 ego 实读)**
+
+    **已编入索引 43 / 未编入索引 60**,四类原因:
+
+    | 原因 | 数量 | 实质 |
+    |---|---:|---|
+    | 备用网页(有适当的规范标记) | **30** | trailing slash 与 canonical 冲突 |
+    | 未找到 (404) | 25 | 三类代码 bug 生成的幽灵 URL |
+    | 已发现-尚未编入索引 | 4 | 同一批页面的带斜杠版本 |
+    | 已抓取-尚未编入索引 | 1 | `/guides/meshy-to-3d-print/` |
+
+    **根因:三处配置自相矛盾,构成死循环**(curl 实测验证)
+
+    - 服务器(Cloudflare Pages):`/about/` → **307** → `/about`(去斜杠)
+    - 页面 canonical + og:url:`https://partfit3d.com/about/`(**带**斜杠)
+    - sitemap.xml(40 条 loc):全部**带**斜杠
+
+    Google 抓 sitemap 里的 `/about/` 被 307 跳到 `/about`,而 `/about` 的 canonical 又指回 `/about/`。
+    **没有任何一个 URL 能自我声明为 canonical** → 不带斜杠那版判「备用网页」(30 条),
+    带斜杠那版停在「已发现」(4 条)。**一个配置矛盾吃掉 60 条未收录里的 34 条。**
+    且 307 是临时重定向,不传递权重,应为 301。
+
+    被卡住的是**全部内容页**:21 个 `/printers/*`、全部 `/guides/*`、2 个 `/compare/*`、`/about`,
+    **连工具主页 `/tools/3mf-splitter-online` 都在内**。
+
+    **25 个 404 的真实构成 —— 零条真死链,全是链接生成 bug**
+
+    | 类型 | 数量 | 样例 |
+    |---|---:|---|
+    | 模板变量 `$slug` 未插值 | 14 | `/printers/$slug/printers/creality-k1c` |
+    | 相对链接缺前导斜杠 → 路径段重复 | 8 | `/guides/cut-stl-file-into-parts/guides/cut-stl-file-into-parts` |
+    | Next.js route group 括号泄漏进 URL | 3 | `/(pages)/about`、`/(legals)/privacy` |
+
+    > **⚠️ 修正 todos.md 原动作**:原待办写的是「判断死链还是已删页,能 301 的 301」。**方向错了** ——
+    > 没有页面需要 301,需要的是修三处链接生成逻辑。改完 bug 让 Google 重抓,25 条自然消失。
+
+    **对 partfit3d 判断的影响**:2026-08-09 下钻算出的「CTR 修复天花板 ≈10 次点击/3 个月」,
+    是在**全部内容页未收录**的前提下测得的。天花板结论本身不变(主攻词族确实小),
+    但「整站只有拼写变体族在跑」这个观察,**部分是收录 bug 造成的,不全是选词问题**。
+    修复后应重测一次再定 partfit3d 的去留。
+
+    **修复优先级**:① 统一 trailing slash(解 34 条,最省事是把 canonical/og:url/sitemap 全改成不带斜杠,
+    与 Cloudflare 现有去斜杠行为对齐,不动服务器;顺手 307→301)② 修 `$slug` 未插值 ③ 修相对链接 ④ 修 route group 泄漏。
+    **源码不在 `~/workspace` 下,代码级修复待用户提供仓库路径。**
+
+  - **2026-08-11 · 四站 URL 规范化横向体检(curl 实测)**
+
+    | 站 | 服务器对 `/x/` | canonical | sitemap | 判定 |
+    |---|---|---|---|---|
+    | partfit3d | 307 去斜杠 | **带**斜杠 | **带**斜杠 | ❌ 三方打架(见上条) |
+    | aidepixelate | 307 去斜杠 | 不带 | 不带 | ✅ 一致 |
+    | easyframes | 308 去斜杠 | 不带 | 不带 | ✅ 一致(308 永久跳,优于 307) |
+    | baxianfans | 不跳,全 200 | **恒等于首页** | **不是 XML** | ❌ soft 404 catch-all |
+
+    - **partfit3d 的 trailing slash bug 是单点回归,不是技术栈通病** —— 另两个工具站配置正确。
+    - **baxianfans 是另一种病**:任意不存在 URL(实测 `/zzz-not-a-real-page-9987`)返回 **200 + 首页内容 + canonical 指向首页**,
+      典型 soft 404 catch-all;且 `sitemap.xml` 被 catch-all 吞掉,`content-type: text/html` 返回首页 HTML,**GSC 读不到**。
+    - **⚠️ 修正 todos.md「提三站收录率」的动作方向**:原写的是「补内容厚度 + 内链 + 重新提交 sitemap」。
+      对 baxianfans **无效** —— 它的未收录根因是站点没有多页结构 + sitemap 不是有效 XML,不是内容薄。
+      aidepixelate / easyframes 的未收录才可能是内容/内链问题,需分开处理。
+
+  - **2026-08-11 · GA4 两项目拆分(数据源:Google Analytics 网页版,agent 用 ego 实读)**
+    - 配置发现:`partfit3d` 媒体资源下同时挂了两个网站数据流——`https://partfit3d.com/` 与 `https://aidepixelate.com/`。因此原始「报告概况」会把两个项目混合统计,但数据可按 `主机名` 拆开。
+    - 已在 GA4 保存两个可复用比较对象:`PartFit3D` = 主机名完全匹配 `partfit3d.com`;`AIDepixelate` = 主机名包含 `aidepixelate.com`(含子域名)。此后任意标准报告都可直接应用这两个比较对象。
+    - **过去 28 天(2026-07-14 ~ 2026-08-10)拆分基线**:
+
+      | 项目 | 活跃用户 | 新用户 | 平均互动时长/活跃用户 | 事件数 | 可见会话来源合计 |
+      |---|---:|---:|---:|---:|---:|
+      | PartFit3D | 3 | 3 | 0 秒 | 21 | 4(`direct` 3 + `test` 1) |
+      | AIDepixelate | 28 | 28 | 8 秒 | 116 | 34(`direct` 25 + Cloudflare Access referral 6 + organic 2 + ziyk referral 1) |
+
+    - **数据质量提醒**:`AIDepixelate` 当前含 `admin.aidepixelate.com`,且出现 6 个 `sweet-glitter-0a6e.cloudflareaccess.com / referral`;`PartFit3D` 有 1 个 `test /` 会话。若要把 GA 当实验真值,下一步应排除后台/测试/内部访问,否则小样本下会明显虚高。两个项目均未显示关键事件,当前只能看流量与互动,不能据此判断转化。
+
   - **2026-08-09 · partfit3d query 级下钻(数据源:GSC 网页版近 3 个月,agent 用 ego 实读)**
 
     > ### ⚠️ 2026-08-11 订正:本段所有"每月"数字作废
@@ -445,6 +518,29 @@ Semrush 给 KD 27「容易」,实际 Top10 是 SolarWinds / Datadog / Dynatrace 
 
     ~~**对 M4 的含义**:`partfit3d` 这个站的天花板已经可测……扩量必须靠加词族或加站,
     不可能靠修这一个站的转化。~~ **(08-11 作废,见下方 08-11 订正段。)**
+
+  - **2026-08-12 · partfit3d CTR 复测与 SERP 诊断(数据源:GSC API + Google 美区非个性化 SERP)**
+
+    `split 3mf` 在截至 2026-08-09 的最近 14 天累计 **459 曝光 / 1 点击 / CTR 0.2% / 平均位置 9.4**;
+    其中最近 7 天已占 **360 曝光 / 1 点击 / CTR 0.3% / 平均位置 9.4**。前 7 天只有约 99 次曝光,
+    因此曝光周环比约 **+264%**。这推翻了 2026-08-09 用首次小样本外推的「月曝光约 84、CTR 修复只多
+    3 次/月」判断:页面仍在新站放量期,按最近 7 天静态折算已约 1,500 曝光/月,不可再用早期累计均值估天花板。
+
+    当前工具页整体为 **573 曝光 / 5 点击 / CTR 0.9% / 平均位置 9.2**。按位置 9 的 3% 经验 CTR 粗排,
+    `split 3mf` 当前累计漏损约 **13 点击**;若最近 7 天曝光维持,把该词 CTR 从 0.3% 拉到 1% 可多约
+    2-3 点击/周,拉到 3% 可多约 10 点击/周。绝对量已经足以做一次 TDK 实验,优先级从「降级」恢复为
+    **本周一次性高 ROI 动作**,但仍不替代扩相邻词族。
+
+    美区非个性化 SERP 的结构是:前两名为精确匹配工具站 `split3mf.com`、`3dsplitter.com`,随后出现
+    AI Overview;首屏竞品直接说明 `by color / object / plane`,而 PartFit 当前标题
+    `Split 3MF Files Online — Free 3MF Splitter (No Upload)` 只说通用品类,没有在标题里表达独有结果
+    「按打印机尺寸自动切成可打印零件」。当前实搜 PartFit 未稳定出现在首屏,说明 GSC 9.4 是不同地区/设备的
+    曝光加权平均,不是稳定第 9 名;低 CTR 同时受首屏底部位置、AI Overview 和搜索意图分流影响。
+
+    **本轮实验口径**:只改 3MF 工具页的 title / description / H1,建议 title
+    `Split 3MF to Fit Your Printer — Free Online Tool`,description 明说「上传 3MF/STL → 选打印机 → 自动切 oversized model →
+    本地浏览器处理」;请求重抓后等 14 天,用等长窗口比较 `split 3mf`。第一档成功线为在平均位置没有明显上升
+    (变差)的前提下 CTR ≥1%;目标线 2-3%。
 
   - **2026-08-09 · 3MF 词族扩展(数据源:Semrush keywordmagic,第三方估算)**
 
@@ -523,6 +619,28 @@ Semrush 给 KD 27「容易」,实际 Top10 是 SolarWinds / Datadog / Dynatrace 
     > **~3,780/月 这个速率需要 2026-08-18 复拉确认**;若回落,以复拉值为准。
     > 但"84/月 是算错的"这一点与后续走势无关,已确定。
 
+  - **2026-08-11 · partfit3d 免费外链首批提交(目录 + 现有链接核验,agent 用 ego 实操)**
+
+    **动作出口**:给 partfit3d 补品牌/发现信号,并建立可复查的提交记录;不把外链当作 canonical/404 修复的替代。
+
+    **已核验现有链接**:`https://tg.noisework.cn/posts/11353` 已被 Google 收录,页面有 2 个直达
+    `https://partfit3d.com/` 的链接,`rel="noopener"`,无 `nofollow`。
+
+    | 渠道 | 提交状态 | 链接形态 | 备注 |
+    |---|---|---|---|
+    | Startup Collections | ✅ 2026-08-11 进入免费审核队列 | 待审核,暂无公开 listing URL | 表单回执“您的回复已记录”;未付 $10 插队费 |
+    | WebsiteHunt | ✅ 已建公开详情页,`Pending review` | 免费版使用站内追踪跳转 `/go/23356/`,不是直链 | [PartFit 3D](https://www.websitehunt.co/websites/partfit-3d);免费队列约 12+ 月 |
+
+    **剔除记录**:twelve.tools(要求首页反链)、SimpleLister / What Launched Today / ToolsFine
+    (免费名额关闭或付费)、Unloc / 700.tools / Wewaat(失效)、Toolbase(受众强制限定公司阶段,
+    与个人 maker 不匹配)、HN / 10words(无现成登录或需新建密码)。
+
+    **判断**:本轮目标是拿到“可核验的真实提交记录”,不是堆数量。立即生效的高质量直链仍只有
+    noisework;两条新目录提交要等审核,WebsiteHunt 免费追踪链的 SEO 权重低。
+
+    **复查节点**:2026-08-25 回查 Startup Collections / WebsiteHunt 审核状态;若未上线,不加钱插队,
+    转向 3D-printing 资源页 outreach / Show HN(需用户现成 HN 登录)。
+
 ## 非广告变现 AI 工具站方向筛选(2026-08-11 · 已结束,结论 NO-GO)
 
 - **状态**:done(否定结论,不再重跑同一批候选)
@@ -598,3 +716,216 @@ KD 低是真的,CPC 归零也是真的——广告主一分钱不出价,是付�
   —— 这才是能推翻本结论的问题。若要问,输出按规矩落 `advice/`,先过公理扫描。
 - **不重跑同一批候选**。若要继续找非广告方向,换一级分类重跑 Step 1,
   且**必须在 Step 1 之后立刻做去上限的赛道竞争复查**,不要等到 Step 4 才发现头部。
+
+## CSV → QBO 转换器(付费工具站,2026-08-10 跑完 keyword-hunt 第二轮 Step 0-5)
+
+- **状态**:planned(Step 1-5 完成,等 Step 6)
+- **关联方向**:[themes.md 付费工具站 + 自有收款](themes.md#付费工具站--自有收款waffo)
+- **前置变更**:2026-08-10 用户确认开通 **Waffo**(MoR,个人无需 LLC,直接打款到银行账户)。
+  **「无 Stripe 资质」这个卡了三个多月的硬约束解除**,变现载体从联盟佣金换成自有收款,
+  上一条「AI 小说写作联盟词族」实验随之作废(见下方 stopped 记录)。
+- **待验证假设**:用户能在一个「输出进入用户工作流」的付费工具词上,拿到第一笔自有收款 ≥ $1。
+- **GO 标准**:**第一笔非自己产生的、可提现收入到账 ≥ $1**(经 Waffo)。
+- **时间盒**:MVP 1-2 周 + 等 4-8 周
+- **预算上限**:域名 $10 + Waffo 按成功交易计费,其余 $0
+- **失败标准**:上线 8 周后自然月 UV > 1000 但 0 付费 → 不是流量问题是产品路径问题(付费墙时机 / 免费额度 / 登录时机),改路径再测一轮;月 UV < 300 → 选词或收录问题
+
+### 为什么是这个词(全流程数据,2026-08-10)
+
+**Step 1 新闸门**(取代上一轮的「找联盟计划」):付费工具四标准 —— ① 输出**进入用户工作流** ② 输出**本身值钱** ③ **持续产出**适合订阅 ④ 帮用户**避免损失/合规**。
+来源 [advice 2026-08-10](advice/2026-08-10-paid-tool-category.md),依据是 Stripe 收银台引荐榜实测。
+
+> **关键反直觉判据**:哥飞指出「Stripe 收银台榜上没有一个『输出即终点』的格式转换站」。
+> `csv to qbo` **恰恰是格式转换**,但它进的是**会计工作流** —— 簿记员不转就没法把银行流水导进 QuickBooks,
+> 而且**每月都要做**。这是标准 ① 的胜利,不是对判据的反驳。**边界在「输出去哪」,不在「是不是转换」。**
+> 与 partfit3d 的对照:3MF 拆完就走,hobbyist,无复购,不进任何工作流。
+
+**Step 2-3 词族(Semrush 美区,2026-08-10,第三方估算)**
+
+| 关键词 | 月量 | KD | CPC | Com |
+|---|---|---|---|---|
+| **`csv to qbo`** | **1,900** | **10** | **$17.63** | 0.11 |
+| **`csv to qbo converter`** | **1,300** | **6** | **$17.22** | 0.13 |
+| `export qbo to csv` | 1,000 | 10 | — | — |
+| `import csv to qbo` | 880 | 31 | — | — |
+| `qbo to csv` | 880 | 14 | $6.41 | 0.21 |
+| `csv to qbo converter free` | 590 | **3** | $6.65 | 0.48 |
+| `qbo to csv converter` | 590 | **3** | $6.79 | 0.05 |
+| `upload csv to qbo` | 590 | 34 | — | — |
+| `csv to qbo converter free online` | 480 | **1** | — | — |
+| `csv to qbo free` | 480 | 6 | — | 0.08 |
+| `qbo to csv converter free` | 390 | 6 | $8.47 | 0.52 |
+| `qbo to csv converter online` | 390 | **2** | — | — |
+| `quickbooks qbo csv to iif converter` | 320 | 10 | — | — |
+
+**词族合计约 10,000/月,主体 KD 1-14,头词 CPC $17.63。**
+
+> ⚠️ **`free` 词占比约 23%**(`...free` 系列合计约 2,300/月)。Step 3 词型硬过滤本来把 `free X` 判 ❌。
+> 这里保留,但**定位为引流词不是转化词**:免费额度承接 free 系列,头词 `csv to qbo` / `csv to qbo converter`
+> (合计 3,200/月、不带 free、CPC $17)承接付费意图。**免费额度设计是本实验的核心变量,不是附属决定。**
+
+**同批被否掉的候选**:`dst to pes`(Semrush 全「不可用」或 0-20/月,死)、`embroidery converter`(最高 170/月,CPC $1.36-2.77,双低)、
+`supplement facts label maker`(880/月 KD 2 很好,但 **CPC 仅 $1.57**、SERP 收费者定价 $160 偏重 B2B → **降为备选**)。
+
+**Step 4 · 变现验证(新形态:扫 Top 10 有没有人直接收费)**
+
+`csv to qbo converter` Top 10 —— **6 个独立工具站明确收费,价格带直接可见**:
+
+| 站 | 收费证据 |
+|---|---|
+| `accountingconverter.com` | `/pricing` · **$39 / $39·mo / $25·mo / $15·mo** · credits 体系 |
+| `docuclipper.com` | `/pricing/` · **$39/mo** · free trial |
+| `propersoft.net` | `/purchase/` · free trial |
+| `filetailored.com` | `/pricing` · Subscribe |
+| `receipt-bot.com` | `/pricing` · Purchase · Credits · Subscribe |
+| `toqbo.com` | Free Trial |
+| `moneythumb.com` | credits |
+
+其余是 `quickbooks.intuit.com`(平台官方)和 reddit。**没有 G2 / Capterra / 大媒体。**
+
+> 对照组 `supplement facts label maker`:4 个在收费(foodlabelmaker / recipal **$160** / menusano / trustwell 用 FastSpring),
+> 但价位高、偏重 B2B。**同样通过 Step 4,但 MVP 成本高于 csv-to-qbo。**
+
+**Step 5 · 可打性(Semrush 实测,不是估算)**
+
+| 站 | Authority Score | **引用域** | 自然流量 | 自然关键词 |
+|---|---|---|---|---|
+| **`toqbo.com`** | **7** | **24** | 81/月 | 73 |
+| **`filetailored.com`** | **13** | **26** | **11.3K/月** | 3.9K |
+| `accountingconverter.com` | 22 | 53 | 1.3K/月 | 769 |
+
+**`filetailored.com` 用 26 个引用域跑出 11.3K 月流量;`toqbo.com` AS 7 / 24 引用域,现在就在 Top 10 里。**
+**24-26 远低于 Step 5 的 30 硬否决线**,且这次是 Semrush 实测(上一轮联盟方向的 25 是顾问估算,实测最弱站要 135)。
+
+### 期望校准(来自 advice,社群数据非自有实测)
+
+- 注册 → 付费转化率量级 **0.1%~0.5%**
+- 第一单出现的流量门槛:**月 UV 1000-3000**
+- 定价锚点:竞品实测 **$15 / $25 / $39 月订阅 + credits 包 + 一次性买断**。
+  按 [risks.md 独立开发者低价定价陷阱](risks.md#独立开发者低价定价陷阱),取品类中位数中偏上,**不要定 $1-5**
+
+### 执行步骤(Step 6)
+
+1. **先确认 Intuit 条款**(⚠️ 前置风险,30 分钟):QBO = Intuit Web Connect 格式(OFX/SGML 系)。
+   ProperSoft / MoneyThumb 已商业化多年说明路通,但上线前查一次 Web Connect 的 FID / 使用条款,避免做完才发现有授权问题
+2. 注册域名 + 用现有 Astro/Cloudflare 技术栈做 MVP(CSV → QBO 生成,纯前端可做)
+3. 一页一词:`/csv-to-qbo`、`/qbo-to-csv`、`/csv-to-qbo-converter-free`,站内互链
+4. **免费额度设计(核心变量)**:免费 N 笔/月,超出走 Waffo 付费。额度校准到「用户每月用完一次」——
+   既感受到质量又有升级动力(见 risks.md 低价陷阱条目的同款方法)
+5. 接 Waffo Pancake 收款,提交 GSC
+6. 等 4-8 周,三层读数:① GSC 曝光 ② 点击 ③ **Waffo 后台首笔到账**
+
+### 结果记录
+
+- 2026-08-10:Step 0-5 完成。**这是 keyword-hunt 跑过的两轮里数据最硬的一次** ——
+  第一次出现「KD 6-10 + CPC $17 + 词族 10K/月 + Top 10 有 6 家在收费 + 最弱竞品仅 24 引用域」的组合。
+  与第一轮联盟方向的关键差异:**钱直接流向独立工具站,不经过任何中间人**,
+  不像联盟方向那样被厂商内容营销拦截(见 [risks.md](risks.md#成熟-saas-品类的-alternatives--vs-词被厂商内容营销占据不是联盟站的地盘))。
+
+## AI 小说写作联盟词族(出单导向选词,2026-08-09 跑完 keyword-hunt Step 0-5)
+
+- **状态**:**stopped(2026-08-10 作废)** —— 用户确认可开通 Waffo 自有收款,
+  变现载体从联盟佣金换成自有收款,本实验的前提(无 Stripe → 只能靠联盟)不再成立。
+  **数据不删**:Step 4 挖出的「厂商内容营销占据 alternatives 词」是本项目最有价值的结构性发现之一,
+  已沉淀为 [risks.md 正式条目](risks.md#成熟-saas-品类的-alternatives--vs-词被厂商内容营销占据不是联盟站的地盘);
+  Sudowrite / Kit / Surfer / Jasper 的联盟条款表也保留,**未来做联盟变现时可直接复用**。
+- ~~**状态**:planned(Step 1-5 已完成,等 Step 6 实测)~~
+- **关联方向**:[themes.md 联盟内容站](themes.md#英文联盟内容站-affiliate-content-site变现导向)
+- **待验证假设**:在 AI 小说/虚构写作这个窄场景里,DR 0 新发布者能拿到第一笔联盟佣金 ≥ $1。
+- **GO 标准(Step 0 定义,全流程唯一判据)**:**第一笔非自己产生的、可提现的收入到账,金额 ≥ $1。**
+  不是曝光、不是点击、不是 AdSense 待付余额。
+- **时间盒**:Step 6 建页 1-2 小时 + 等 4-6 周
+- **预算上限**:$0(平台发布);若第 3 层出现点击再花 $10 注册 EMD 域名
+- **失败标准**:第 3 层(联盟后台点击)= 0 且前两层正常 → 选的是流量词不是决策词,回 Step 4 重挑
+
+### 全流程数据(2026-08-09)
+
+**Step 1 · 联盟计划(本项目自行核实,哥飞未提供)**
+
+| 产品 | 佣金 | Recurring | Cookie | 允许 SEO 引流 | 打款/起付 |
+|---|---|---|---|---|---|
+| Kit(原 ConvertKit) | 50% 前 12 个月,之后 10/15/20% 永久 | ✅ | 未公开 | ✅ | 未公开 |
+| Surfer SEO | 月付首笔 75%(可到 125%);年付 15-25% | ❌ | 90 天 | ✅ | PartnerStack,**$5** |
+| Jasper | 25% recurring 12 个月 | ✅ | 45 天 | ✅ | PayPal,$25 |
+| Hostinger | 40% 起 | ❌ | 30 天 | ⚠️ 申请需 1000 流量,**当前过不了审** | PayPal $100 |
+| **Sudowrite** ← 入选载体 | **25% recurring 12 个月** | ✅ | 30 天(Rewardful) | ✅ | PayPal 月结,**60 天持有期** |
+| **Squibler** ← 备选 | 20% | 部分 | 未公开 | ✅ | Wise,**起付 $100** |
+
+**Step 3 · 候选池(Semrush 美区,2026-08-09,第三方估算)** — 12 词全部通过 CPC/KD/意图/量四维筛
+
+| 关键词 | 月量 | KD | CPC | Com | Step 4 判定 |
+|---|---|---|---|---|---|
+| `surfer seo alternatives` | 880 | 21 | $10.72 | 0.13 | ❌ 0 联盟链接 |
+| `convertkit vs mailchimp` | 720 | 22 | $7.85 | 0.29 | ❌ 0 |
+| `surfer seo alternative` | 590 | 23 | $7.40 | 0.11 | — |
+| `surfer seo reviews` | 590 | 22 | $8.02 | 0.19 | — |
+| `convertkit review` | 480 | 25 | $9.78 | 0.18 | — |
+| `convertkit alternatives` | 320 | 17 | $13.13 | 0.30 | ⚠️ 仅 1 条 |
+| `mailerlite vs convertkit` | 320 | 21 | $7.30 | 0.43 | — |
+| `surfer seo vs semrush` | 320 | 14 | $6.26 | 0.12 | — |
+| `jasper ai alternatives` | 260 | 17 | $4.89 | 0.14 | ❌(全是竞品站) |
+| `convertkit alternative` | 140 | 24 | **$14.50** | 0.06 | — |
+| `surfer seo free trial` | 140 | 26 | **$24.65** | 0.42 | — |
+| `best ai tool for proposal writing` | 110 | 23 | **$16.59** | 0.39 | ❌ 0,全是厂商官网 |
+
+**⚠️ 一处阈值校准(偏离 SOP 原文,已记录)**:SOP 的 `Com. > 0.5` 会误杀整个池子。
+`Com.` 量的是广告主竞价密度,品牌词天然只有少数几家竞品在投。改为 **CPC 单独作一号筛,Com. 降为参考**。
+
+**Step 4 · 变现验证(核心步,砍掉 10/12)** — 逐词开 Top 10 扫全部出站链接找联盟链接特征
+
+| 词 | Top 10 联盟链接 | 判定 |
+|---|---|---|
+| `best ai writing tools`(1.3K / KD **45** / $3.63) | **2** ✅ | KD 超 Step 3 门槛 |
+| **`best ai for novel writing`**(110 / KD **22** / $2.77 / Com 0.62) | **2** ✅ | ✅ **强信号,入选** |
+| 其余 5 词 | 0-1 | ❌ pass |
+
+赚钱的两个独立发布者:`aimadesimple0.substack.com` → `sudowrite.com/?via=nitin`、`rytr.me/?via=nitin-sharma`;
+`medium.com/@anangsha` → `sudowrite/?via=anangsha`、`squibler.io/?via=anangsha`、`simplified.com/?fpr=anangsha43`、`originality.ai/?via=anangsha`。
+**两人都在平台上,不在自有域名上。**
+
+**Step 5 · 可打性**
+
+| 来源 | 数字 |
+|---|---|
+| Semrush | 最弱独立站 `thewritingasylum.com`:**AS 8** / 引用域 135 / 流量 331 月(**+119%**) |
+| Semrush | 天花板站 `inkfluenceai.com`:AS 27 / 引用域 **334** / 流量 7.6K 月 |
+| 哥飞 | `sudowrite alternatives` **链接预算中值 25 个引用域** ← 唯一通过 Step 5「>30 即 pass」硬否决的方向 |
+| 哥飞 | novel 词族 Top 10 有 **DR 2~6** 的站;10 个候选 EMD 域名全部可注册 |
+
+### 定标词族(合计约 1.3K-1.5K/月)
+
+| 关键词 | 月量 | KD | CPC | Com |
+|---|---|---|---|---|
+| `sudowrite vs novelcrafter` | 260 | 24 | — | — |
+| `novelcrafter vs sudowrite` | 260 | 27 | — | — |
+| `novel writing ai` | 170 | 51 | $2.42 | 0.61 |
+| **`best ai for novel writing`** ← 主攻 | 110 | **22** | $2.77 | **0.62** |
+| `best novel writing ai` | 110 | 29 | $2.79 | 0.65 |
+| `sudowrite alternatives` | 110 | **22** | $2.51 | 0.48 |
+| `sudowrite review` | 110 | 24 | $3.15 | 0.19 |
+| `sudowrite promo code` | 90 | **8** | $5.79 | 0.30 |
+| `squibler vs sudowrite` | 70 | **16** | $2.02 | 0.15 |
+| `best ai novel writing software` | 50 | 34 | $3.57 | 0.70 |
+
+> 量级参照:partfit3d 整站 3 个月 833 曝光;3MF 转换词族 Semrush 口径 ~10K/月。
+> 本词族介于两者之间,**比现有主攻词大一个数量级,比 3MF 词族小一个数量级**。
+
+### 执行步骤(Step 6,唯一产生真值的一步)
+
+1. 发一篇 Medium 或 Substack 长文,主攻 `best ai for novel writing`,覆盖 `sudowrite vs novelcrafter` / `sudowrite alternatives` 两个次词
+2. 挂 Sudowrite 的 Rewardful 联盟链接,**加 `rel="sponsored"`**
+3. 等 4-6 周,三层读数:①平台/GSC 曝光 ②点击 ③**Rewardful 后台点击数**
+4. 第 3 层出现任何点击 → 注册 EMD 域名升级独立站;第 3 层 0 而前两层正常 → 回 Step 4 重挑
+
+**⚠️ 为什么不按 SOP 原文在 partfit3d / baxianfans 上开页**:partfit3d 是 3D 打印、baxianfans 是华语动画,
+挂 AI 小说写作页面主题严重不相关,大概率不收录不排名,拿不到干净读数。
+改用平台发布的依据是 **Step 4 实扫结果本身** —— 这个 SERP 里两个真正在赚联盟佣金的人用的就是 Substack 和 Medium。
+成本 $0、收录以天计(对照 partfit3d 等了 2 个月),且**直接测第 3 层**,那才是当前的真瓶颈。
+自有域名等第 3 层有点击再注册 —— **顺序不能反,这正是 partfit3d「先建站再定词」踩过的坑**。
+
+### 结果记录
+
+- 2026-08-09:Step 0-5 完成。**最大产出不是选到的词,是 Step 4 挖出的结构性发现** ——
+  成熟 SaaS 品类的 alternatives / vs 词被厂商内容营销占据,CPC 最高的那几个词联盟链接一条都没有。
+  已沉淀为 [risks.md 正式条目](risks.md#成熟-saas-品类的-alternatives--vs-词被厂商内容营销占据不是联盟站的地盘)。
+  这条直接修正了 `keyword-hunt` Step 3 的一号筛:**CPC > $1 之后必须再问一句「是谁在买这个点击」**。

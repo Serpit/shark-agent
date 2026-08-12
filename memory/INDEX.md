@@ -58,6 +58,12 @@
 | `seo-competitor` | Ahrefs / Semrush / SimilarWeb(3ue 面板) | 第三方估算 |
 | `seo-advisor` | 哥飞 SEO Agent 问答 | **他人观点,需辩证** |
 
+**编排层 skill**(调用上面三个,不自己取数):
+
+| skill | 管什么 |
+|---|---|
+| `keyword-hunt` | 新站**出单导向**选词流水线,6 步。是 [methods/search-engine-demand-discovery.md](methods/search-engine-demand-discovery.md) 的变体——一号筛从月搜索量换成 CPC + 竞争密度,验证终点从看排名换成看联盟后台点击。**2026-08-09 首次跑通 Step 0-5**,产出见 [experiments.md](experiments.md#ai-小说写作联盟词族出单导向选词2026-08-09-跑完-keyword-hunt-step-0-5);实测修正见 [risks.md](risks.md#成熟-saas-品类的-alternatives--vs-词被厂商内容营销占据不是联盟站的地盘) |
+
 ## 方法论库(可执行 SOP)
 
 - [methods/axiom-scan.md](methods/axiom-scan.md) — 公理扫描 SOP（摄入文章/signals/教练对话三场景,9 条逐项问句）
