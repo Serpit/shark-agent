@@ -26,22 +26,16 @@
 
 ### todo
 
-- [ ] **2026-08-10** · M4 · 查 Intuit Web Connect(.qbo)的使用条款(**前置风险,阻塞建站**)
-  - **动作**:确认第三方工具生成 `.qbo` 文件是否需要 Intuit 授权 / FID。ProperSoft、MoneyThumb、accountingconverter 都商业化多年说明路是通的,但**做完才发现有授权问题的代价太大**,先花 30 分钟查清
+- [ ] **2026-08-12 早上** · M4 · 复核 `CSV → QBO` 关键词数据,作为市场基准保留(**不启动 MVP**)
+  - **动作**:① 两个估算源复核核心词 Volume / KD / CPC ② 无痕美区 SERP 重扫 Top 10 收费站与价格 ③ 查 Intuit Web Connect 对 FID / Financial Institution partner ID 的官方要求 ④ 记录结论为「数据成立 / 数据不成立」
+  - **定位**:这个词的商业信号仍然好,但会计用户与当前 X / 独立开发圈不重叠,**不适合作为 Build in Public 主产品**;本轮只校验数据,不注册域名、不写代码
   - **关联**:[experiments.md CSV → QBO 转换器](experiments.md#csv--qbo-转换器付费工具站2026-08-10-跑完-keyword-hunt-第二轮-step-0-5)
-  - **预计耗时**:30 分钟
+  - **预计耗时**:1-2 小时
 
 - [ ] **2026-08-10** · M4 · 开通 Waffo Pancake 收款(**并行,不阻塞建站**)
   - **动作**:注册 Waffo,走 Pancake(个人/小团队,无需 LLC);记下实际费率、结算周期、起付线,回写 [profile.md 支付通道](profile.md#能力与资源)
   - **为什么重要**:这是三个多月来第一次自有收款链路能闭环。**开通结果本身就是一条要落盘的事实**
   - **预计耗时**:1 小时
-
-- [ ] **2026-08-10** · M4 · 做 CSV → QBO 转换器 MVP(**Step 6,唯一产生真值的一步**)
-  - **动作**:注册域名 + Astro/Cloudflare(现有技术栈);一页一词做 `/csv-to-qbo`、`/qbo-to-csv`、`/csv-to-qbo-converter-free` 三页站内互链;**免费 N 笔/月,超出走 Waffo 付费**
-  - **定价锚点**:竞品实测 $15 / $25 / $39 月订阅 + credits 包。**不要定 $1-5**(见 [risks.md 低价陷阱](risks.md#独立开发者低价定价陷阱))
-  - **⚠️ 免费额度是核心变量,不是附属决定**:词族里约 23% 是 `free` 词,额度校准到「用户每月刚好用完一次」
-  - **预计耗时**:1-2 周
-  - **前置**:上面两条
 
 - [ ] ~~**2026-08-09** · 注册 Sudowrite 联盟 + 发 `best ai for novel writing` 长文~~ — **2026-08-10 作废**,Waffo 通道打通后变现载体从联盟换成自有收款,联盟路径整体降级(数据保留在 [experiments.md](experiments.md))
 
@@ -117,6 +111,11 @@
 - ~~切美区 IP 跑 SERP 维度~~ — 建站已跑通,该阻塞不再挡路
 
 ## 最近完成(近 14 天)
+
+- [x] **2026-08-11 完成** · M4 · 找 1 个 Build in Public「卖铲子」方向
+  - **结果**:首选「SEO 工具站 Starter Kit + 自动防错规则」进入 48 小时预售验证;不是直接 GO。
+  - **证据**:TrustMRR 验证收入 + 哥伦布增长产品 + 官网价格交叉;淘汰 App 拒审预检、RevenueCat doctor、通用移动 UI kit。
+  - **关联**:[experiments.md](experiments.md#seo-工具站-starter-kitbip-卖铲子2026-08-11-桌面筛选完成)
 
 - [x] **2026-08-09 完成** · M4 · GSC API 授权打通
   - **过程**:账号开 2SV → 建 GCP 项目 `shark-gsc` → 启用 Search Console API → 配 OAuth 同意屏幕(外部/测试,加测试用户)→ 建桌面客户端 `shark-gsc-cli` → `gsc.py auth`

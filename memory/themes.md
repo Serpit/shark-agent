@@ -90,6 +90,30 @@
   - **风险锁死**:坚持白帽 + 半自动化,不碰 PBN / 博客评论 spam(原文已警告,见 [risks.md](risks.md))
   - 具体启动动作见 [experiments.md 英文 SEO 内容站矩阵起步](experiments.md#英文-seo-内容站矩阵起步)
 
+## SEO 工具站 Starter Kit + 自动防错规则
+
+- **状态**:validating(2026-08-11 完成桌面筛选,只进入 48 小时预售验证,暂不开发)
+- **核心需求假设**:正在用 AI / Astro / Cloudflare 批量做小工具站的独立开发者,愿意为一套已经处理好
+  canonical、sitemap、真 404、pSEO、GSC 和部署防错的生产底座付一次性费用,避免上线后才发现整站未收录。
+- **画像匹配**:**高**。买家与 X / 独立开发 / 出海建站圈重叠;用户已上线 4 站并亲历索引 bug,
+  技术与内容素材都现成;1-2 周可做 MVP,不依赖 GPU、重抓数或人工交付。
+- **验证成本**:**极低(预售) / 低(MVP)**。预售页 + 3 张演示图约 8-12 小时、$0-10;
+  通过后 MVP 约 32-40 小时,现金成本约 $10-40。
+- **可行性证据**:
+  - **验证收入,相邻品类**:TrustMRR 显示 ShipFast 累计约 **$1.3M**;TanStarter 累计 **$26,178**、
+    近 30 天 **$2,086**、售价 $159,渠道为 X;Directory Launch 累计 **$1,604**、售价 $199;
+    React Bits Pro 近 30 天约 **$32K**。这些证明独立开发者会为「省去重复搭建」付费。
+  - **自有问题证据**:[experiments.md partfit3d 索引诊断](experiments.md#结果记录) 已发现 canonical / sitemap /
+    307 冲突卡住 34 条 URL、三类链接 bug 生成 25 个 404;这些可直接固化为自动测试。
+  - **顾问输入(部分采纳)**:[advice/2026-08-11-build-in-public-shovel-categories.md](advice/2026-08-11-build-in-public-shovel-categories.md)
+- **风险/未知**:
+  - 本细分**尚无直接收入证据**;当前证据来自 boilerplate / 组件品类,不能据此宣布市场已验证。
+  - Astro + Cloudflare 技术栈可能过窄;过早兼容 Next.js 会把两周范围撑爆。
+  - AI 能生成模板,付费点不能是「代码多」,必须是**经过真实站点验证的发布规则 + 自动测试 + 持续更新**。
+  - 用户自己的 4 站只有 31 点击 / 1338 曝光,暂时不能卖「流量结果」;只能卖上线速度和防错,宣传不可越界。
+- **下一步动作**:做 48 小时预售验证:一页英文 landing + 3 张真实 bug 前后对比图 + $19 refundable deposit;
+  向 15 个正在公开做工具站的人发低压力文字邀请。满足「≥3 个非熟人留邮箱且 ≥1 个付 deposit」才进入两周 MVP。
+
 ## 付费工具站 + 自有收款(Waffo)
 
 - **状态**:validating(2026-08-10 由 `keyword-hunt` 第二轮跑出,Step 1-5 完成,等 Step 6)
