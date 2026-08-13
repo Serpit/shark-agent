@@ -1,6 +1,6 @@
 ---
 name: keyword-hunt
-description: 为**新站**找一个能出单(产生真实收入)的关键词。从联盟变现载体倒推选词,而不是从搜索量正推。编排三个既有 skill:seo-advisor(哥飞 agent,贯穿 Step 1-5 找需求/找品类/补词族/第二估算源/外链预算与窗口期)、seo-competitor(Semrush 词族与 CPC/竞争密度、SimilarWeb 竞品体量)、seo-data(GSC 单页实测验真)。当用户说"找个新词""再建一个站""第 N 个站选什么词""这次要能出单""选个能赚钱的词""怎么找词""新站选词""找需求"时使用。⛔ 给**已有站**找扩展词不走这里,直接用 seo-competitor。
+description: 为**新站**找一个能出单(产生真实收入)的关键词。从联盟变现载体倒推选词,而不是从搜索量正推。编排三个既有 skill:seo-advisor(哥飞 agent,贯穿 Step 1-5 找需求/找品类/补词族/第二估算源/外链预算,AI 品类下窗口期已由 Columbus 覆盖)、seo-competitor(AI 品类走 Columbus 的 MCP 关键词竞争格局/竞品流量增长/注册日期;非 AI 品类走 Semrush 词族与 CPC/竞争密度、SimilarWeb 竞品体量)、seo-data(GSC 单页实测验真)。当用户说"找个新词""再建一个站""第 N 个站选什么词""这次要能出单""选个能赚钱的词""怎么找词""新站选词""找需求"时使用。⛔ 给**已有站**找扩展词不走这里,直接用 seo-competitor。
 ---
 
 # 新站选词:出单导向流水线
@@ -106,6 +106,15 @@ AdSense 需要数万月 PV 才有个位数美元,与 3 个月看反馈的硬约�
 
 种子词用 **Step 1 抄下来的产品名和品类名**,不要凭空想。
 
+**若锁定的品类是 AI 工具**(先用 `list_filter_options(dimension="cat")` 确认品类存在于 Columbus):
+**优先用 Columbus MCP,跳过下面的 Semrush 浏览器流程。**
+`list_keywords(contains=<品类关键词>, sort="frequency")` 直接给出词 + 有多少个已上线站在打这个词
+(`frequency` 本身就是「被验证过的需求」信号,比 Semrush 单纯的搜索量更强)+ volume/cpc,
+一次 MCP 调用出结果,不用登录态、不占浏览器、不受 Semrush 订阅到期影响。详见
+[`seo-competitor` 的 Columbus 章节](../seo-competitor/SKILL.md#columbusai-工具站关键词与竞品mcp-直连)。
+
+非 AI 品类(如工具型但非 AI 品牌的站),继续走下面的 Semrush 流程。
+
 工具:Semrush Keyword Magic Tool。入口与爬取方式见
 [`seo-competitor`](../seo-competitor/SKILL.md),这里只给本流程特有的用法。
 
@@ -186,10 +195,17 @@ Semrush 出的是**数据库里有的词**,哥飞出的是**它知识库里见�
 | `X alternative` | `what is X` | 认知意图,离付款最远 |
 | `X pricing` / `is X worth it` | `free X` | 明确表达不打算花钱 |
 
+**AI 品类走 Columbus 时**:Step 2 拉词族已经把 volume/cpc 带出来了,这一步直接复用,不用再拉一次。
+`get_keyword_sites(keyword=)` 额外给每个已上线竞品的 visits/MoM 增长/注册日期,可以直接看出
+「这个词有没有人靠它涨起来」,比单纯 CPC 阈值更接近真实变现信号——**放在这里先扫一遍,
+Step 4 的人工 SERP 实看优先看 MoM 涨得最快的那几个站,省时间**。
+
 ### 并行:两源对质(`seo-advisor`)
 
 Semrush 是第三方估算,单源的绝对值不可用。哥飞有**独立的关键词工具**,构成第二估算源——
-两源对质能把"只取排序不取绝对值"留下的量级空白补上一半:
+两源对质能把"只取排序不取绝对值"留下的量级空白补上一半。**AI 品类且 Columbus 已给出数据时,
+这一步可以跳过或降低优先级**——Columbus 的 `get_keyword_sites` 是竞品站的实测流量,
+比"再问一个估算源"更接近真值,公理 6 提醒:两个估算源都问了还在纠结,就是该推进的信号。
 
 > 这批词 `<8-15 个>` 我用 Semrush 查到的是 `<贴表>`。
 > 你的工具口径下它们的搜索量和 KD 是多少?差异大的词请说明可能原因。
@@ -259,9 +275,13 @@ SERP 实看只能看到**当下这 10 条**,看不到这些站是怎么起来的
 
 ## Step 5 · 可打性与代价(`seo-competitor` + `seo-advisor`)
 
-### 5a · Semrush 侧
+### 5a · Semrush 侧(非 AI 品类)/ Columbus 侧(AI 品类,优先)
 
-对入围词,挑 SERP 里**最弱**的那个联盟站(不是最强的),查 Domain Overview:
+**AI 品类**:直接 `get_site_detail(domain=<最弱竞品域名>)`,一次调用拿到 DR、月流量、增长、
+Top 10 关键词、变现方式摘要——不用登录 3ue 面板。Step 4 用 `get_keyword_sites` 时已经带出
+`registDate`(注册日期)和 `visitsMom`(月增长),**窗口期判断在 Step 4 就能定,不用等到这一步再问哥飞**。
+
+**非 AI 品类**,继续走 Semrush:对入围词,挑 SERP 里**最弱**的那个联盟站(不是最强的),查 Domain Overview:
 
 - Authority Score(**< 30 才算可打**)
 - **引用域数量 ← 这就是你要付的代价**
@@ -283,6 +303,9 @@ SERP 实看只能看到**当下这 10 条**,看不到这些站是怎么起来的
 
 它在这一步能给两样 Semrush 给不了的东西,上次实测都主动给了而且给对了:
 **具体的外链预算数字**、**竞品域名的新注册动向(窗口期信号)**。
+
+**AI 品类例外**:窗口期信号(竞品注册日期)已经在 Step 4/5a 用 Columbus 拿到了,这一步只需要
+问外链预算这一件事,不用再重复问窗口期。
 
 > 定标词 `<1-2 个>`,我想用新站(DR 0)打进 Top 10。
 > 1. 各需要多少引用域?按 18 小时/周的兼职节奏,这个量级现实吗?不现实的话最小可行版本是什么?
@@ -363,7 +386,7 @@ SERP 实看只能看到**当下这 10 条**,看不到这些站是怎么起来的
 **一轮流水线可以合并成一个 advice 文件**(按步分节),不必一问一文件。
 **不可回流 [`principles.md`](../../../memory/principles.md)。**
 
-## 三个工具的信任裁决
+## 四个工具的信任裁决
 
 冲突时按 [`CLAUDE.md`](../../../CLAUDE.md) 数据源纪律,自上而下:
 
@@ -371,8 +394,8 @@ SERP 实看只能看到**当下这 10 条**,看不到这些站是怎么起来的
 |---|---|---|
 | 真值 | GSC(`seo-data`) | Step 6,最终判据 |
 | 趋势可信 / 绝对值不可信 | Google Trends | 可选,只看方向 |
-| 第三方估算 | Semrush / SimilarWeb(`seo-competitor`) | Step 2/3/5a,出**排序**不出预测 |
-| 他人观点 | 哥飞 agent(`seo-advisor`) | **贯穿 Step 1-5**,找需求 / 补词族 / 第二估算源 / 外链预算,**每次必须过公理扫描** |
+| 第三方估算 | Semrush / SimilarWeb / Columbus(`seo-competitor`) | Step 2/3/5a,出**排序**不出预测;AI 品类优先 Columbus,非 AI 品类走 Semrush/SimilarWeb |
+| 他人观点 | 哥飞 agent(`seo-advisor`) | **贯穿 Step 1-5**,找需求 / 补词族 / 第二估算源 / 外链预算,**每次必须过公理扫描**;AI 品类下窗口期信号已由 Columbus 覆盖,只需追问外链预算 |
 
 **任意两层冲突,一律以更上层为准。**
 
@@ -386,7 +409,8 @@ SERP 实看只能看到**当下这 10 条**,看不到这些站是怎么起来的
    判据是**同一步内**:若在同一步上问了第 2 次仍给不出下一个动作,
    追问一次「这是信息不够,还是心理上还没准备好?」,然后强制推进到下一步。
    **Step 6 是唯一产生真值的一步,前五步的全部意义是尽快到达它。**
-4. **Semrush / SimilarWeb 订阅 2026-09-06 到期。** 之后降级:Google Trends(免费)+ 哥飞工具 + GSC 实测,
+4. **Semrush / SimilarWeb 订阅 2026-09-06 到期。** 之后降级:**AI 品类**不受影响,直接以 Columbus(MCP)
+   为一号数据源;**非 AI 品类**降级为 Google Trends(免费)+ 哥飞工具 + GSC 实测,
    Step 3 的 CPC/Com. 维度会失效,届时改用哥飞的 KD 工具 + Step 4 的 SERP 联盟密度做替代一号筛。
 
 ## 回写
