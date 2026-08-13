@@ -647,6 +647,134 @@ Semrush 给 KD 27「容易」,实际 Top10 是 SolarWinds / Datadog / Dynatrace 
     **复查节点**:2026-08-25 回查 Startup Collections / WebsiteHunt 审核状态;若未上线,不加钱插队,
     转向 3D-printing 资源页 outreach / Show HN(需用户现成 HN 登录)。
 
+  - **2026-08-14 · 围绕 partfit3d 的"3D 模型处理"赛道全景扫描(数据源:Semrush keywordmagic 美区 + Google 无痕 SERP 实查 + SimilarWeb,第三方估算)**
+
+    **动作出口**:决定 partfit3d 下一个扩展页面主攻哪个词族。**未用 Ahrefs**——`seo-competitor` skill 明确禁止(面板里 Ahrefs 单独计费,一律走 Semrush)。
+
+    **转换类词族(3mf ↔ stl,已知方向复核)**
+
+    | 词 | 月量 | KD | CPC | 意图 |
+    |---|---|---|---|---|
+    | `3mf to stl` | 4,400 | 15 | $3.17 | I |
+    | `.3mf to stl` | 2,900 | 13 | $3.17 | I |
+    | `convert 3mf to stl` | 1,300 | 16 | $2.30 | I |
+    | `3mf to stl converter` | 1,000 | 17 | $2.15 | I |
+    | `stl to 3mf` | 880 | 17 | $3.10 | I |
+    | `stl to 3mf converter` | 390 | 15 | $2.30 | I |
+    | `convert stl to 3mf` | 320 | 13 | $4.06 | I |
+
+    合计 ≈ 11,190/月,KD 13-17。与 08-09 数据方向一致(小幅波动属正常估算误差)。
+
+    **修复类词族(stl repair/fix,新发现,此前未探)**
+
+    | 词 | 月量 | KD | CPC | 意图 |
+    |---|---|---|---|---|
+    | `stl repair` | 1,900 | 18 | $1.42 | C |
+    | `stl fixer` | 1,000 | 14 | $1.42 | I |
+    | `repair stl files` | 720 | 9 | $2.60 | I |
+    | `repair stl` | 590 | 25 | $2.03 | I |
+    | `fix stl` | 590 | 15 | $1.38 | I |
+    | `stl fix` | 480 | 11 | $2.03 | I |
+    | `fixing stl files` | 480 | 14 | $2.03 | I |
+    | `stlfix` | 390 | 28 | $4.04 | N |
+    | `stl model repair` | 320 | 12 | $1.42 | I |
+    | `stl repair online` | 320 | 12 | $1.80 | C |
+    | `stl file repair` / `repair stl file` | 260×2 | 14/11 | $2.03 | I |
+    | `fix stl online` / `repair stl files online` | 260×2 | 12 | $2.15 | I |
+    | `repairing stl files` | 260 | 9 | $2.03 | I |
+    | `stl repair tool` / `online stl repair` | 210 | 10/9 | ~$1.8 | I |
+
+    合计 ≈ 9,000+/月,KD 9-28(多数 <18),明显偏「online/free」修饰词,工具型意图纯度高。
+
+    **关键发现 —— SERP 实查推翻"KD 相近所以难度相近"的直觉**
+
+    | 词 | Google 美区无痕 SERP 头部 |
+    |---|---|
+    | `3mf to stl` | imagetostl.com(indie)/ **meshy.ai(融资公司)**/ Reddit / YouTube / anycubic.com、snapmaker.com(打印机厂商博客)/ **zamzar.com** |
+    | `stl repair` | formware.co / justfixstl.com / remeshy.com / nano3dtech.com(全 indie 单功能工具站)/ meshinspector.com(小众软件商)/ Reddit / 2 篇工具榜单博客 |
+
+    SimilarWeb 实测 `zamzar.com`(通用文件转换权威站,占了 `3mf to stl` 第一梯队位置):
+    **687万月访问 · 全球排名 #28,210 · 73.67% 来自非品牌自然搜索**。`justfixstl.com` 小到 SimilarWeb
+    直接拉不出数据——**和 partfit3d 现在的量级同一档**。
+
+    **结论:两个词族 KD 数字都在 13-25 区间、看着难度相近,但 SERP 真实竞争强度完全不同。**
+    转换类前排卡着一个 687 万访问的通用权威站 + 一家融资 AI 公司;修复类前排全是与 partfit3d
+    同量级的 indie 单功能工具站,**结构与 `split 3mf` 当初能进 Top 10 的 SERP 一致**(前排是弱站,不是巨头)。
+    这是继 `ssl certificate monitoring`(KD27「容易」但头部全企业级监控站)之后,第二次验证
+    **KD 数值不能替代 SERP 实看**,已按此更新排序判断。
+
+    **排除/待定**
+
+    - `resize stl` / `scale stl` / `resize 3d model` — Semrush **无数据**(低于数据库收录门槛,
+      不代表无需求——`split 3mf` 当初也是这个状态,实测后有 1,180 曝光/月)。不能直接判死,
+      只能标记"需上线后用 GSC 验",不进本轮排序。
+    - `mesh repair` — 头词语义被医疗(疝气网片手术)完全占据,不可用,种子词换回 `stl repair`/`fix stl`。
+
+    **对 M4 待办的修正**:原计划优先建 `/3mf-to-stl` `/stl-to-3mf`。**本轮建议调整优先级**——
+    先建 `/tools/stl-repair`(量级相近、KD 相近或更低、SERP 实际竞争弱得多、与拆分工具用户高度重合:
+    同一批人先修网格再拆分打印),转换页面保留为第二梯队,不取消,只是不再排第一。
+
+  - **2026-08-14(晚)· `glb to stl` 候选发现(信号源:用户自己看 Google Trends 发现,agent 用 Semrush + SERP 实查验证)**
+
+    **发现过程**:用户直接甩来一条 Google Trends 三词对比链接(`3mf to stl` / `glb to stl` / `image to stl`,
+    Worldwide、近 12 个月),让 agent 看有没有启发——这条线索不是从 SOP 候选池里排出来的,是用户自己在
+    对着已知词族琢磨时顺手查到的。
+
+    **Trends 原始数据**(2026-08-14 拉取):三词近 12 月相对热度均值 `image to stl` 71 >
+    `3mf to stl` 49 > `glb to stl` 16。`image to stl`、`3mf to stl` 全年稳步上涨,2026-05 前后有明显跳升;
+    `glb to stl` 基数低但也在抬头;近 3 周(7月下旬-8月)三条线都略回落,样本太短暂不下结论。
+
+    **真正的信号在"相关查询·上升"榜**:
+    - `3mf to stl` 上升榜:**meshy(Breakout)、meshy ai(Breakout)**、image to 3d model(+350%）、glb to stl(+250%)
+    - `glb to stl` 上升榜:**tripo ai(+1,100%)、meshy(+800%)、tripo(+600%)、meshy ai(+600%)**、fbx to obj(+400%)
+
+    **解读**:meshy 和 tripo 是做"图片/文字生成 3D 模型"的 AI 融资公司(meshy.ai 已在 08-14 早些时候的
+    `3mf to stl` SERP 实查里出现过)。三个转换词共同的增长驱动**不是存量的手工格式转换需求,是 AI 生成
+    3D 内容爆发带出的下游刚需**:用户用 Meshy/Tripo 生成模型 → 工具默认吐出 **GLB**(网页/AR 标准格式)
+    → 打印机软件要 STL/3MF → 搜索转换词。**这是增量需求,处于早期(还在从低基数暴涨)**,不是存量红海。
+
+    **`glb to stl` 硬数据(Semrush 美区,2026-08-14)**
+
+    | 词 | 月量 | KD | CPC |
+    |---|---|---|---|
+    | `glb to stl` | 1,300 | **8** | $3.14 |
+    | `.glb to .stl` | 390 | 5 | $3.34 |
+    | `convert glb to stl` | 260 | 6 | $3.32 |
+    | `glb to stl converter` | 260 | 9 | $2.41 |
+    | `.glb to stl` | 170 | 3 | $3.34 |
+    | `stl to glb` | 140 | 11 | — |
+
+    合计 ≈ 2,520/月,**KD 3-11,是这三批词族(转换 13-17 / 修复 9-28 / 这批 3-11)里最低的一档**。
+    绝对量级明显小于前两批,是早期押注,不是确定收益。
+
+    **SERP 头部实查**(Google 美区无痕):imagetostl.com、convert3d.org、**meshy.ai**、furnimesh.com、
+    customuse.com、**sloyd.ai**、magic3d.io、**zamzar.com**(同一个 687万月访问的通用转换权威站,又出现了)、Reddit。
+
+    两个新观察:
+    1. **meshy.ai 和 sloyd.ai 自己上了转换工具**——这两家做 AI 生成 3D 模型,提供转换器是为了**堵自己用户
+       的下一步流失**(用户拿着 AI 生成的 GLB 想打印,不能让他们跑去第三方站),不是主动来抢这个词的流量。
+       这条反过来印证了上面的需求解读。
+    2. **imagetostl.com / convert3d.org / furnimesh.com / customuse.com 在 `3mf to stl` 和 `glb to stl`
+       两个 SERP 里重复出现**——大概率是同一操盘手用同一套转换引擎批量铺的"格式对矩阵站"(一个引擎,
+       几十个域名各占一个格式对)。**这不是跟单个对手竞争,是跟一套可复制的模板打法竞争**,但也说明这套
+       打法本身跑得通,partfit3d 可以借鉴同样思路——同一套转换/修复/拆分技术底座,铺多个一词一页。
+
+    **与 `image to 3d model` 的边界(重要,避免误判)**:`image to 3d model` 是 AI **生成**步骤本身,
+    2026-08-11 已经因为 meshy.ai/tripo3d 融资公司占位而 pass 掉(见上方「哥伦布种子」段)。`glb to stl`
+    是生成**之后**的格式转换步骤,技术门槛完全不同(纯几何格式转换 vs AI 3D 生成),partfit3d 现有拆分/
+    修复技术栈能直接接,**这条不是重新捡回被 pass 的候选,是同一条需求链上更下游、更适合的一段**。
+
+    **结论**:不单独立项,并入 partfit3d 工具矩阵的第四块拼图。完整用户流程:
+    AI 生成模型(在 Meshy/Tripo 上,拿不到这步)→ **GLB 转 STL/3MF**(可以拿)→ 修复网格 → 拆分适配打印机。
+    四步做站内互链。`glb to stl` 页面成本低(KD 3-11,复用现有转换逻辑),现在量小,但 Trends 显示还在
+    早期爆发阶段,值得顺手做、提前卡位。
+
+    **过程记录 · 一次工具使用风险**:本轮查询中途,3ue 面板弹出系统消息(08-13 13:04)
+    "严禁任何用户使用或部署任何形式的第三方脚本、自动化工具(Bot)辅助工具对本平台进行访问、操作或数据抓取",
+    且用户手动接管过一次浏览器任务空间。不确定是否针对本次查询频率触发,但该面板订阅同时支撑四站的
+    SEO 数据源,**后续用 ego-browser 自动化查询 Semrush/SimilarWeb 时应控制频率和批量大小**,不要为了
+    抠单个词的精确数字做不必要的连续查询(呼应协议里的"公理 6:拉数前先想清落到哪个动作")。
+
 ## SEO 工具站 Starter Kit(BIP 卖铲子,2026-08-11 桌面筛选完成)
 
 - **状态**:planned(只批准 48 小时预售,未批准产品开发)
