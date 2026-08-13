@@ -4,7 +4,9 @@
 > 第三方工具(SimilarWeb / SEMrush / Ahrefs)的数字都是估算,**与 GSC 冲突时一律以 GSC 为准**。
 >
 > **工具**:[`scripts/gsc.py`](../../scripts/gsc.py),零依赖纯 stdlib,不需要 venv。
-> **凭证**:`~/.config/shark-agent/gsc.json`(仓库外,权限 600,**不进 git**)。
+> **凭证**:`~/.config/shark-agent/google.json`(仓库外,权限 600,**不进 git**)。
+> 与 [GA4](ga4.md) **共用同一次授权**——同一个 GCP 项目下的同一个 OAuth 客户端,scope 里带两个 API。
+> 共享层在 [`scripts/_google.py`](../../scripts/_google.py)。旧路径 `gsc.json` 仍可读,只为兼容。
 
 ## 使用前提(硬约束)
 
@@ -42,7 +44,7 @@ python3 scripts/gsc.py auth --client-secret-file ~/Downloads/client_secret_xxx.j
 ```
 
 浏览器会弹授权页(测试模式下会有「Google 未验证此应用」警告,点「高级」→「继续」)。
-成功后 refresh_token 存盘,**以后不用再授权**。
+成功后 refresh_token 存盘,**以后不用再授权**。这一次授权同时覆盖 GA4,见 [ga4.md](ga4.md)。
 
 验证:
 
@@ -142,6 +144,11 @@ python3 scripts/gsc.py inspect https://baxianfans.com/ https://baxianfans.com/so
 4. **query 维度会被采样和隐私过滤** —— 低频长尾词不会出现在 query 报表里,
    所以 query 行的点击总和**永远小于**站点总点击。差额不是 bug。
 5. **`--days` 超过 16 个月无效** —— GSC 只保留 16 个月数据。
+6. **窗口长度 ≠ 有数据的天数(算月均前必查)** —— 新站/新页面在窗口的大部分时间里是零曝光,
+   拿总量除以窗口月数会严重低估。**判别法:同一指标拉 7 / 14 / 30 / 90 天四档,
+   若后几档数字完全相同,说明数据全集中在最短那档之内**,只能用最近一个完整周期外推。
+   实证:partfit3d 2026-08-09 按 90 天摊出"84 曝光/月",实际约 1,180 曝光/月,**低估 14 倍**,
+   并直接导致两条 TODO 优先级判反。详见 [risks.md 「按报表窗口摊平均」](../risks.md)。
 
 ## 结果往哪写
 

@@ -70,6 +70,11 @@ https://trends.google.com/trends/explore?date=today%2012-m&geo=US&q=<词1>,<词2
 
 ### Columbus(AI 工具站关键词与竞品,MCP 直连)
 
+> **2026-08-14 更新:哥伦布已接入 MCP,取代下方旧的 ego-browser 取数流程。**
+> 榜单浏览类需求(按分类/增长/变现方式筛黑马站、看 AI 分析段落)仍可能要开页面看,
+> 那部分手册留在 [`memory/sources/columbus.md`](../../../memory/sources/columbus.md);
+> 但**选词与竞品数据一律走本节的 MCP 工具**,不再用 ego-browser 爬 `columbus.tools` 页面。
+
 **范围边界:只覆盖 Columbus 收录的「AI 时代」工具站(有真实流量的 AI 品类站点)。**
 非 AI 品类不在库里——已实测 `get_site_detail("partfit3d.com")` 返回 `Site not found`(3D 打印工具站,非 AI 品类)。
 判断新方向是否适用:先用 `list_sites` 或 `list_filter_options(dimension="cat")` 查该品类是否存在,不存在就回退 Semrush。

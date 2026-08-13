@@ -1,0 +1,20 @@
+{
+  "_comment": "日报配置模板。真实配置放在仓库外:~/.config/shark-agent/report.json(本仓库是 public,飞书 open_id 之类的标识不能入库)。ga4_property 用 `python3 scripts/ga4.py props` 查;留空则日报只出 GSC 段。gsc_site 必须与 memory/sources/gsc.md 的 siteUrl 完全一致(含尾斜杠)。 ga4_exclude_paths 可选,不填则用脚本默认值(/admin /auth /api /_)。",
+  "lark": {
+    "user_id": "ou_xxxxxxxxxxxxxxxx",
+    "chat_id": ""
+  },
+  "targets": {
+    "partfit3d": {
+      "label": "PartFit 3D",
+      "gsc_site": "https://partfit3d.com/",
+      "ga4_property": "",
+      "ga4_exclude_paths": [
+        "/admin",
+        "/auth",
+        "/api",
+        "/_"
+      ]
+    }
+  }
+}

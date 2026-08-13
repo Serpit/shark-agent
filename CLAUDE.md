@@ -233,9 +233,9 @@ shark-agent 完全独立运行，dbskill 公理已内化为 `memory/axioms.md`�
 
 | 层级 | 来源 | 落盘规则 |
 |---|---|---|
-| 真值 | GSC 自有数据 | 可直接写进 `experiments.md` 结果记录 |
+| 真值 | GSC / GA4 自有数据 | 可直接写进 `experiments.md` 结果记录 |
 | 趋势可信 / 绝对值不可信 | Google Trends | 只作趋势判据,不作量级判据 |
-| 第三方估算 | SimilarWeb / SEMrush / Ahrefs / Columbus(仅 AI 工具站品类) | 必须标来源 + 拉取日期;与 GSC 冲突时**一律以 GSC 为准** |
+| 第三方估算 | SimilarWeb / SEMrush / Ahrefs / [哥伦布](memory/sources/columbus.md)(仅 AI 工具站品类,MCP 直连) | 必须标来源 + 拉取日期;与 GSC 冲突时**一律以 GSC 为准** |
 | 他人观点 | 外部顾问 / agent 问答 | **禁止直接落 memory**,必须先过 `methods/axiom-scan.md` |
 
 ## 脚本
@@ -245,10 +245,14 @@ shark-agent 完全独立运行，dbskill 公理已内化为 `memory/axioms.md`�
 | 脚本 | 用途 | 手册 |
 |---|---|---|
 | [`scripts/gsc.py`](scripts/gsc.py) | Google Search Console 取数:关键词/页面报表、CTR 漏损点、改动前后对比、单页收录诊断 | [`memory/sources/gsc.md`](memory/sources/gsc.md) |
+| [`scripts/ga4.py`](scripts/ga4.py) | Google Analytics 4 取数:property 发现、汇总指标、任意维度拆分、页面级报表 | [`memory/sources/ga4.md`](memory/sources/ga4.md) |
+| [`scripts/report_daily.py`](scripts/report_daily.py) | 每日 GSC + GA4 飞书日报(launchd 每天 10:00 触发,装/卸见 `scripts/install_daily_report.sh`) | [`memory/sources/daily-report.md`](memory/sources/daily-report.md) |
 
 ```bash
 python3 scripts/gsc.py --help          # 子命令一览
-python3 scripts/gsc.py sites           # 验证凭证是否可用
+python3 scripts/gsc.py sites           # 验证凭证是否可用(GSC + GA4 共用一次授权)
+python3 scripts/ga4.py props           # 列出可访问的 GA4 property
+python3 scripts/report_daily.py --dry-run   # 日报试跑,不发飞书
 ```
 
 新增脚本时:同步在这张表补一行,并在 `memory/sources/` 写对应手册。
