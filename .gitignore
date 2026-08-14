@@ -5,3 +5,4 @@ memory/.obsidian/
 __pycache__/
 *.pyc
 outputs/
+artifacts/backlink-ledger/

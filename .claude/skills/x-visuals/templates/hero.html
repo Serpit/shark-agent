@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1600px;height:900px;background:#0d1117;color:#e6edf3;
+  font-family:-apple-system,"PingFang SC","Helvetica Neue",sans-serif;
+  padding:72px 86px;display:flex;flex-direction:column;position:relative;overflow:hidden}
+body::after{content:"";position:absolute;right:-220px;top:-260px;width:760px;height:760px;
+  background:radial-gradient(circle,rgba(240,136,62,.16) 0%,rgba(240,136,62,0) 68%)}
+.tag{display:inline-flex;align-items:center;gap:10px;align-self:flex-start;
+  border:1px solid #30363d;border-radius:999px;padding:9px 20px;
+  font-size:19px;color:#8b949e;letter-spacing:.3px}
+.dot{width:8px;height:8px;border-radius:50%;background:#3fb950}
+.mid{flex:1;display:flex;flex-direction:column;justify-content:center}
+h1{font-size:88px;font-weight:800;letter-spacing:-2.5px;line-height:1.18}
+h1 em{font-style:normal;color:#f0883e}
+.lead{font-size:27px;color:#8b949e;margin-top:26px;line-height:1.6}
+.nums{display:flex;gap:0;border-top:1px solid #21262d;padding-top:34px;margin-top:8px}
+.n{flex:1;padding-right:34px;position:relative}
+.n+.n{padding-left:34px;border-left:1px solid #21262d}
+.nv{font-size:52px;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums;letter-spacing:-1px}
+.nv.up{color:#3fb950}.nv.hot{color:#f0883e}.nv.bad{color:#f85149}
+.nl{font-size:19px;color:#7d8590;margin-top:9px}
+.foot{display:flex;justify-content:space-between;align-items:center;
+  margin-top:38px;padding-top:22px;border-top:1px solid #21262d;
+  font-size:17px;color:#6e7681}
+.foot b{color:#8b949e;font-weight:600}
+</style></head><body>
+<!-- 顶部标签:来源 + 口径,一行说清这张图的语境 -->
+<div class="tag"><span class="dot"></span>数据来源 · 排序/筛选口径 · 总量</div>
+
+<div class="mid">
+  <!-- 主标题:一句主张,不是描述。手动 <br> 控制断句,<em> 包住要强调的半句 -->
+  <h1>主张的前半句<br>主张的<em>反转部分</em></h1>
+  <!-- 副文案:两行以内,交代背景 + 制造悬念 -->
+  <div class="lead">一句话背景。<br>一句话反转。</div>
+</div>
+
+<div class="nums">
+  <!-- 3-4 个数字。class: 无=中性 / up=正向绿 / bad=负向红 / hot=强调橙。只强调 2-3 处 -->
+  <div class="n"><div class="nv">数值</div><div class="nl">这个数字是什么</div></div>
+  <div class="n"><div class="nv up">数值</div><div class="nl">这个数字是什么</div></div>
+  <div class="n"><div class="nv bad">数值</div><div class="nl">这个数字是什么</div></div>
+  <div class="n"><div class="nv hot">数值</div><div class="nl">这个数字是什么</div></div>
+</div>
+
+<div class="foot">
+  <!-- 来源行不可省:工具名 · 拉取日期 · 信任等级 -->
+  <div><b>数据</b>　工具名 · YYYY-MM-DD 拉取 · 第三方估算 / 一手 / 真值</div>
+  <div><b>@gserpit</b></div>
+</div>
+</body></html>

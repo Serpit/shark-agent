@@ -10,6 +10,7 @@
 | 2026-08-10 | 有自有收款后该做哪类付费工具站(keyword-hunt 重跑 Step 1) | 哥飞 SEO Agent | 部分采纳 | [2026-08-10-paid-tool-category.md](2026-08-10-paid-tool-category.md) |
 | 2026-08-11 | KGR + intitle 选词标准 | 哥飞(社群原话 + 公众号,用户转述) | 部分采纳 | [2026-08-11-gefei-kgr-intitle.md](2026-08-11-gefei-kgr-intitle.md) |
 | 2026-08-11 | 截品牌词(alternatives/vs)打法成本 + 能否撑订阅 | 哥飞 SEO Agent | 部分采纳 | [2026-08-11-brand-keyword-interception-cost.md](2026-08-11-brand-keyword-interception-cost.md) |
+| 2026-08-12 | `csv to qbo` 词族 SERP 格局 / 可打性 / 变现设计 / .qbo 格式风险(keyword-hunt 第二轮 Step 6 前二次意见) | 哥飞 SEO Agent | 部分采纳 | [2026-08-12-csv-to-qbo-serp-assessment.md](2026-08-12-csv-to-qbo-serp-assessment.md) |
 
 > 采纳判定:`采纳` / `部分采纳` / `不采纳`
 > 来源:哥飞 SEO Agent(seo.web.cafe,deepseek-v4-flash);或哥飞公开内容(社群 / 公众号)经用户转述

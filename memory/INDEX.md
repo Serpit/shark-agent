@@ -48,7 +48,14 @@
 - [sources/gsc.md](sources/gsc.md) — Google Search Console(**自有真值**,与第三方估算冲突时以它为准),工具 [`scripts/gsc.py`](../scripts/gsc.py)
 - [sources/ga4.md](sources/ga4.md) — Google Analytics 4(**自有真值**,管"点进来之后发生了什么",与 GSC 互补),工具 [`scripts/ga4.py`](../scripts/ga4.py)
 - [sources/columbus.md](sources/columbus.md) — 哥伦布 columbus.tools(**第三方估算**,4630 个 AI 工具站的增长样本库),独有能力:按词看"谁在打这个词、谁在涨谁在死";走 ego 浏览器,无脚本
+- [sources/gefei-kd.md](sources/gefei-kd.md) — 哥飞版关键词难度 **MCP**(**第三方估算**),给英文词的难度分 + 进入前十的链接预算 + 前十竞争盘面表;**不给搜索量和 CPC**,链接预算是曲线插值不是实测
 - [sources/daily-report.md](sources/daily-report.md) — 每日飞书日报(GSC + GA4,每天 10:00 推送),工具 [`scripts/report_daily.py`](../scripts/report_daily.py)
+- [sources/waffo.md](sources/waffo.md) — **收款通道**(不是数据源)Waffo Pancake MoR 接入手册:注册三关(开户/KYB/KYC)、全成本费率、
+  资金流时间线、四条集成路径、12 条已知陷阱。**大陆个人身份证 + 国内银行卡即可收全球款**,解除「无 Stripe 资质」硬约束。
+  当前为**官方文档口径,非自有实测**,开通后回填「实测校准」段
+- [sources/backlink-ledger.md](sources/backlink-ledger.md) — **外链台账**(不是数据源)飞书 Base:partfit3d + aidepixelate
+  两站的提交流水与渠道池,工具 [`scripts/backlink_ledger.py`](../scripts/backlink_ledger.py)。
+  核心纪律:**提交数 ≠ 外链数** —— 129 次提交里 `published` 只有 5 条,真正传权重的仅 1 条
 
 **取数入口已封装成 skill**(会话中按话题自动触发,不用手动记路径):
 

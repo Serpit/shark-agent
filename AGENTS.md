@@ -239,7 +239,7 @@ shark-agent 完全独立运行，dbskill 公理已内化为 `memory/axioms.md`�
 |---|---|---|
 | 真值 | GSC / GA4 自有数据 | 可直接写进 `experiments.md` 结果记录 |
 | 趋势可信 / 绝对值不可信 | Google Trends | 只作趋势判据,不作量级判据 |
-| 第三方估算 | SimilarWeb / SEMrush / Ahrefs / [哥伦布](memory/sources/columbus.md) | 必须标来源 + 拉取日期;与 GSC 冲突时**一律以 GSC 为准** |
+| 第三方估算 | SimilarWeb / SEMrush / Ahrefs / [哥伦布](memory/sources/columbus.md) / [gefei-kd MCP](memory/sources/gefei-kd.md) | 必须标来源 + 拉取日期;与 GSC 冲突时**一律以 GSC 为准** |
 | 他人观点 | 外部顾问 / agent 问答 | **禁止直接落 memory**,必须先过 `methods/axiom-scan.md` |
 
 ## 脚本
@@ -251,12 +251,14 @@ shark-agent 完全独立运行，dbskill 公理已内化为 `memory/axioms.md`�
 | [`scripts/gsc.py`](scripts/gsc.py) | Google Search Console 取数:关键词/页面报表、CTR 漏损点、改动前后对比、单页收录诊断 | [`memory/sources/gsc.md`](memory/sources/gsc.md) |
 | [`scripts/ga4.py`](scripts/ga4.py) | Google Analytics 4 取数:property 发现、汇总指标、任意维度拆分、页面级报表 | [`memory/sources/ga4.md`](memory/sources/ga4.md) |
 | [`scripts/report_daily.py`](scripts/report_daily.py) | 每日 GSC + GA4 飞书日报(launchd 每天 10:00 触发,装/卸见 `scripts/install_daily_report.sh`) | [`memory/sources/daily-report.md`](memory/sources/daily-report.md) |
+| [`scripts/backlink_ledger.py`](scripts/backlink_ledger.py) | 外链台账归一化:把两个项目的提交流水 + 渠道池汇成飞书 Base 导入载荷 | [`memory/sources/backlink-ledger.md`](memory/sources/backlink-ledger.md) |
 
 ```bash
 python3 scripts/gsc.py --help          # 子命令一览
 python3 scripts/gsc.py sites           # 验证凭证是否可用(GSC + GA4 共用一次授权)
 python3 scripts/ga4.py props           # 列出可访问的 GA4 property
 python3 scripts/report_daily.py --dry-run   # 日报试跑,不发飞书
+python3 scripts/backlink_ledger.py build --stats  # 重建外链台账导入载荷
 ```
 
 新增脚本时:同步在这张表补一行,并在 `memory/sources/` 写对应手册。
@@ -273,18 +275,33 @@ python3 scripts/report_daily.py --dry-run   # 日报试跑,不发飞书
 | `seo-competitor` | Ahrefs / Semrush / SimilarWeb,经 3ue 共享面板 | 第三方估算 | `themes.md` / `experiments.md` 候选词池 |
 | `seo-advisor` | 哥飞 SEO Agent 问答 | **他人观点** | `memory/advice/`,**必须先过公理扫描** |
 
+> **不是 skill 但同层**:[`gefei-kd` MCP](memory/sources/gefei-kd.md)——哥飞版关键词难度,`estimate_keyword_difficulty`
+> 给英文词的难度分 + 链接预算 + 前十竞争盘面。**第三方估算**层,不给搜索量和 CPC。
+> 配置在 local scope(token 不入库),**新增或换机后必须重开会话才加载**。
+
 `seo-advisor` 的输出是本项目第三条摄入管道(前两条是 `findings/` 他人经验、`signals/` 机会情报)。
 它与 `/signals` 同规则:**不可回流 `principles.md`**——方法论只从自有实践和 findings 沉淀。
 
-### 编排层(调用上面三个,不自己取数)
+### 编排层(调用上面这些,不自己取数)
 
 | skill | 管什么 | 何时触发 |
 |---|---|---|
-| `keyword-hunt` | **新站出单导向选词流水线**(6 步:锁联盟 → 拉词族 → 四维筛 → 变现验证 → 可打性 → 单页实测) | "找个新词""再建一个站""这次要能出单" |
+| `keyword-hunt` | **新站出单导向选词流水线**(6 步:锁联盟 → 拉词族 → 四维筛 → 变现验证 → 可打性 → 单页实测;Step 3/5 的 KD 与链接预算走 `gefei-kd` MCP) | "找个新词""再建一个站""这次要能出单" |
 
 `keyword-hunt` 是 [`methods/search-engine-demand-discovery.md`](memory/methods/search-engine-demand-discovery.md)
 的**出单导向变体**:一号筛从「月搜索量」换成「CPC + 竞争密度」,验证终点从「看排名」换成「看联盟后台点击」。
 给**已有站**找扩展词不走它,直接用 `seo-competitor`。
+
+### 表达层(把结论变成对外内容)
+
+| skill | 管什么 | 何时触发 |
+|---|---|---|
+| `x-visuals` | X 推文/Thread 配图:头图(hero)、数据卡(datacard)、工具原生截图,统一深色视觉,headless Chrome 渲染 | "配个头图""做张图""推文配图""带上数据截图" |
+
+`x-visuals` 是 [`methods/x-tweet-writing-templates.md`](memory/methods/x-tweet-writing-templates.md) 的**视觉层**——
+文案 SOP 管"说什么",它管"配什么图"。**任何一条带数字的推文,起草完成后主动出图**(用户 2026-08-12 要求)。
+两条硬规则:①**自制图不是证据**,取证一律上工具原生截图;②每张带数据的图**必须标来源 + 拉取日期 + 信任等级**,
+对齐上方「数据源使用纪律」。
 
 ## 兼容性要求
 

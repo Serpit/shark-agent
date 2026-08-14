@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1600px;height:900px;background:#0d1117;color:#e6edf3;
+  font-family:-apple-system,"PingFang SC","Helvetica Neue",sans-serif;
+  padding:56px 68px;display:flex;flex-direction:column}
+.kicker{font-size:20px;color:#7d8590;letter-spacing:.5px;margin-bottom:12px}
+h1{font-size:46px;font-weight:800;letter-spacing:-1px;line-height:1.25}
+h1 em{font-style:normal;color:#f0883e}
+.sub{font-size:21px;color:#7d8590;margin-top:14px;margin-bottom:36px}
+.cols{flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px}
+.col{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:26px 24px;
+  display:flex;flex-direction:column}
+.src{font-size:19px;font-weight:700;color:#58a6ff;margin-bottom:4px}
+.srcnote{font-size:15px;color:#6e7681;margin-bottom:20px}
+.item{margin-bottom:17px}
+.num{font-size:37px;font-weight:800;line-height:1.15;font-variant-numeric:tabular-nums}
+.num.bad{color:#f85149}.num.hot{color:#f0883e}.num.dim{color:#8b949e}
+.lab{font-size:16px;color:#8b949e;margin-top:3px}
+.line{font-size:18px;color:#c9d1d9;margin-bottom:12px;line-height:1.5}
+.line b{color:#f0883e}
+.line .x{color:#f85149;font-weight:700}
+.foot{margin-top:32px;padding-top:24px;border-top:1px solid #21262d;
+  display:flex;justify-content:space-between;align-items:flex-end;gap:40px}
+.punch{font-size:26px;font-weight:700;line-height:1.55}
+.punch span{color:#f0883e}
+.meta{font-size:16px;color:#6e7681;text-align:right;line-height:1.6;flex-shrink:0}
+</style></head><body>
+<!-- 顶部一行:对象 + 关键背景 -->
+<div class="kicker">分析对象 · 背景信息 · 关键数字</div>
+<!-- 标题:这张卡要证明的那一个结论 -->
+<h1>论据构成，同一个结论：<em>结论本身</em></h1>
+<div class="sub">口径说明 · 拉取日期</div>
+
+<div class="cols">
+  <div class="col">
+    <div class="src">SimilarWeb / 哥伦布</div>
+    <div class="srcnote">流量构成 · 2026 年 7 月 · 两边数字一致，同源估算</div>
+    <div class="item"><div class="num bad">4.07%</div><div class="lab">自然搜索占比</div></div>
+    <div class="item"><div class="num hot">55.45%</div><div class="lab">付费搜索 36.23% + 展示广告 19.22%</div></div>
+    <div class="item"><div class="num dim">27</div><div class="lab">DR · 哥伦布却把它标成「关键词驱动站」</div></div>
+  </div>
+
+  <div class="col">
+    <div class="src">Semrush</div>
+    <div class="srcnote">域名概览 · 美区 · 2026-08-10 · 独立估算源</div>
+    <div class="item"><div class="num bad">110</div><div class="lab">自然流量／月（环比 −35%）</div></div>
+    <div class="item"><div class="num dim">24</div><div class="lab">Authority Score（反链 4K，质量偏低）</div></div>
+    <div class="item"><div class="num bad">0</div><div class="lab">付费关键词 · AI 可见度也是 0</div></div>
+  </div>
+
+  <div class="col">
+    <div class="src">站点实读</div>
+    <div class="srcnote">源码 / robots / 埋点 · 2026-08-12</div>
+    <div class="line">sitemap 只有 <b>42 个 URL</b><br><span style="font-size:15px;color:#6e7681">3 条路径 × 19 语言，不含工具页</span></div>
+    <div class="line">robots.txt <span class="x">屏蔽</span> GPTBot / ClaudeBot<br><span style="font-size:15px;color:#6e7681">AI 搜索入口是自己掐的</span></div>
+    <div class="line">埋了 <b>Bing UET</b> + <b>TikTok Pixel</b><br><span style="font-size:15px;color:#6e7681">Stripe 收款 · Tolt 联盟 20% 含续订</span></div>
+  </div>
+</div>
+
+<div class="foot">
+  <!-- punch:从三栏推出的那一句反直觉结论 -->
+  <div class="punch">前提铺垫——<br><span>反直觉的结论。</span></div>
+  <div class="meta">工具名 · YYYY-MM-DD 拉取<br>标清每个源的信任等级</div>
+</div>
+</body></html>

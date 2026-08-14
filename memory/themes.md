@@ -97,10 +97,14 @@
 - **核心需求假设**:存在这样一类工具词 —— **输出进入用户的工作流**(不是拿完就走)、用户按月重复使用、SERP 上已有多家独立小站在直接收费、且最弱竞品的引用域 < 30。在这类词上,DR 0 新站能拿到第一笔自有收款。
 - **与 4 个旧站失败的关系**:这是**对失败原因的直接修正**。partfit3d(3MF 拆分)/ aidepixelate(去像素化)的用户是 hobbyist,输出即终点,无复购,不进任何工作流 —— 所以 1338 曝光换来 0 收入不是排名问题,是**收钱场景选错**。
 - **画像匹配**:高。纯前端可做、复用现有 Astro/Cloudflare 技术栈、1-2 周 MVP、目标用户是簿记员/会计(B2B professional,付费意愿明确)。
-- **验证成本**:低。域名 $10 + Waffo 按成功交易计费。
+- **验证成本**:低。域名 $10 + Waffo 按成功交易计费(**3.9% + $0.50/笔**,无月费无开通费;完整费率与陷阱见 [sources/waffo.md](sources/waffo.md))。
+- ⚠️ **2026-08-12 通道核实带出的两条约束**:① 提现费 **最低 $10/笔**,单价 $1-5 的定价在这条通道下几乎无毛利,与 [risks.md 低价陷阱](risks.md) 同向;
+  ② Waffo KYB 审核查**商标冲突**,产品名/域名含 QuickBooks 有被拒风险。
 - **可行性证据**:
   - **自有实测(最强)**:[experiments.md CSV → QBO 转换器](experiments.md#csv--qbo-转换器付费工具站2026-08-10-跑完-keyword-hunt-第二轮-step-0-5) —— 词族 ~10K/月、KD 1-14、头词 CPC $17.63;Top 10 有 **6 家独立站在收费**($15/$25/$39 订阅 + credits);最弱竞品 `toqbo.com` 仅 **24 引用域**、`filetailored.com` **26 引用域跑出 11.3K 月流量**
   - **窗口期证据**:`forgegui.com` 2026-03 注册,5 个月、DR 28 进 Stripe 收银台引荐榜第 38 位
+  - **窗口期证据(同赛道内,更强)**:`accountingconverter.com` **2026-02-22 注册,5.5 个月排到 `csv to qbo converter` 第 1 名**,DR 4.6、月流量 3,782 且 +126% MoM —— 起步条件与本项目几乎相同。⚠️ 数据来自哥飞站内工具(第三方估算),**上线前用 whois 独立验注册时间**。见 [advice/2026-08-12](advice/2026-08-12-csv-to-qbo-serp-assessment.md)
+  - **风险已澄清(部分采纳)**:会计类词的 **YMYL 门槛不适用** —— 文件转换是「工具功能页」不是「财务建议页」,DR 5 的 5 个月新站能排第 1 即是反证。纪律:落地页不写 financial advice 风格内容
   - **反向证据(界定边界)**:同批 `dst to pes` / `embroidery converter` 量级不成立;`supplement facts label maker` KD 2 但 CPC 仅 $1.57 → 降为备选
   - **顾问输入(部分采纳)**:[advice/2026-08-10-paid-tool-category.md](advice/2026-08-10-paid-tool-category.md)
 - **风险/未知**:
