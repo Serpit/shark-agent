@@ -1,113 +1,73 @@
 # 数据源:哥伦布(columbus.tools)
 
-> **定位**:AI 工具站的**增长样本库**——收录 4,630 个 AI 站,逐站标注流量曲线、变现方式、SEO 打法、头部关键词。
+> **定位**:AI 工具站的**增长样本库**——收录数千个 AI 站,逐站标注流量曲线、变现方式、SEO 打法、头部关键词。
 > 它回答的是现有工具回答不了的一个问题:**「有多少个独立站长已经在打这个词/这条赛道,谁在涨谁在跌」**。
 >
-> **入口**:`https://columbus.tools`,账号 `Serpit G`,**已订阅专业版**。ego 浏览器已有登录态。
-> **无 API、无脚本**,全部走 ego 浏览器读取。
+> **2026-08-14 更新:已接入 MCP,取代旧的 ego-browser 取数流程。** 工具前缀 `mcp__columbus__*`:
+> `list_sites` / `list_keywords` / `get_keyword_sites` / `get_site_detail` / `list_backlink_domains` /
+> `list_filter_options` / `list_model_releases`。**不用登录态、不用开浏览器、结构化 JSON 直接返回。**
+> `seo-competitor` skill 的 [Columbus 章节](../../.claude/skills/seo-competitor/SKILL.md#columbusai-工具站关键词与竞品mcp-直连)
+> 是主要执行入口;本文件只补充字段含义、分类体量参考和三条硬边界,不重复列已在那边的调用示例。
+>
+> 网页版 `https://columbus.tools`(账号 `Serpit G`,专业版)仍在,**只在需要「AI 分析」自由文本段落时才用**——
+> 见下方「MCP 覆盖不到的一层」。
 
 ## 使用前提(硬约束)
 
 **每次拉数据前先回答一句:这次查询的结果会落到哪个具体动作?**
 
 答不上来就不要查。哥伦布的榜单极易变成"再逛逛还有什么赛道"的无底洞——
-4,630 个站 × 93 页,每一页都长得像机会。这正是 [axioms.md](../axioms.md) **公理 6** 的典型陷阱形态。
+候选多、翻页快,每一页都长得像机会。这正是 [axioms.md](../axioms.md) **公理 6** 的典型陷阱形态。
 [timeline.md](../timeline.md) 从 2026-07 起已是试错阶段,**看榜不是动作,建页面才是**。
 
-## 信任等级(分两类,不要混用)
+## 信任等级(分三类,不要混用)
 
 | 类型 | 具体字段 | 信任等级 | 落盘要求 |
 |---|---|---|---|
-| **估算值** | 月访问量、环比增长、自然搜索占比、DR、国家分布、跳出率 | **第三方估算**(同 SimilarWeb/Semrush 层) | 必须标「哥伦布 + 快照月份 + 拉取日期」;与 GSC 冲突时**一律以 GSC 为准** |
-| **结构化事实** | 命中某词的站点名单、注册时间、技术栈、广告网络、结构化数据类型、变现方式/SEO 打法标签 | **可直接参考的观察** | 标来源即可,不必与 GSC 对质(它陈述的是"谁在做什么",不是量级) |
-| **AI 生成段** | 站点详情页底部「AI 分析 → 市场定位 / 观察」 | **他人观点**,页面自己也标了"仅供参考" | **不可直接落 memory**,同 `seo-advisor` 规则,须过 [`methods/axiom-scan.md`](../methods/axiom-scan.md) |
+| **估算值** | 月访问量(`visits`)、环比增长(`visitsMom`)、自然搜索占比(`tsSearchOrganic`)、DR、国家分布、跳出率 | **第三方估算**(同 SimilarWeb/Semrush 层) | 必须标「哥伦布 + 拉取日期」;与 GSC 冲突时**一律以 GSC 为准** |
+| **结构化事实** | 命中某词的站点名单、注册时间(`registDate`)、技术栈、广告网络、结构化数据类型、变现方式(`money`)/SEO 打法(`seo`)标签 | **可直接参考的观察** | 标来源即可,不必与 GSC 对质(它陈述的是"谁在做什么",不是量级) |
+| **AI 生成段** | 网页版站点详情页底部「AI 分析 → 市场定位 / 观察」(**MCP 不返回这段**) | **他人观点**,页面自己也标了"仅供参考" | **不可直接落 memory**,同 `seo-advisor` 规则,须过 [`methods/axiom-scan.md`](../methods/axiom-scan.md) |
 
-数据自称"人工整理 + 公开数据源和第三方流量估算服务交叉印证",**每月更新一次全量**。
-站点详情页会显式写「数据快照:YYYY年M月 · 最后同步:YYYY-MM-DD」——**引用时把快照月份一起记下来**,
-月访问量是那个月的,不是今天的。
+数据自称"人工整理 + 公开数据源和第三方流量估算服务交叉印证"。
+`list_sites` / `get_keyword_sites` 每月更新一次全量,`list_model_releases` 每 5 分钟更新(与选词无关,不接入)。
+**引用估算值时把拉取日期记下来**,数字是当月快照,不是实时值。
 
-## 四个面板与实际字段
+## 六个 MCP 工具与实际字段
 
-### 1. AI 工具站榜单 `/ai-rank`
+| 工具 | 对应旧网页版 | 关键字段 |
+|---|---|---|
+| `list_filter_options(dimension="cat"/"sub"/"model"/"mv")` | 一级/二级分类筛选弹窗 | `value`(筛选用 slug)、`nameZh`/`nameEn`、`siteCount` |
+| `list_sites(cat=, sub=, money=, seo=, type=, emd=, mom=, reg=, dr=, visits=, organic=, sem=, genai=, status=, q=, sort=, order=, page=)` | `/ai-rank` 榜单 | domain / name / 一句话描述 / `regist_date` / `visits` / `visits_mom` / `est_organic` / DR / categories / 3 月趋势 |
+| `get_site_detail(domain=, sections=[])` | `/site/<domain>` | 月访问/增长/3月CAGR/自然搜索占比/DR/注册时间、全部标签、近12月流量、Top10关键词、变现摘要;`sections` 可加 `keywords_full`/`traffic_full`/`teardown`/`country_shares`/`traffic_meta` |
+| `list_keywords(contains=, min_frequency=, min_volume=, sort=, limit=)` | `/ai-keyword-rank` 榜单 | keyword / `frequency`(命中站点数)/ volume / cpc |
+| `get_keyword_sites(keyword=)` | `/ai-keyword-rank` →「查看命中网站」弹窗 | 每个命中站的 volume/cpc/estimatedValue/visits/`visitsMom`/`registDate`/`tsSearchOrganic`/3 月趋势,按 MoM 倒序 |
+| `list_backlink_domains(dr=, visits=, organic=, sort=, page=)` | `/ai-backlink-rank` — **仍不接入**,理由见下 |
 
-4,630 站,93 页,列表列:站点+一句话描述 / 近3月流量曲线 / 分类 / 类型 / 月访问量 / 环比增长 / 自然搜索占比 / DR / 注册时间。
+`list_model_releases`(模型发布时间线)与选词无关,不接入。
 
-**筛选条件可直接拼 URL**(2026-08-11 实测,参数名已核对):
+**站点类型**(`list_sites` 的 `type` 参数)最有用的两个值:
+- `emd`(关键词驱动)—— 靠 SEO 长尾词起量,**这类才是可复刻对标**
+- `brand`(品牌驱动)—— 靠品牌词/外部流量,起量原因往往不在 SEO,**不要拿它当 SEO 对标**
 
-```
-columbus.tools/ai-rank?money=<subscription,credits,one_time,freemium,affiliate,api,ads>
-                      &organic=<high|mid|low>        # high = 自然搜索占比 50% 以上
-                      &visits=<lt50k|50k-200k|200k-1m|gt1m>
-                      &reg=<6m|12m|2025|2024>
-                      &sort=visits_mom&order=desc
-                      &page=<n>
-```
+其余还有 `directory`(目录站)、`other`。
 
-不用点 UI,省一大截时间。**但注意上方硬边界第 3 条:`money` 是 OR 逻辑。**
+**一级分类体量参考**(`list_filter_options(dimension="cat")`,实读于 2026-08-14):
 
-**筛选维度(专业版全解锁)**,分三组:
+图像生成 1784 · 视频制作 1389 · 文本生成 1372 · 编程与开发 1126 · 生产力与办公 1104 · 音频与语音 897 ·
+营销与销售 751 · 平台与基础设施 643 · 聊天与陪伴 444 · 设计 508 · 教育 421 · 社交媒体 359 ·
+生活与娱乐 265 · 商业与金融 333 · 邮件与客服 270 · AI检测与人性化 198 · 招聘与人力 181 ·
+成人/NSFW 116 · 3D建模 105 · 数据分析 76 · 游戏 54 · 健康与医疗 49 · 法律 26
 
-| 组 | 维度 |
-|---|---|
-| 分类与模型 | 一级分类、二级分类、模型家族、模型版本 |
-| 流量表现 | 月访问量、环比增长、注册时间、自然搜索占比、AI 引荐占比、搜索付费占比 |
-| 站点属性 | 站点类型、关键词类型、网站状态、域名权重 DR、变现方式、SEO 打法 |
+**外链榜单(`list_backlink_domains`)暂不接入执行流程**:memory 里还没有对应的外链建设 SOP,拉了没有动作出口,
+按上方硬约束应该先放着。等真的排到"做外链"那一步再回来用(工具已就绪,不用重新接入)。
 
-一级分类弹窗自带**每个分类的站点数**,可当赛道体量的粗略分母:
+## MCP 覆盖不到的一层:AI 生成的「市场定位 / 观察」段
 
-图像生成 1477 · 视频制作 1140 · 文本生成 1123 · 编程与开发 948 · 生产力与办公 910 · 音频与语音 749 ·
-营销与销售 600 · 平台与基础设施 510 · 设计 407 · 聊天与陪伴 372 · 教育 339 · 社交媒体 282 ·
-商业与金融 251 · 生活与娱乐 199 · 邮件与客服 195 · AI检测与人性化 176 · 招聘与人力 154 ·
-成人/NSFW 93 · 3D建模 89 · 数据分析 64 · 游戏 47 · 健康与医疗 41 · 法律 19
-(实读于 2026-08-10)
+网页版 `/site/<domain>` 详情页底部有一段 AI 生成的自由文本(目标受众、市场定位、观察),
+**`get_site_detail` 不返回这段**(它的 `sections` 参数里没有对应选项)。
+只有需要读这段定性描述时才开网页(ego 浏览器,登录态已在),其余场景一律用 MCP。
 
-**站点类型**这一列是它自己的分类法,最有用的两个值:
-- `关键词驱动` —— 靠 SEO 长尾词起量,**这类才是可复刻对标**
-- `品牌驱动` —— 靠品牌词/外部流量,起量原因往往不在 SEO,**不要拿它当 SEO 对标**
-
-其余还见过 `目录站`、`All In One`。
-
-### 2. 站点详情页 `/site/<domain>`
-
-**这是整站最有价值的一页**,一屏顶一次完整案例拆解。以 `imagepromptlab.com` 为例,给出:
-
-- **流量趋势**近 5 个月曲线(总访问 + 自然搜索双线)
-- **指标块**:月访问量 / 环比增长 / 自然搜索流量绝对值 / 自然搜索占比 / DR / 注册时间 / **AI 置信度**
-- **流量结构**:自然搜索 / 直接访问 / **AI 助手** 三分占比 —— AI 助手占比是别处拿不到的字段
-- **主要国家**分布(判断流量质量:印度 71% 和美国 71% 的变现价值差一个数量级)
-- **互动指标**:跳出率 / 页均访问 / 停留时长
-- **头部关键词表**:关键词 + 搜索量 + CPC + **该词给这个站带来的流量**
-- **站点拆解**:正文字数、页面语言、内链数、出站链接数、图片数、缺 alt 图片数、结构化数据类型清单、出站域名清单
-- **技术与商业化**:技术栈(WordPress 等)、广告网络(AdSense 等)、分析工具、定价线索
-- **标签**:变现方式(广告 / 免费增值 / …)、**SEO 打法**(内容中心 / 工具集群 / 场景页矩阵 / …)、模型家族
-- **AI 分析**:目标受众、市场定位、观察 —— 见上表,这段是观点不是数据
-
-### 3. AI 关键词榜单 `/ai-keyword-rank`
-
-558 个词,12 页。列:关键词 / **出现频次** / 搜索量 / CPC / 「查看命中网站」。
-
-**出现频次 = 有多少个已收录的 AI 站在打这个词**。这是本站独有的信号:
-它不回答"这个词多大"(Semrush 的活),而回答"**多少个独立主体已经收敛到这个词上**"。
-
-「查看命中网站」弹窗给出该词的**全部命中站点,按环比增长倒序**,每站带月访问量 / 环比 / 自然搜索占比 / 注册时间,
-还标出 301/302/404/500 状态。等于把"这个词的竞对全景 + 谁在涨谁在死"一次性摊开。
-
-> 实例(2026-08-10):`nano banana` 出现频次 27、搜索量 2.5M、CPC $0.65。
-> 命中站点里 `nanobanana.io` 1.4M 访问但环比 -9.9%,`nano-banana-pro.io` 只有 37.9K 却 +308% ——
-> **同一个词内部,老站在掉、带 pro 后缀的新站在涨**。这种"词内部的迁移方向"是选词时最实用的一层信息。
-
-### 4. AI 外链榜单 `/ai-backlink-rank` —— **当前不接入**
-
-2,576 个被 AI 站高频引用的来源域名(toolify.ai 411 次、producthunt.com 337 次 …),带 DR / 月访问 / dofollow / 自然搜索占比。
-
-**暂不纳入流程**:memory 里还没有对应的外链建设 SOP,拉了没有动作出口,按上方硬约束应该先放着。
-等真的排到"做外链"那一步再回来用。
-
-### 5. AI 模型航线图 `/ai-model-release` —— **不接入**
-
-各家大模型发布时间线,和找词/找赛道基本无关。
-
-## ⚠️ 五条硬边界(2026-08-11 实跑一次完整选站流程后补,2026-08-12 加第 4 条,2026-08-13 加第 5 条;踩过才写的)
+## ⚠️ 五条硬边界(2026-08-11 实跑一次完整选站流程后补,2026-08-12 加第 4 条,2026-08-13 加第 5 条;MCP 切换后规则不变)
 
 ### 1. 哥伦布只能发现候选,**绝不能做 GO 决策**
 
@@ -121,23 +81,33 @@ columbus.tools/ai-rank?money=<subscription,credits,one_time,freemium,affiliate,a
 ### 2. 月度更新有滞后,**看不见最新的竞争者**
 
 同一次实跑:Google Trends 的 Rising 列表里 `getlora` 和 `upastrology` 已经是 **Breakout**(用户开始搜品牌词),
-**哥伦布两个都未收录**。
+**哥伦布两个都未收录**。MCP 化不改变这一点——底层数据源仍是月度快照。
 
 **规则:判断"谁在抢这条赛道"时,Trends 的 Rising 相关查询比哥伦布更早暴露新入场者,两个都要看。**
 
 ### 3. 变现方式标签是 OR 逻辑,**必须用「广告网络」字段复核**
 
-筛 `money=subscription,credits,one_time` 出来的站,仍可能同时挂广告——
+`list_sites` 的 `money` 参数筛出的站,仍可能同时挂广告——
 标签只表示"命中其中一种",不表示"不含其他"。
 实例:`phonkmaker.com` 标签是「免费增值 + 订阅制」、定价 $9/$18/$29.9,
-但详情页**广告网络字段明写 AdSense**;`astrocarto.org` 更甚,columbus 的 AI 分析直接点出它
-"meta 声明 no ads 但实际检测到 AdSense"。
+但 `get_site_detail(sections=["teardown"])` 的技术栈字段明写 AdSense;`astrocarto.org` 更甚,
+网页版 AI 分析直接点出它"meta 声明 no ads 但实际检测到 AdSense"。
 
-**规则:要找纯非广告站,以详情页「技术与商业化 → 广告网络」字段为准,该字段为空才算数。**
+**规则:要找纯非广告站,以 `get_site_detail` 的 teardown 段「广告网络」字段为准,该字段为空才算数。**
 
 > **2026-08-13 实测误报率:5 抽 2,约 40%。** 用 `money=subscription,credits,one_time` 筛出的 5 个站里,
 > `describemusic.net` 和 `detectvideo.ai` 广告网络明写 **AdSense**,且**定价线索只有 `Free`** —— 根本没有付费产品。
 > **加一个更快的判据:先看「定价线索」字段。只有 `Free` 而无任何价格档 = 没有付费产品,不必再看别的。**
+
+### 4. 环比增长排序会把「非搜索流量站」顶到最前,**必须同看两个字段**
+
+`sort=visits_mom&order=desc` 排出来的三位数增长里混着大量**根本不是 SEO 起量**的站。
+实例(2026-08-12):`seedance-25.ai` 月访问 3.4K / **环比 +968%**,看筛选列表像黑马;
+点进详情页,**自然搜索占比 0.0%、头部关键词带来的流量全是 0、94.1% 流量来自 Nigeria**。
+
+**规则:任何三位数环比的候选,先看「自然搜索占比」和「主要国家分布」两个字段。**
+占比 0% → 不是 SEO 样本,别拿它当打法证据;单一非英语区国家 >80% → 流量近乎无变现价值。
+完整拆解见 [`risks.md` 模型版本号抢注域名](../risks.md#模型版本号抢注域名窗口期--一个模型版本周期违反准公理-b)。
 
 ### 5. 头部词 CPC 普遍 < $4,**这个库不适合用来找付费生意**
 
@@ -151,51 +121,9 @@ columbus.tools/ai-rank?money=<subscription,credits,one_time,freemium,affiliate,a
 **反向用法仍成立**:要找广告/联盟变现的流量站打法,它是合适的样本库。
 完整拆解见 [`risks.md` AI 工具站 CPC 系统性偏低](../risks.md#ai-工具站品类的-cpc-系统性低-1-2-个数量级用它找付费生意是池子选错违反公理-4)。
 
-### 4. 环比增长排序会把「非搜索流量站」顶到最前,**必须同看两个字段**
-
-`sort=visits_mom&order=desc` 排出来的三位数增长里混着大量**根本不是 SEO 起量**的站。
-实例(2026-08-12):`seedance-25.ai` 月访问 3.4K / **环比 +968%**,看筛选列表像黑马;
-点进详情页,**自然搜索占比 0.0%、头部关键词带来的流量全是 0、94.1% 流量来自 Nigeria**。
-
-**规则:任何三位数环比的候选,先看「自然搜索占比」和「主要国家分布」两个字段。**
-占比 0% → 不是 SEO 样本,别拿它当打法证据;单一非英语区国家 >80% → 流量近乎无变现价值。
-完整拆解见 [`risks.md` 模型版本号抢注域名](../risks.md#模型版本号抢注域名窗口期--一个模型版本周期违反准公理-b)。
-
-> **反过来说一条正面结论**:同一次实跑里,哥伦布的 `astrocartography` 搜索量 39.9K / CPC $1.06
-> vs Semrush 49.5K / $0.96 —— 量差 24%、CPC 差 10%,**同量级可信**。
-> 比 [`seo-competitor`](../../.claude/skills/seo-competitor/SKILL.md) 里记的"两个估算源差 5.5 倍"那次靠谱得多。
-> **它的量级数据可用于粗筛,只是不能替代意图和 KD。**
-
-## ego 取数要点(2026-08-10 实测)
-
-登录态已在 ego 里,直接开页即可。**两个坑**:
-
-1. **表格是 CSR 渲染,`snapshotText()` 常常拿到空壳容器**(只有 `container` 嵌套没有文本)。
-   → 表格内容一律用 `js()` 直接从 DOM 取:
-
-```bash
-ego-browser nodejs <<'EOF'
-const task = await useOrCreateTaskSpace('columbus research')
-await openOrReuseTab('https://columbus.tools/ai-keyword-rank', { wait: true, timeout: 20 })
-await wait(2)
-cliLog(await js(`document.querySelector('table').innerText`))
-EOF
-```
-
-2. **「查看命中网站」弹窗读不到**:它是 radix dialog,既不出现在 `snapshotText()` 里,
-   也匹配不到 `[data-radix-popper-content-wrapper]`。用 `click('@ref')` 触发后,按 `[role="dialog"]` 取:
-
-```bash
-ego-browser nodejs <<'EOF'
-const task = await useOrCreateTaskSpace('columbus research')
-// 先 snapshotText() 拿到目标行按钮的 @ref,再 click
-await click('@<ref>', { label: 'view hit sites' })
-await wait(1)
-cliLog(await js(`document.querySelector('[role="dialog"]').innerText`))
-EOF
-```
-
-**注意**:直接 `js()` 里调 `.click()` 触发不了(React 合成事件),必须用 ego 的 `click()` helper。
+> **反过来说一条正面结论**:曾实测同一天 `astrocartography` 哥伦布 39.9K/CPC $1.06 vs Semrush 49.5K/$0.96
+> —— 量差 24%、CPC 差 10%,**同量级可信**。比 [`seo-competitor`](../../.claude/skills/seo-competitor/SKILL.md)
+> 里记的"两个估算源差 5.5 倍"那次靠谱得多。**它的量级数据可用于粗筛,只是不能替代意图和 KD。**
 
 ## 结果往哪写
 
@@ -206,7 +134,7 @@ EOF
 | 候选词的"出现频次 + 命中站点涨跌" | [`experiments.md`](../experiments.md) 候选关键词池,标注哥伦布 + 拉取日期 |
 | AI 分析段点出的可疑打法(伪造更新时间戳、内容农场特征等) | 过公理扫描后,新模式补进 [`risks.md`](../risks.md) |
 
-**不要**把榜单整片粘进 memory —— 只写结论 + 快照月份 + 拉取日期。数据每月更新,粘贴的表格一个月就过期。
+**不要**把返回的整段 JSON 粘进 memory —— 只写结论 + 拉取日期。数据每月更新,粘贴的表格一个月就过期。
 
 ## 与其他数据源的分工
 
@@ -214,6 +142,6 @@ EOF
 |---|---|
 | 这个词多大 / 多难(KD) | Semrush(`seo-competitor`) |
 | 这个词在涨还是在跌 | Google Trends(`seo-competitor`) |
-| **这个词已经被谁占了、谁在涨谁在死** | **哥伦布** `/ai-keyword-rank` → 查看命中网站 |
-| **这条赛道有多少站、黑马长什么样、用什么打法变现** | **哥伦布** `/ai-rank` + `/site/<domain>` |
+| **这个词已经被谁占了、谁在涨谁在死** | **哥伦布** `get_keyword_sites` |
+| **这条赛道有多少站、黑马长什么样、用什么打法变现** | **哥伦布** `list_sites` + `get_site_detail` |
 | 我自己的站表现如何 | GSC(`seo-data`)—— **唯一真值** |

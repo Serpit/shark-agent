@@ -8,6 +8,7 @@
 | 2026-08-09 | partfit3d 加转换功能还是弃站 | 哥飞 SEO Agent | 部分采纳 | [2026-08-09-partfit3d-pivot-or-abandon.md](2026-08-09-partfit3d-pivot-or-abandon.md) |
 | 2026-08-09 | 联盟内容站选哪个品类 + AI 小说词族可打性(keyword-hunt 两轮合并) | 哥飞 SEO Agent | 部分采纳(**后被 Waffo 通道打通取代**) | [2026-08-09-affiliate-category-selection.md](2026-08-09-affiliate-category-selection.md) |
 | 2026-08-10 | 有自有收款后该做哪类付费工具站(keyword-hunt 重跑 Step 1) | 哥飞 SEO Agent | 部分采纳 | [2026-08-10-paid-tool-category.md](2026-08-10-paid-tool-category.md) |
+| 2026-08-11 | Build in Public 卖铲子品类筛选 | 哥飞 SEO Agent | 部分采纳 | [2026-08-11-build-in-public-shovel-categories.md](2026-08-11-build-in-public-shovel-categories.md) |
 | 2026-08-11 | KGR + intitle 选词标准 | 哥飞(社群原话 + 公众号,用户转述) | 部分采纳 | [2026-08-11-gefei-kgr-intitle.md](2026-08-11-gefei-kgr-intitle.md) |
 | 2026-08-11 | 截品牌词(alternatives/vs)打法成本 + 能否撑订阅 | 哥飞 SEO Agent | 部分采纳 | [2026-08-11-brand-keyword-interception-cost.md](2026-08-11-brand-keyword-interception-cost.md) |
 | 2026-08-12 | `csv to qbo` 词族 SERP 格局 / 可打性 / 变现设计 / .qbo 格式风险(keyword-hunt 第二轮 Step 6 前二次意见) | 哥飞 SEO Agent | 部分采纳 | [2026-08-12-csv-to-qbo-serp-assessment.md](2026-08-12-csv-to-qbo-serp-assessment.md) |

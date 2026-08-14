@@ -647,6 +647,196 @@ Semrush 给 KD 27「容易」,实际 Top10 是 SolarWinds / Datadog / Dynatrace 
     **复查节点**:2026-08-25 回查 Startup Collections / WebsiteHunt 审核状态;若未上线,不加钱插队,
     转向 3D-printing 资源页 outreach / Show HN(需用户现成 HN 登录)。
 
+  - **2026-08-14 · 围绕 partfit3d 的"3D 模型处理"赛道全景扫描(数据源:Semrush keywordmagic 美区 + Google 无痕 SERP 实查 + SimilarWeb,第三方估算)**
+
+    **动作出口**:决定 partfit3d 下一个扩展页面主攻哪个词族。**未用 Ahrefs**——`seo-competitor` skill 明确禁止(面板里 Ahrefs 单独计费,一律走 Semrush)。
+
+    **转换类词族(3mf ↔ stl,已知方向复核)**
+
+    | 词 | 月量 | KD | CPC | 意图 |
+    |---|---|---|---|---|
+    | `3mf to stl` | 4,400 | 15 | $3.17 | I |
+    | `.3mf to stl` | 2,900 | 13 | $3.17 | I |
+    | `convert 3mf to stl` | 1,300 | 16 | $2.30 | I |
+    | `3mf to stl converter` | 1,000 | 17 | $2.15 | I |
+    | `stl to 3mf` | 880 | 17 | $3.10 | I |
+    | `stl to 3mf converter` | 390 | 15 | $2.30 | I |
+    | `convert stl to 3mf` | 320 | 13 | $4.06 | I |
+
+    合计 ≈ 11,190/月,KD 13-17。与 08-09 数据方向一致(小幅波动属正常估算误差)。
+
+    **修复类词族(stl repair/fix,新发现,此前未探)**
+
+    | 词 | 月量 | KD | CPC | 意图 |
+    |---|---|---|---|---|
+    | `stl repair` | 1,900 | 18 | $1.42 | C |
+    | `stl fixer` | 1,000 | 14 | $1.42 | I |
+    | `repair stl files` | 720 | 9 | $2.60 | I |
+    | `repair stl` | 590 | 25 | $2.03 | I |
+    | `fix stl` | 590 | 15 | $1.38 | I |
+    | `stl fix` | 480 | 11 | $2.03 | I |
+    | `fixing stl files` | 480 | 14 | $2.03 | I |
+    | `stlfix` | 390 | 28 | $4.04 | N |
+    | `stl model repair` | 320 | 12 | $1.42 | I |
+    | `stl repair online` | 320 | 12 | $1.80 | C |
+    | `stl file repair` / `repair stl file` | 260×2 | 14/11 | $2.03 | I |
+    | `fix stl online` / `repair stl files online` | 260×2 | 12 | $2.15 | I |
+    | `repairing stl files` | 260 | 9 | $2.03 | I |
+    | `stl repair tool` / `online stl repair` | 210 | 10/9 | ~$1.8 | I |
+
+    合计 ≈ 9,000+/月,KD 9-28(多数 <18),明显偏「online/free」修饰词,工具型意图纯度高。
+
+    **关键发现 —— SERP 实查推翻"KD 相近所以难度相近"的直觉**
+
+    | 词 | Google 美区无痕 SERP 头部 |
+    |---|---|
+    | `3mf to stl` | imagetostl.com(indie)/ **meshy.ai(融资公司)**/ Reddit / YouTube / anycubic.com、snapmaker.com(打印机厂商博客)/ **zamzar.com** |
+    | `stl repair` | formware.co / justfixstl.com / remeshy.com / nano3dtech.com(全 indie 单功能工具站)/ meshinspector.com(小众软件商)/ Reddit / 2 篇工具榜单博客 |
+
+    SimilarWeb 实测 `zamzar.com`(通用文件转换权威站,占了 `3mf to stl` 第一梯队位置):
+    **687万月访问 · 全球排名 #28,210 · 73.67% 来自非品牌自然搜索**。`justfixstl.com` 小到 SimilarWeb
+    直接拉不出数据——**和 partfit3d 现在的量级同一档**。
+
+    **结论:两个词族 KD 数字都在 13-25 区间、看着难度相近,但 SERP 真实竞争强度完全不同。**
+    转换类前排卡着一个 687 万访问的通用权威站 + 一家融资 AI 公司;修复类前排全是与 partfit3d
+    同量级的 indie 单功能工具站,**结构与 `split 3mf` 当初能进 Top 10 的 SERP 一致**(前排是弱站,不是巨头)。
+    这是继 `ssl certificate monitoring`(KD27「容易」但头部全企业级监控站)之后,第二次验证
+    **KD 数值不能替代 SERP 实看**,已按此更新排序判断。
+
+    **排除/待定**
+
+    - `resize stl` / `scale stl` / `resize 3d model` — Semrush **无数据**(低于数据库收录门槛,
+      不代表无需求——`split 3mf` 当初也是这个状态,实测后有 1,180 曝光/月)。不能直接判死,
+      只能标记"需上线后用 GSC 验",不进本轮排序。
+    - `mesh repair` — 头词语义被医疗(疝气网片手术)完全占据,不可用,种子词换回 `stl repair`/`fix stl`。
+
+    **对 M4 待办的修正**:原计划优先建 `/3mf-to-stl` `/stl-to-3mf`。**本轮建议调整优先级**——
+    先建 `/tools/stl-repair`(量级相近、KD 相近或更低、SERP 实际竞争弱得多、与拆分工具用户高度重合:
+    同一批人先修网格再拆分打印),转换页面保留为第二梯队,不取消,只是不再排第一。
+
+  - **2026-08-14(晚)· `glb to stl` 候选发现(信号源:用户自己看 Google Trends 发现,agent 用 Semrush + SERP 实查验证)**
+
+    **发现过程**:用户直接甩来一条 Google Trends 三词对比链接(`3mf to stl` / `glb to stl` / `image to stl`,
+    Worldwide、近 12 个月),让 agent 看有没有启发——这条线索不是从 SOP 候选池里排出来的,是用户自己在
+    对着已知词族琢磨时顺手查到的。
+
+    **Trends 原始数据**(2026-08-14 拉取):三词近 12 月相对热度均值 `image to stl` 71 >
+    `3mf to stl` 49 > `glb to stl` 16。`image to stl`、`3mf to stl` 全年稳步上涨,2026-05 前后有明显跳升;
+    `glb to stl` 基数低但也在抬头;近 3 周(7月下旬-8月)三条线都略回落,样本太短暂不下结论。
+
+    **真正的信号在"相关查询·上升"榜**:
+    - `3mf to stl` 上升榜:**meshy(Breakout)、meshy ai(Breakout)**、image to 3d model(+350%）、glb to stl(+250%)
+    - `glb to stl` 上升榜:**tripo ai(+1,100%)、meshy(+800%)、tripo(+600%)、meshy ai(+600%)**、fbx to obj(+400%)
+
+    **解读**:meshy 和 tripo 是做"图片/文字生成 3D 模型"的 AI 融资公司(meshy.ai 已在 08-14 早些时候的
+    `3mf to stl` SERP 实查里出现过)。三个转换词共同的增长驱动**不是存量的手工格式转换需求,是 AI 生成
+    3D 内容爆发带出的下游刚需**:用户用 Meshy/Tripo 生成模型 → 工具默认吐出 **GLB**(网页/AR 标准格式)
+    → 打印机软件要 STL/3MF → 搜索转换词。**这是增量需求,处于早期(还在从低基数暴涨)**,不是存量红海。
+
+    **`glb to stl` 硬数据(Semrush 美区,2026-08-14)**
+
+    | 词 | 月量 | KD | CPC |
+    |---|---|---|---|
+    | `glb to stl` | 1,300 | **8** | $3.14 |
+    | `.glb to .stl` | 390 | 5 | $3.34 |
+    | `convert glb to stl` | 260 | 6 | $3.32 |
+    | `glb to stl converter` | 260 | 9 | $2.41 |
+    | `.glb to stl` | 170 | 3 | $3.34 |
+    | `stl to glb` | 140 | 11 | — |
+
+    合计 ≈ 2,520/月,**KD 3-11,是这三批词族(转换 13-17 / 修复 9-28 / 这批 3-11)里最低的一档**。
+    绝对量级明显小于前两批,是早期押注,不是确定收益。
+
+    **SERP 头部实查**(Google 美区无痕):imagetostl.com、convert3d.org、**meshy.ai**、furnimesh.com、
+    customuse.com、**sloyd.ai**、magic3d.io、**zamzar.com**(同一个 687万月访问的通用转换权威站,又出现了)、Reddit。
+
+    两个新观察:
+    1. **meshy.ai 和 sloyd.ai 自己上了转换工具**——这两家做 AI 生成 3D 模型,提供转换器是为了**堵自己用户
+       的下一步流失**(用户拿着 AI 生成的 GLB 想打印,不能让他们跑去第三方站),不是主动来抢这个词的流量。
+       这条反过来印证了上面的需求解读。
+    2. **imagetostl.com / convert3d.org / furnimesh.com / customuse.com 在 `3mf to stl` 和 `glb to stl`
+       两个 SERP 里重复出现**——大概率是同一操盘手用同一套转换引擎批量铺的"格式对矩阵站"(一个引擎,
+       几十个域名各占一个格式对)。**这不是跟单个对手竞争,是跟一套可复制的模板打法竞争**,但也说明这套
+       打法本身跑得通,partfit3d 可以借鉴同样思路——同一套转换/修复/拆分技术底座,铺多个一词一页。
+
+    **与 `image to 3d model` 的边界(重要,避免误判)**:`image to 3d model` 是 AI **生成**步骤本身,
+    2026-08-11 已经因为 meshy.ai/tripo3d 融资公司占位而 pass 掉(见上方「哥伦布种子」段)。`glb to stl`
+    是生成**之后**的格式转换步骤,技术门槛完全不同(纯几何格式转换 vs AI 3D 生成),partfit3d 现有拆分/
+    修复技术栈能直接接,**这条不是重新捡回被 pass 的候选,是同一条需求链上更下游、更适合的一段**。
+
+    **结论**:不单独立项,并入 partfit3d 工具矩阵的第四块拼图。完整用户流程:
+    AI 生成模型(在 Meshy/Tripo 上,拿不到这步)→ **GLB 转 STL/3MF**(可以拿)→ 修复网格 → 拆分适配打印机。
+    四步做站内互链。`glb to stl` 页面成本低(KD 3-11,复用现有转换逻辑),现在量小,但 Trends 显示还在
+    早期爆发阶段,值得顺手做、提前卡位。
+
+    **过程记录 · 一次工具使用风险**:本轮查询中途,3ue 面板弹出系统消息(08-13 13:04)
+    "严禁任何用户使用或部署任何形式的第三方脚本、自动化工具(Bot)辅助工具对本平台进行访问、操作或数据抓取",
+    且用户手动接管过一次浏览器任务空间。不确定是否针对本次查询频率触发,但该面板订阅同时支撑四站的
+    SEO 数据源,**后续用 ego-browser 自动化查询 Semrush/SimilarWeb 时应控制频率和批量大小**,不要为了
+    抠单个词的精确数字做不必要的连续查询(呼应协议里的"公理 6:拉数前先想清落到哪个动作")。
+
+## SEO 工具站 Starter Kit(BIP 卖铲子,2026-08-11 桌面筛选完成)
+
+- **状态**:planned(只批准 48 小时预售,未批准产品开发)
+- **关联方向**:[themes.md SEO 工具站 Starter Kit](themes.md#seo-工具站-starter-kit--自动防错规则)
+- **待验证假设**:AI 建站的独立开发者会为「工具站上线底座 + SEO 发布防错」支付一次性费用,
+  且 Build in Public 内容能带来首批名单和预售。
+- **唯一 GO 标准**:48 小时内获取 **≥3 个非熟人有效邮箱 + ≥1 笔 $19 refundable deposit**。
+  只有点赞、投票、口头说想要均不算 GO。
+- **NO-GO 标准**:触达 15 个明确在做工具站的人后,0 deposit;停止开发,保留内容素材。
+- **预算上限**:预售 $0-10;GO 后 MVP 现金 $10-40,总工时 32-40 小时(约两周)。
+
+### 桌面筛选结论
+
+| 候选 | 直接信号 | 反证 | 判定 |
+|---|---|---|---|
+| App Store 拒审预检 | AcceptMyApp $29.99/单 App、$149/年 | 已覆盖清单、风险、拒审回复、截图 | NO-GO,正面占位 |
+| RevenueCat 配置 doctor | 订阅 App 痛点强 | RevenueCat 2026 AI Toolkit 已能诊断常见配置 | NO-GO,官方下场 |
+| 通用移动 UI / 增长组件包 | NativewindUI $99/季、$299 终身;3,000+ devs 自报 | WithFrame / NativewindUI 已含 paywall、onboarding | NO-GO,需堆数量 |
+| 通用 SaaS boilerplate | ShipFast / TanStarter 验证收入强 | 强竞品多,维护面广 | 不直接做 |
+| **SEO 工具站 Starter Kit** | 相邻品类验证收入 + 自有 4 站 bug/流程 | 本细分无直接预售证据 | **进入 48h 验证** |
+
+### 付费与增长证据(2026-08-11 拉取)
+
+- **TrustMRR,API key 验证收入**:ShipFast 累计约 $1.3M / 近 30 天 $3.5K;TanStarter 累计
+  $26,178 / 近 30 天 $2,086 / $159 一次性 / X 渠道;Directory Launch 累计 $1,604 /
+  近 30 天 $199 / $199 一次性;React Bits Pro 近 30 天约 $32K。
+- **哥伦布第三方估算**:AppLaunchFlow 31.7K 月访问、+142%;LaunchShots 18.5K、+79.5%;
+  两者 Columbus 均显示自然流量接近 0,说明这类面向 maker 的产品可由品牌 / 社媒 / 社群驱动,
+  但访问量不是收入。
+- **BIP 边界**:TrustMRR 全站数据中收入与创始人 X 粉丝相关性仅 **r=0.29(n=4,538)**。
+  社媒是启动渠道,不是市场本身;因此预售必须收 deposit,不能拿互动数代替付费。
+
+### 两周 MVP 范围(GO 后才做)
+
+1. Astro + Cloudflare Pages 单仓库 starter,含一个纯前端工具示例。
+2. canonical / og:url / sitemap / redirect 统一策略;真 404;robots 和结构化数据。
+3. 内容集合 + pSEO 页面模板 + 站内互链配置。
+4. 发布前测试脚本:扫 trailing slash 循环、canonical 自指、sitemap 状态码、相对链接、soft 404。
+5. GSC 接入清单 + Codex / Claude 的项目规则文件;不做后台、不做多框架、不做托管服务。
+
+### 成本账
+
+| 项目 | 预售 | 两周 MVP | 持续/月 |
+|---|---:|---:|---:|
+| 时间 | 8-12h | 32-40h | 4-6h 更新/支持 |
+| 域名 | $0-10 | 已含 | ~$1 摊销 |
+| Cloudflare / GitHub | $0 | $0 | $0(早期额度) |
+| Waffo | 按成交费率 | 按成交费率 | 按成交费率 |
+| 其他工具 / API | $0 | $0-30 | $0-20 |
+| **合计现金** | **$0-10** | **$10-40** | **$0-20 + 交易费** |
+
+### 定价假设
+
+- 预售 deposit:$19,GO 后抵扣。
+- Launch:个人 $59 一次性(首 20 名),标准价 $99;Agency $199。
+- 不承诺永久无限维护;标准价含 12 个月更新,避免一次性收费承担永久客服。
+
+### 结果记录
+
+- 2026-08-11:完成首轮桌面筛选。**结论不是「方向已 GO」,而是「它最值得拿 48 小时验证权」**。
+  直接淘汰三个看似匹配但已被占位的方向;顾问建议经公理扫描后仅保留「重复流程产品化」结构。
+
 ## 非广告变现 AI 工具站方向筛选(2026-08-11 · 已结束,结论 NO-GO)
 
 - **状态**:done(否定结论,不再重跑同一批候选)
@@ -725,7 +915,7 @@ KD 低是真的,CPC 归零也是真的——广告主一分钱不出价,是付�
 
 ## CSV → QBO 转换器(付费工具站,2026-08-10 跑完 keyword-hunt 第二轮 Step 0-5)
 
-- **状态**:planned(Step 1-5 完成,等 Step 6)
+- **状态**:parked(2026-08-11 不作为 Build in Public 主线;Step 1-5 数据保留,2026-08-12 复核)
 - **关联方向**:[themes.md 付费工具站 + 自有收款](themes.md#付费工具站--自有收款waffo)
 - **前置变更**:2026-08-10 用户确认开通 **Waffo**(MoR,个人无需 LLC,直接打款到银行账户)。
   **「无 Stripe 资质」这个卡了三个多月的硬约束解除**,变现载体从联盟佣金换成自有收款,
@@ -834,6 +1024,10 @@ KD 低是真的,CPC 归零也是真的——广告主一分钱不出价,是付�
   第一次出现「KD 6-10 + CPC $17 + 词族 10K/月 + Top 10 有 6 家在收费 + 最弱竞品仅 24 引用域」的组合。
   与第一轮联盟方向的关键差异:**钱直接流向独立工具站,不经过任何中间人**,
   不像联盟方向那样被厂商内容营销拦截(见 [risks.md](risks.md#成熟-saas-品类的-alternatives--vs-词被厂商内容营销占据不是联盟站的地盘))。
+- 2026-08-11:用户补充新的**分发约束**:Build in Public 要借助社媒和圈层流量为产品带量,
+  会计/簿记用户与当前 X 独立开发圈不重叠,因此即使 `csv to qbo` 搜索与付费数据成立,
+  也不作为 BIP 主产品。**本候选 parked,不进入 Step 6**;2026-08-12 仅复核数据并保留为市场基准,
+  下一轮改找开发者/站长/创作者/独立创业者使用的「卖铲子」方向。
 
 - **2026-08-12:Step 6 前找了第二意见**(哥飞 agent,[advice 全文](advice/2026-08-12-csv-to-qbo-serp-assessment.md),判定**部分采纳**)。对本实验参数的实际影响:
 

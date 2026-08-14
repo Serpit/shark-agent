@@ -239,7 +239,7 @@ shark-agent 完全独立运行，dbskill 公理已内化为 `memory/axioms.md`�
 |---|---|---|
 | 真值 | GSC / GA4 自有数据 | 可直接写进 `experiments.md` 结果记录 |
 | 趋势可信 / 绝对值不可信 | Google Trends | 只作趋势判据,不作量级判据 |
-| 第三方估算 | SimilarWeb / SEMrush / Ahrefs / [哥伦布](memory/sources/columbus.md) / [gefei-kd MCP](memory/sources/gefei-kd.md) | 必须标来源 + 拉取日期;与 GSC 冲突时**一律以 GSC 为准** |
+| 第三方估算 | SimilarWeb / SEMrush / Ahrefs / [哥伦布](memory/sources/columbus.md)(仅 AI 工具站品类,MCP 直连) / [gefei-kd MCP](memory/sources/gefei-kd.md) | 必须标来源 + 拉取日期;与 GSC 冲突时**一律以 GSC 为准** |
 | 他人观点 | 外部顾问 / agent 问答 | **禁止直接落 memory**,必须先过 `methods/axiom-scan.md` |
 
 ## 脚本
@@ -272,7 +272,7 @@ python3 scripts/backlink_ledger.py build --stats  # 重建外链台账导入载�
 | skill | 管什么 | 信任等级 | 产物落点 |
 |---|---|---|---|
 | `seo-data` | 四个自有站的 GSC 数据(脚本 + ego 网页版双路径) | **真值** | `experiments.md` 结果记录 |
-| `seo-competitor` | Ahrefs / Semrush / SimilarWeb,经 3ue 共享面板 | 第三方估算 | `themes.md` / `experiments.md` 候选词池 |
+| `seo-competitor` | Ahrefs / Semrush / SimilarWeb(经 3ue 共享面板)+ Columbus(MCP 直连,仅 AI 工具站品类) | 第三方估算 | `themes.md` / `experiments.md` 候选词池 |
 | `seo-advisor` | 哥飞 SEO Agent 问答 | **他人观点** | `memory/advice/`,**必须先过公理扫描** |
 
 > **不是 skill 但同层**:[`gefei-kd` MCP](memory/sources/gefei-kd.md)——哥飞版关键词难度,`estimate_keyword_difficulty`

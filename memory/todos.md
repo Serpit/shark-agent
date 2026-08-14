@@ -26,6 +26,12 @@
 
 ### todo
 
+- [ ] **2026-08-12 早上** · M4 · 复核 `CSV → QBO` 关键词数据,作为市场基准保留(**不启动 MVP**)
+  - **动作**:① 两个估算源复核核心词 Volume / KD / CPC ② 无痕美区 SERP 重扫 Top 10 收费站与价格 ③ 查 Intuit Web Connect 对 FID / Financial Institution partner ID 的官方要求 ④ 记录结论为「数据成立 / 数据不成立」
+  - **定位**:这个词的商业信号仍然好,但会计用户与当前 X / 独立开发圈不重叠,**不适合作为 Build in Public 主产品**;本轮只校验数据,不注册域名、不写代码
+  - **关联**:[experiments.md CSV → QBO 转换器](experiments.md#csv--qbo-转换器付费工具站2026-08-10-跑完-keyword-hunt-第二轮-step-0-5)
+  - **预计耗时**:1-2 小时
+
 - [ ] ~~**2026-08-09**(2026-08-11 升回优先)· M4 · 修 partfit3d 的 title + meta description~~ —
   **2026-08-12 被更精确的 TDK 单页实验取代**(见下方 2026-08-12 条目,基于同日 SERP 诊断给出具体文案)
   - 原动作:按序改 `split 3mf` → `split3mf` → `split3dmf` 的落地页 title/meta,加动作词与差异点(免费 / 无需上传 / 浏览器内完成)。主战场是 `/tools/3mf-splitter-online/` 一页——它单页占 486 曝光
@@ -110,7 +116,21 @@
 
 - [ ] ~~**2026-08-09** · 注册 Sudowrite 联盟 + 发 `best ai for novel writing` 长文~~ — **2026-08-10 作废**,Waffo 通道打通后变现载体从联盟换成自有收款,联盟路径整体降级(数据保留在 [experiments.md](experiments.md))
 
-- [ ] **2026-08-09**(2026-08-11 重新定性,新主线)· M4 · partfit3d 新建 `/3mf-to-stl` + `/stl-to-3mf` 两个页面
+- [ ] **2026-08-14 新增,优先级高于下面的转换页**· M4 · partfit3d 新建 `/tools/stl-repair` 页面
+  - **动作**:一页一词族,主攻 `stl repair`(1,900/月 KD18)+ `stl fixer`(1,000/月 KD14)+ `repair stl files`(720/月 KD9),TDK 命中 "free online stl repair tool"
+  - **为什么排第一**:量级(9,000+/月)与转换词族(11,190/月)相近,但 SERP 实查后**竞争强度差一个量级**——转换词前排卡着 zamzar.com(687万月访问通用权威站)+ meshy.ai(融资公司),修复词前排全是与 partfit3d 同量级的 indie 单功能工具站。KD 数字接近但真实难度不同,详见 [experiments.md 2026-08-14 赛道扫描](experiments.md#结果记录)
+  - **产品形态**:网格修复(补洞/合并顶点/修法线)可作为拆分前置步骤,与现有拆分工具用户高度重合,做站内互链
+  - **预计耗时**:2-3 小时(先做单功能页,修复算法可先接现成开源库如 meshlab/pymeshfix 或第三方 API,不必自研)
+
+- [ ] **2026-08-14 新增(用户从 Google Trends 自己发现的线索)**· M4 · partfit3d 新建 `/tools/glb-to-stl` 页面
+  - **动作**:主攻 `glb to stl`(1,300/月 KD8)+ `.glb to .stl`(390/月 KD5)+ `convert glb to stl`(260/月 KD6),这批词 KD 全部 <11,是三批候选里难度最低的
+  - **为什么**:用户看 Trends 三词对比(3mf to stl / glb to stl / image to stl)发现上升相关查询全指向 meshy/tripo(AI 生成 3D 模型的融资公司)——这是 AI 生成 3D 内容爆发带出的下游刚需(生成出 GLB → 要转 STL/3MF 才能打印),处于早期增长阶段,不是存量红海
+  - **产品定位**:接在"AI 生成模型 → **GLB 转 STL/3MF** → 修复网格 → 拆分打印机"链路的第二环,与 stl-repair、拆分工具三个页面站内互链,不单独作为独立方向
+  - **⚠️ 排序是 agent 判断,未经用户确认**:因 KD 最低暂排在 stl-repair 之后、转换页之前,但绝对量级(2,520/月)明显小于另外两批(9K+/11K+),这是早期押注不是确定收益,用户可按实际精力调整顺序
+  - **关联**:[experiments.md 2026-08-14(晚)glb to stl 候选发现](experiments.md#结果记录)
+  - **预计耗时**:1-2 小时(复用现有转换/拆分技术栈)
+
+- [ ] **2026-08-09**(2026-08-11 重新定性,08-14 降为第三梯队)· M4 · partfit3d 新建 `/3mf-to-stl` + `/stl-to-3mf` 两个页面
   - **动作**:一页一词,TDK 精准命中(`Convert 3MF to STL Online Free` 这类),拆分工具做站内互链导流。后端逻辑与现有拆分功能复用率高
   - **为什么**:相邻转换词族 Semrush 口径 ~10K+/月、KD 13-24,比当前词族(实测 ~1,180 曝光/月)约大 8 倍
   - **⚠️ 2026-08-11 定性变更**:原写「`split 3mf` 约 84 曝光/月**是死路**,必须换主攻词」——**前提数字错了**。
@@ -216,6 +236,11 @@
 - ~~切美区 IP 跑 SERP 维度~~ — 建站已跑通,该阻塞不再挡路
 
 ## 最近完成(近 14 天)
+
+- [x] **2026-08-11 完成** · M4 · 找 1 个 Build in Public「卖铲子」方向
+  - **结果**:首选「SEO 工具站 Starter Kit + 自动防错规则」进入 48 小时预售验证;不是直接 GO。
+  - **证据**:TrustMRR 验证收入 + 哥伦布增长产品 + 官网价格交叉;淘汰 App 拒审预检、RevenueCat doctor、通用移动 UI kit。
+  - **关联**:[experiments.md](experiments.md#seo-工具站-starter-kitbip-卖铲子2026-08-11-桌面筛选完成)
 
 - [x] **2026-08-09 完成** · M4 · GSC API 授权打通
   - **过程**:账号开 2SV → 建 GCP 项目 `shark-gsc` → 启用 Search Console API → 配 OAuth 同意屏幕(外部/测试,加测试用户)→ 建桌面客户端 `shark-gsc-cli` → `gsc.py auth`

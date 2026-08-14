@@ -1,6 +1,6 @@
 ---
 name: keyword-hunt
-description: 为**新站**找一个能出单(产生真实收入)的关键词。从联盟变现载体倒推选词,而不是从搜索量正推。编排三个既有 skill 加一个 MCP:seo-advisor(哥飞 agent,Step 1/2/4 找需求/找品类/补词族/窗口期)、seo-competitor(Semrush 词族与 CPC/竞争密度、SimilarWeb 竞品体量)、gefei-kd MCP(KD 第二口径 + 链接预算 + 前十盘面)、seo-data(GSC 单页实测验真)。当用户说"找个新词""再建一个站""第 N 个站选什么词""这次要能出单""选个能赚钱的词""怎么找词""新站选词""找需求"时使用。⛔ 给**已有站**找扩展词不走这里,直接用 seo-competitor。
+description: 为**新站**找一个能出单(产生真实收入)的关键词。从联盟变现载体倒推选词,而不是从搜索量正推。编排三个既有 skill 加一个 MCP:seo-advisor(哥飞 agent,Step 1/2/4 找需求/找品类/补词族/窗口期,AI 品类下窗口期已由 Columbus 覆盖)、seo-competitor(AI 品类走 Columbus MCP 关键词竞争格局/竞品流量增长/注册日期;非 AI 品类走 Semrush 词族与 CPC/竞争密度、SimilarWeb 竞品体量)、gefei-kd MCP(KD 第二口径 + 链接预算 + 前十盘面)、seo-data(GSC 单页实测验真)。当用户说"找个新词""再建一个站""第 N 个站选什么词""这次要能出单""选个能赚钱的词""怎么找词""新站选词""找需求"时使用。⛔ 给**已有站**找扩展词不走这里,直接用 seo-competitor。
 ---
 
 # 新站选词:出单导向流水线
@@ -132,6 +132,15 @@ AdSense 需要数万月 PV 才有个位数美元,与 3 个月看反馈的硬约�
 
 种子词用 **Step 1 抄下来的产品名和品类名**,不要凭空想。
 
+**若锁定的品类是 AI 工具**(先用 `list_filter_options(dimension="cat")` 确认品类存在于 Columbus):
+**优先用 Columbus MCP,跳过下面的 Semrush 浏览器流程。**
+`list_keywords(contains=<品类关键词>, sort="frequency")` 直接给出词 + 有多少个已上线站在打这个词
+(`frequency` 本身就是「被验证过的需求」信号,比 Semrush 单纯的搜索量更强)+ volume/cpc,
+一次 MCP 调用出结果,不用登录态、不占浏览器、不受 Semrush 订阅到期影响。详见
+[`seo-competitor` 的 Columbus 章节](../seo-competitor/SKILL.md#columbusai-工具站关键词与竞品mcp-直连)。
+
+非 AI 品类(如工具型但非 AI 品牌的站),继续走下面的 Semrush 流程。
+
 工具:Semrush Keyword Magic Tool。入口与爬取方式见
 [`seo-competitor`](../seo-competitor/SKILL.md),这里只给本流程特有的用法。
 
@@ -214,7 +223,13 @@ Semrush 出的是**数据库里有的词**,哥飞出的是**它知识库里见�
 
 ### 并行:KD 两源对质(`gefei-kd` MCP)
 
-Semrush 是第三方估算,单源的绝对值不可用。哥飞模型构成**独立的第二 KD 口径**,直接调用:
+**AI 品类走 Columbus 时**:Step 2 拉词族已经把 volume/cpc 带出来了,这一步直接复用,不用再拉一次。
+`get_keyword_sites(keyword=)` 额外给每个已上线竞品的 visits/MoM 增长/注册日期,可以直接看出
+「这个词有没有人靠它涨起来」,比单纯 CPC 阈值更接近真实变现信号——**放在这里先扫一遍,
+Step 4 的人工 SERP 实看优先看 MoM 涨得最快的那几个站,省时间**。两条路径不冲突:
+Columbus(AI 品类可用时)给竞品实测流量,`gefei-kd` 给独立的第二 KD 口径,可以都看。
+
+**非 AI 品类**:Semrush 是第三方估算,单源的绝对值不可用。哥飞模型构成**独立的第二 KD 口径**,直接调用:
 
 ```
 estimate_keyword_difficulty(keyword="<候选词>", gl="us")
@@ -315,9 +330,15 @@ estimate_keyword_difficulty(keyword="<入围词>", gl="us", force=true)
 它回答"这个难度的词统计上要多少域",**不回答"那个具体竞品实际有多少域"**。
 两者不可互换,GO/NO-GO 不能只凭它——所以 5b 仍要跑。
 
-### 5b · Semrush 侧(复核实际引用域)
+### 5b · Semrush 侧(非 AI 品类)/ Columbus 侧(AI 品类,优先,复核实际引用域)
 
-**拿 5a 盘面表点名的那个最弱站**(不是最强的,也不用再自己判断是哪个),查 Domain Overview:
+**拿 5a 盘面表点名的那个最弱站**(不是最强的,也不用再自己判断是哪个):
+
+**AI 品类**:直接 `get_site_detail(domain=<最弱竞品域名>)`,一次调用拿到 DR、月流量、增长、
+Top 10 关键词、变现方式摘要——不用登录 3ue 面板。Step 4 用 `get_keyword_sites` 时已经带出
+`registDate`(注册日期)和 `visitsMom`(月增长),**窗口期判断在 Step 4 就能定,不用等到这一步再问哥飞**。
+
+**非 AI 品类**,继续走 Semrush,查 Domain Overview:
 
 - Authority Score(**< 30 才算可打**)
 - **引用域数量 ← 这就是你要付的代价**
@@ -340,8 +361,10 @@ estimate_keyword_difficulty(keyword="<入围词>", gl="us", force=true)
 外链预算那一问已被 5a 的 MCP 顶替,**不要再问一遍**。它在这步唯一还给得出、
 且 5a/5b 都给不了的是:**竞品域名的新注册动向(窗口期信号)**,以及变现口径。
 
+**AI 品类例外**:窗口期信号(竞品注册日期)已经在 Step 4/5a 用 Columbus 拿到了,这一步可以跳过窗口期问题,只问变现口径。
+
 > 定标词 `<1-2 个>`,我想用新站(DR 0)打进 Top 10,链接预算已估为 `<5a 的数字>` 个引用域。
-> 1. 这几个词对应的域名近 3-6 个月有没有新注册动向?有没有人正在布局?
+> 1. 这几个词对应的域名近 3-6 个月有没有新注册动向?有没有人正在布局?(AI 品类若 Step 4/5a 已用 Columbus 拿到窗口期信号,跳过此问)
 > 2. 打进去之后,这类词的流量靠什么变现最合理?联盟、广告还是别的?
 
 第 2 问是**必须自己写进去的**——它的工具箱全在流量侧,不问就不会答(见下方跨步用法)。
@@ -418,7 +441,7 @@ estimate_keyword_difficulty(keyword="<入围词>", gl="us", force=true)
 **一轮流水线可以合并成一个 advice 文件**(按步分节),不必一问一文件。
 **不可回流 [`principles.md`](../../../memory/principles.md)。**
 
-## 三个工具的信任裁决
+## 四个工具的信任裁决
 
 冲突时按 [`CLAUDE.md`](../../../CLAUDE.md) 数据源纪律,自上而下:
 
@@ -426,9 +449,9 @@ estimate_keyword_difficulty(keyword="<入围词>", gl="us", force=true)
 |---|---|---|
 | 真值 | GSC(`seo-data`) | Step 6,最终判据 |
 | 趋势可信 / 绝对值不可信 | Google Trends | 可选,只看方向 |
-| 第三方估算 | Semrush / SimilarWeb(`seo-competitor`) | Step 2/3/5b,出**排序**不出预测 |
+| 第三方估算 | Semrush / SimilarWeb / Columbus(`seo-competitor`) | Step 2/3/5b,出**排序**不出预测;AI 品类优先 Columbus,非 AI 品类走 Semrush/SimilarWeb |
 | 第三方估算 | **`gefei-kd` MCP** | Step 3/5a,KD 第二口径 + 链接预算 + 前十盘面;**链接预算是插值不是实测**,详见 [`sources/gefei-kd.md`](../../../memory/sources/gefei-kd.md) |
-| 他人观点 | 哥飞 agent(`seo-advisor`) | Step 1/2/4,找需求 / 补词族 / SERP 格局 / 窗口期,**每次必须过公理扫描** |
+| 他人观点 | 哥飞 agent(`seo-advisor`) | Step 1/2/4,找需求 / 补词族 / SERP 格局 / 窗口期(非 AI 品类下 Step 5 也可能用到,AI 品类窗口期已由 Columbus 覆盖),**每次必须过公理扫描** |
 
 **任意两层冲突,一律以更上层为准。**
 
@@ -442,9 +465,10 @@ estimate_keyword_difficulty(keyword="<入围词>", gl="us", force=true)
    判据是**同一步内**:若在同一步上问了第 2 次仍给不出下一个动作,
    追问一次「这是信息不够,还是心理上还没准备好?」,然后强制推进到下一步。
    **Step 6 是唯一产生真值的一步,前五步的全部意义是尽快到达它。**
-4. **Semrush / SimilarWeb 订阅 2026-09-06 到期。** 之后降级:`gefei-kd` MCP + Google Trends(免费)+ GSC 实测。
+4. **Semrush / SimilarWeb 订阅 2026-09-06 到期。** 之后降级:**AI 品类**不受影响,直接以 Columbus(MCP)
+   为一号数据源;**非 AI 品类**降级为 `gefei-kd` MCP + Google Trends(免费)+ GSC 实测,
    Step 3 的 CPC/Com. 维度会失效,届时用 **`gefei-kd` 的难度分 + Step 4 的 SERP 联盟密度**做替代一号筛;
-   Step 5b 的 Domain Overview 也拿不到,只剩 5a 盘面表——**那时链接预算就成了单源插值,更要靠 Step 6 验真**。
+   Step 5b 的 Domain Overview 也拿不到(非 AI 品类),只剩 5a 盘面表——**那时链接预算就成了单源插值,更要靠 Step 6 验真**。
 5. **`gefei-kd` 便宜,所以危险。** 秒回、不耗积分、无配额压力,天然诱导"再查几个词看看"。
    规则:**只对已通过 CPC/词型初筛的词调用**,一轮流水线的调用次数不应超过候选词数。
 

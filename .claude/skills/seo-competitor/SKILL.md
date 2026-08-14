@@ -1,9 +1,9 @@
 ---
 name: seo-competitor
-description: 查关键词与竞品的外部数据——Semrush(月搜索量、KD、词族扩展、竞品流量)、SimilarWeb(站点流量估算、渠道构成)、Google Trends(趋势方向、上升相关词)。用 ego 浏览器驱动,不走 API。当对话涉及"这个词难做吗""KD 多少""搜索量够不够""词族有多大""竞品流量多少""对手站怎么样""这个词在涨还是在跌""趋势如何""SERP 头部是谁"时使用。也用于 search-engine-demand-discovery SOP 的 Step 2 三维探针。
+description: 查关键词与竞品的外部数据——Semrush(月搜索量、KD、词族扩展、竞品流量)、SimilarWeb(站点流量估算、渠道构成)、Google Trends(趋势方向、上升相关词)、Columbus(AI 工具站关键词竞争格局、竞品流量/增长/注册日期,MCP 直连,仅覆盖 AI 品类)。前三个用 ego 浏览器驱动,不走 API;Columbus 走 MCP 工具调用。当对话涉及"这个词难做吗""KD 多少""搜索量够不够""词族有多大""竞品流量多少""对手站怎么样""这个词在涨还是在跌""趋势如何""SERP 头部是谁""这个 AI 工具品类谁在做"时使用。也用于 search-engine-demand-discovery SOP 的 Step 2 三维探针。
 ---
 
-# 关键词与竞品数据(Semrush / SimilarWeb / Google Trends)
+# 关键词与竞品数据(Semrush / SimilarWeb / Google Trends / Columbus)
 
 **信任等级:第三方估算,不是真值。** 与 [`seo-data`](../seo-data/SKILL.md) 的 GSC 数据冲突时,**一律以 GSC 为准**。
 落盘必须标注**工具名 + 拉取日期 + 「第三方估算」**。
@@ -68,14 +68,45 @@ https://trends.google.com/trends/explore?date=today%2012-m&geo=US&q=<词1>,<词2
   它是词族扩展和新需求的信号源,从 `innerText` 里 `Rising` 之后直接切
 - 页面有 `file_download` 导出按钮,需要精确时序数值时用它
 
+### Columbus(AI 工具站关键词与竞品,MCP 直连)
+
+> **2026-08-14 更新:哥伦布已接入 MCP,取代下方旧的 ego-browser 取数流程。**
+> 榜单浏览类需求(按分类/增长/变现方式筛黑马站、看 AI 分析段落)仍可能要开页面看,
+> 那部分手册留在 [`memory/sources/columbus.md`](../../../memory/sources/columbus.md);
+> 但**选词与竞品数据一律走本节的 MCP 工具**,不再用 ego-browser 爬 `columbus.tools` 页面。
+
+**范围边界:只覆盖 Columbus 收录的「AI 时代」工具站(有真实流量的 AI 品类站点)。**
+非 AI 品类不在库里——已实测 `get_site_detail("partfit3d.com")` 返回 `Site not found`(3D 打印工具站,非 AI 品类)。
+判断新方向是否适用:先用 `list_sites` 或 `list_filter_options(dimension="cat")` 查该品类是否存在,不存在就回退 Semrush。
+
+**不走浏览器,MCP 工具直连,免爬取、免登录态、不受 3ue 订阅到期(2026-09-06)影响**——
+AI 工具站方向的选词/竞品分析应**优先用这条**,Semrush/SimilarWeb 降级为它查不到时的补充源。
+
+| 工具 | 用途 | 替代了什么 |
+|---|---|---|
+| `list_filter_options(dimension="cat"/"sub"/"model"/"mv")` | 查有效品类/模型筛选值(**筛之前必须先查**,slug 错了会静默查不到) | 新增,无对应旧步骤 |
+| `list_sites(cat=, money=, mom=, dr=, ...)` | 按品类 + 变现方式(可筛 `money=affiliate`)+ 增长筛 AI 工具站列表 | Step 1 手工翻聚合平台找同类站的一部分 |
+| `list_keywords(contains=, min_frequency=, min_volume=, sort=)` | AI 工具词库排行:`frequency` = 有多少个站在打这个词(已验证需求信号),自带 volume/cpc | Semrush keywordmagic 词族扩展 |
+| `get_keyword_sites(keyword=)` | 单词竞争格局:每个竞品站的 volume/cpc/estimatedValue/**visits**/**MoM 增长**/**域名注册日期**/organic share/3 月趋势,按 MoM 排序(涨得最快的排最前) | Semrush KD + SimilarWeb 流量 + 问哥飞「竞品新注册动向」,**一次调用三合一** |
+| `get_site_detail(domain=, sections=[...])` | 单站深挖:DR、月流量、增长、Top 10 关键词、变现方式摘要 | Semrush Domain Overview |
+| `list_backlink_domains(dr=, visits=, organic=, sort=)` | AI 工具站最常见的外链来源域排行 | 外链预算调研的一部分 |
+
+已实测(2026-08-14)`get_keyword_sites("ai image editor")`:一次调用返回 15 个竞品站的
+volume/cpc/visits/MoM 增长/注册日期/组织流量占比 + 3 个月趋势。旧流程里这份信息要分别问
+Semrush(词数据)、SimilarWeb(流量,且仅对大站可用)、哥飞(注册时间)三次才能拼出来。
+
+**局限**:`get_keyword_sites` 只列「已被 Columbus 索引站」在打这个词,不代表 SERP Top 10 的全貌
+(可能有未被 Columbus 收录的小站也在排名);Step 4 变现验证维仍需按原方法无痕实看 SERP。
+`estimatedValue`/`visits` 与 SimilarWeb 同属流量估算法,不是真值,信任等级仍是「第三方估算」。
+
 ## 使用前必看
 
 - **先问出口**:这次查询的结果会落到哪个动作?答不上来就不查(公理 6,同 [`seo-data`](../seo-data/SKILL.md))。
 - **订阅 2026-09-06 / 09-07 到期**(2026-08-07 启用)。过期后 Semrush / SimilarWeb 全失效,
-  届时降级回 Google Trends(免费)+ GSC 实测。
+  非 AI 品类降级回 Google Trends(免费)+ GSC 实测;**AI 工具品类不受影响**,直接切 Columbus 为主源。
 - 面板卡片上有「API 今日配额」「API TOTAL 配额」,批量查词前扫一眼。
 
-## 三个工具的实测边界(2026-08-09 亲测,别再重复踩)
+## 四个工具的实测边界(2026-08-09 / 08-14 亲测,别再重复踩)
 
 1. **Semrush 收录不了极长尾工具词。** `split 3mf` 查询结果搜索量/KD/全球量**全是「不可用」**,
    但同一时间 `3d printing` 正常返回 246K / KD 93 —— **工具没坏,是词低于数据库门槛**。
@@ -88,6 +119,9 @@ https://trends.google.com/trends/explore?date=today%2012-m&geo=US&q=<词1>,<词2
    **→ 取方向不取绝对值。** 想要真值只有一条路:建页面上线,看 GSC。
 4. **SimilarWeb 对小站不可用。** 靠采样外推,月访问低于几万时误差可达数倍。
    **只用来看竞品,永远不要用来看自己的四个站。**
+5. **Columbus 只收录 AI 品类站,且要有真实流量。** `get_site_detail("partfit3d.com")` 直接返回
+   `Site not found`(未被索引)。**用它之前先确认目标品类在 `list_filter_options(dimension="cat")` 里存在**,
+   不存在就说明这条路不适用,回退 Semrush/SimilarWeb。
 
 ## 已知历史教训
 
@@ -97,13 +131,6 @@ https://trends.google.com/trends/explore?date=today%2012-m&geo=US&q=<词1>,<词2
 - **原 SOP 的「月搜索量 >500」红线对工具站不适用** —— 见 [`experiments.md`](../../../memory/experiments.md) 2026-08-09 补记。
   [`methods/search-engine-demand-discovery.md`](../../../memory/methods/search-engine-demand-discovery.md)
   Step 2 仍写着用 Ahrefs Free,**该 SOP 需要按本 skill 的实测修订**。
-
-## 补充源:哥伦布(本 skill 覆盖不到的一层)
-
-Semrush / SimilarWeb / Trends 回答"词多大、多难、在不在涨",**回答不了"这个词已经被谁占了、谁在涨谁在死"**。
-判完 KD 和搜索量后,值得再花两分钟去 [`memory/sources/columbus.md`](../../../memory/sources/columbus.md)
-所记的 `columbus.tools/ai-keyword-rank` 查该词的**出现频次 + 命中站点名单**(按环比增长倒序)。
-同为第三方估算层,但它给的是**按词聚合的竞对全景**,与本 skill 互补而非替代。取数路径和坑见那份手册。
 
 ## 回写
 
