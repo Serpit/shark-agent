@@ -119,15 +119,32 @@
 - [ ] **2026-08-14 新增,优先级高于下面的转换页**· M4 · partfit3d 新建 `/tools/stl-repair` 页面
   - **动作**:一页一词族,主攻 `stl repair`(1,900/月 KD18)+ `stl fixer`(1,000/月 KD14)+ `repair stl files`(720/月 KD9),TDK 命中 "free online stl repair tool"
   - **为什么排第一**:量级(9,000+/月)与转换词族(11,190/月)相近,但 SERP 实查后**竞争强度差一个量级**——转换词前排卡着 zamzar.com(687万月访问通用权威站)+ meshy.ai(融资公司),修复词前排全是与 partfit3d 同量级的 indie 单功能工具站。KD 数字接近但真实难度不同,详见 [experiments.md 2026-08-14 赛道扫描](experiments.md#结果记录)
+  - **⚠️ 2026-08-15 用 `gefei-kd` + Trends 交叉验证过,排序不变但预期要调低**:难度分 30.2(三词最低)确认好打,
+    但盘面拆解标注这是"专门死磕这个词的红海"(8/9 竞品都是为这词做的专门页),不是"随便糊一个就能上"——
+    参照对象 `justfixstl.com`(DR14、6 个月新站排第 2)。产品质量要跟上,别只求有页面。详见 [experiments.md 2026-08-15 交叉验证](experiments.md#结果记录)
   - **产品形态**:网格修复(补洞/合并顶点/修法线)可作为拆分前置步骤,与现有拆分工具用户高度重合,做站内互链
   - **预计耗时**:2-3 小时(先做单功能页,修复算法可先接现成开源库如 meshlab/pymeshfix 或第三方 API,不必自研)
+
+- [x] **2026-08-15 完成** · M4 · `3mf to stl` 优先级裁决——用 Ahrefs 查真实 dofollow 引荐域名后解决,**排第二,预算顾虑解除**
+  - **原触发**:`gefei-kd` + Trends 交叉验证发现 `3mf to stl` 需求盘子(Trends 相对热度 61)比 `stl repair`(54)更大,
+    但 `gefei-kd` 模型给的链接预算(中值 80)比 stl-repair(35)高,一度怀疑要不要动用 $2-5K 新约束外链预算才够
+  - **最后确认**:Ahrefs 查最弱竞品 `imagetostl.org` 真实 dofollow 引荐域名 **67 个**(总域名 524,dofollow 占 12.8%),
+    比 `gefei-kd` 估算(80)还低,更比"目录型放大到 200-480"温和得多——**67 个域名量级用现有免费渠道池 + outreach
+    就有希望够到,不必升级到大站付费预算**,先按免费节奏推进,不够再考虑加钱
+  - **对比**:`stl repair` 最弱竞品 `justfixstl.com` 真实只要 10 个 dofollow 域名(DR14、6 个月新站排第 2),
+    是三词里门票最低、证据最扎实的一个,继续排第一
+  - **最终排序确认**:stl-repair(第一,~10 域名量级)> 3mf-to-stl(第二,~67 域名量级)> glb-to-stl(第三,数据失真见下)
+  - **关联**:[experiments.md 2026-08-15 Ahrefs 最后确认](experiments.md#结果记录)
 
 - [ ] **2026-08-14 新增(用户从 Google Trends 自己发现的线索)**· M4 · partfit3d 新建 `/tools/glb-to-stl` 页面
   - **动作**:主攻 `glb to stl`(1,300/月 KD8)+ `.glb to .stl`(390/月 KD5)+ `convert glb to stl`(260/月 KD6),这批词 KD 全部 <11,是三批候选里难度最低的
   - **为什么**:用户看 Trends 三词对比(3mf to stl / glb to stl / image to stl)发现上升相关查询全指向 meshy/tripo(AI 生成 3D 模型的融资公司)——这是 AI 生成 3D 内容爆发带出的下游刚需(生成出 GLB → 要转 STL/3MF 才能打印),处于早期增长阶段,不是存量红海
   - **产品定位**:接在"AI 生成模型 → **GLB 转 STL/3MF** → 修复网格 → 拆分打印机"链路的第二环,与 stl-repair、拆分工具三个页面站内互链,不单独作为独立方向
   - **⚠️ 排序是 agent 判断,未经用户确认**:因 KD 最低暂排在 stl-repair 之后、转换页之前,但绝对量级(2,520/月)明显小于另外两批(9K+/11K+),这是早期押注不是确定收益,用户可按实际精力调整顺序
-  - **关联**:[experiments.md 2026-08-14(晚)glb to stl 候选发现](experiments.md#结果记录)
+  - **⚠️ 2026-08-15 数据质量提醒**:用 Ahrefs 查最弱竞品 `magic3d.io` 的引荐域名想再确认一次预算,结果失真(902 个 dofollow 域名)——
+    它是多功能大站("Free AI Creative Studio",417 页),glb-to-stl 只是蹭了整站权重的一个长尾页,不能代表这个词的真实门槛。
+    **排序维持第三不变**,但真实成本仍未知,上线后只能靠 GSC 实测,不要拿 902 这个数字做任何预算判断
+  - **关联**:[experiments.md 2026-08-14(晚)glb to stl 候选发现](experiments.md#结果记录)、[experiments.md 2026-08-15 Ahrefs 最后确认](experiments.md#结果记录)
   - **预计耗时**:1-2 小时(复用现有转换/拆分技术栈)
 
 - [ ] **2026-08-09**(2026-08-11 重新定性,08-14 降为第三梯队)· M4 · partfit3d 新建 `/3mf-to-stl` + `/stl-to-3mf` 两个页面
