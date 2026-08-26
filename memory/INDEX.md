@@ -49,6 +49,7 @@
 - [sources/ga4.md](sources/ga4.md) — Google Analytics 4(**自有真值**,管"点进来之后发生了什么",与 GSC 互补),工具 [`scripts/ga4.py`](../scripts/ga4.py)
 - [sources/columbus.md](sources/columbus.md) — 哥伦布 columbus.tools(**第三方估算**,4630 个 AI 工具站的增长样本库),独有能力:按词看"谁在打这个词、谁在涨谁在死";走 MCP 工具直连,免浏览器
 - [sources/gefei-kd.md](sources/gefei-kd.md) — 哥飞版关键词难度 **MCP**(**第三方估算**),给英文词的难度分 + 进入前十的链接预算 + 前十竞争盘面表;**不给搜索量和 CPC**,链接预算是曲线插值不是实测
+- [sources/payment-growth.md](sources/payment-growth.md) — 支付平台引荐表(**第三方估算**,SimilarWeb API 直连),**唯一「从钱倒推」的源**:看谁的钱已经在流过 Stripe/PayPal/Paddle/Lemon Squeezy 结账页;工具 [`scripts/payment-growth/`](../scripts/payment-growth/),skill `payment-growth`
 - [sources/daily-report.md](sources/daily-report.md) — 每日飞书日报(GSC + GA4,每天 10:00 推送),工具 [`scripts/report_daily.py`](../scripts/report_daily.py)
 - [sources/waffo.md](sources/waffo.md) — **收款通道**(不是数据源)Waffo Pancake MoR 接入手册:注册三关(开户/KYB/KYC)、全成本费率、
   资金流时间线、四条集成路径、12 条已知陷阱。**大陆个人身份证 + 国内银行卡即可收全球款**,解除「无 Stripe 资质」硬约束。

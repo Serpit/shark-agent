@@ -1,0 +1,4 @@
+interface:
+  display_name: "Payment Growth Discovery"
+  short_description: "Track category shifts and fast-growing payment products"
+  default_prompt: "Use $payment-growth-discovery to collect complete monthly source tables across Stripe, PayPal, Paddle, and Lemon Squeezy; find rapid full-table rank gains and new products; report category shifts; open shortlisted sites; and estimate monthly revenue in USD."

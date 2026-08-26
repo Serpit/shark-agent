@@ -6,3 +6,10 @@ __pycache__/
 *.pyc
 outputs/
 artifacts/backlink-ledger/
+
+# scripts/payment-growth: 凭证、token 缓存、抓包与本地快照一律不入库
+.env
+scripts/payment-growth/**/state/
+*.har
+*.har.gz
+*.sqlite3

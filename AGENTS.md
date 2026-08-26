@@ -239,12 +239,16 @@ shark-agent 完全独立运行，dbskill 公理已内化为 `memory/axioms.md`�
 |---|---|---|
 | 真值 | GSC / GA4 自有数据 | 可直接写进 `experiments.md` 结果记录 |
 | 趋势可信 / 绝对值不可信 | Google Trends | 只作趋势判据,不作量级判据 |
-| 第三方估算 | SimilarWeb / SEMrush / Ahrefs / [哥伦布](memory/sources/columbus.md)(仅 AI 工具站品类,MCP 直连) / [gefei-kd MCP](memory/sources/gefei-kd.md) | 必须标来源 + 拉取日期;与 GSC 冲突时**一律以 GSC 为准** |
+| 第三方估算 | SimilarWeb / SEMrush / Ahrefs / [哥伦布](memory/sources/columbus.md)(仅 AI 工具站品类,MCP 直连) / [gefei-kd MCP](memory/sources/gefei-kd.md) / [支付引荐表](memory/sources/payment-growth.md)(SimilarWeb API 直连) | 必须标来源 + 拉取日期;与 GSC 冲突时**一律以 GSC 为准** |
 | 他人观点 | 外部顾问 / agent 问答 | **禁止直接落 memory**,必须先过 `methods/axiom-scan.md` |
 
 ## 脚本
 
 `scripts/` 下的工具一律零依赖(纯 Python stdlib),不需要 venv。
+
+> **唯一例外**:`scripts/payment-growth/` 是 vendored 的第三方代码(5500 行),依赖 `requests` + `python-dotenv`。
+> 改写成 stdlib 不划算,两个依赖本机已装。它本地打过 3 个补丁,升级前先读
+> [`memory/sources/payment-growth.md`](memory/sources/payment-growth.md)「本地改动记录」。
 
 | 脚本 | 用途 | 手册 |
 |---|---|---|
@@ -252,6 +256,7 @@ shark-agent 完全独立运行，dbskill 公理已内化为 `memory/axioms.md`�
 | [`scripts/ga4.py`](scripts/ga4.py) | Google Analytics 4 取数:property 发现、汇总指标、任意维度拆分、页面级报表 | [`memory/sources/ga4.md`](memory/sources/ga4.md) |
 | [`scripts/report_daily.py`](scripts/report_daily.py) | 每日 GSC + GA4 飞书日报(launchd 每天 10:00 触发,装/卸见 `scripts/install_daily_report.sh`) | [`memory/sources/daily-report.md`](memory/sources/daily-report.md) |
 | [`scripts/backlink_ledger.py`](scripts/backlink_ledger.py) | 外链台账归一化:把两个项目的提交流水 + 渠道池汇成飞书 Base 导入载荷 | [`memory/sources/backlink-ledger.md`](memory/sources/backlink-ledger.md) |
+| [`scripts/payment-growth/`](scripts/payment-growth/) | 支付平台引荐表采集与机会发现(SimilarWeb API 直连)+ 站点流量趋势 / 关键词概览第三口径 | [`memory/sources/payment-growth.md`](memory/sources/payment-growth.md) |
 
 ```bash
 python3 scripts/gsc.py --help          # 子命令一览
@@ -287,6 +292,7 @@ python3 scripts/backlink_ledger.py build --stats  # 重建外链台账导入载�
 | skill | 管什么 | 何时触发 |
 |---|---|---|
 | `keyword-hunt` | **新站出单导向选词流水线**(6 步:锁联盟 → 拉词族 → 四维筛 → 变现验证 → 可打性 → 单页实测;Step 3/5 的 KD 与链接预算走 `gefei-kd` MCP) | "找个新词""再建一个站""这次要能出单" |
+| `payment-growth` | **从钱倒推的机会发现**(6 步:采集全表 → 位次对比 → 整站流量+RDAP 二次证据 → 人工开站 → 估收入区间 → 收敛到 3-5 个) | "谁在赚钱""什么产品在起量""这个赛道有人付费吗""找找机会" |
 
 `keyword-hunt` 是 [`methods/search-engine-demand-discovery.md`](memory/methods/search-engine-demand-discovery.md)
 的**出单导向变体**:一号筛从「月搜索量」换成「CPC + 竞争密度」,验证终点从「看排名」换成「看联盟后台点击」。

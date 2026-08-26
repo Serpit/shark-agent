@@ -1,6 +1,6 @@
 ---
 name: seo-competitor
-description: 查关键词与竞品的外部数据——Semrush(月搜索量、KD、词族扩展、竞品流量)、SimilarWeb(站点流量估算、渠道构成)、Google Trends(趋势方向、上升相关词)、Columbus(AI 工具站关键词竞争格局、竞品流量/增长/注册日期,MCP 直连,仅覆盖 AI 品类)。前三个用 ego 浏览器驱动,不走 API;Columbus 走 MCP 工具调用。当对话涉及"这个词难做吗""KD 多少""搜索量够不够""词族有多大""竞品流量多少""对手站怎么样""这个词在涨还是在跌""趋势如何""SERP 头部是谁""这个 AI 工具品类谁在做"时使用。也用于 search-engine-demand-discovery SOP 的 Step 2 三维探针。
+description: 查关键词与竞品的外部数据——Semrush(月搜索量、KD、词族扩展、竞品流量)、SimilarWeb(站点流量估算、渠道构成)、Google Trends(趋势方向、上升相关词)、Columbus(AI 工具站关键词竞争格局、竞品流量/增长/注册日期,MCP 直连,仅覆盖 AI 品类)。Semrush 与 Trends 用 ego 浏览器驱动;SimilarWeb 优先走脚本 API(站点流量趋势、KD/CPC/24 月搜索量历史,渠道构成除外);Columbus 走 MCP 工具调用。当对话涉及"这个词难做吗""KD 多少""搜索量够不够""词族有多大""竞品流量多少""对手站怎么样""这个词在涨还是在跌""趋势如何""SERP 头部是谁""这个 AI 工具品类谁在做"时使用。也用于 search-engine-demand-discovery SOP 的 Step 2 三维探针。
 ---
 
 # 关键词与竞品数据(Semrush / SimilarWeb / Google Trends / Columbus)
@@ -53,6 +53,44 @@ EOF
 
 `3m` 是 3 个月窗口。首次进 `sim.3ue.co/` 可能停在「激活设置页面」,直接用上面的直链可绕过。
 
+### SimilarWeb API 直连(2026-08-26 新增,优先于上面的 ego 路径)
+
+同一个 `serpit` 账号还有一条**脚本路径**,不用开浏览器。代码与凭证见
+[`memory/sources/payment-growth.md`](../../../memory/sources/payment-growth.md)。
+
+```bash
+# 多域名 × 多月 整站访问量趋势 —— 一次请求拿完
+python3 scripts/payment-growth/similarweb/scripts/similarweb_client.py fetch-website-traffic-trend-query \
+  --domain <域名1> --domain <域名2> --from-month 2026-02 --to-month 2026-07
+
+# 关键词概览 —— KD / CPC / 24 个月搜索量历史 / SERP 竞品
+python3 scripts/payment-growth/similarweb/scripts/similarweb_client.py fetch-keyword-overview-bundle \
+  --keyword "<英文词>" --month 2026-07
+```
+
+**相对 ego 的优势不在"能拿到什么",而在可复现、可落库、可对比**——
+ego 是人肉点浏览器,拉完就散;脚本路径能存快照,下个月再跑一次自动比出变化。
+
+⚠️ **一次最多 5 个域名**,再多会撞上游限流(伪装成"登录过期"的 HTML 跳转页,不是错误码)。
+
+⛔ **渠道构成仍须走上面的 ego 路径。** API 的网站分析大包(`fetch-website-analysis-bundle`)
+稳定 502,拿不到直接/搜索/社交/引荐/邮件/广告的占比拆分。
+
+#### KD 与搜索量:这是第三口径,不是替换
+
+`fetch-keyword-overview-bundle` 给的 `Difficulty` / `CPCRangeMin-Max` 是 **SimilarWeb 的数**,
+与 Semrush、[gefei-kd](../../../memory/sources/gefei-kd.md) 是三家不同厂商的三套数字。
+
+**本 skill 顶部「KD / 搜索量一律走 Semrush」的规则不变。** SimilarWeb 口径的用途是交叉验证:
+
+| 场景 | 用法 |
+|---|---|
+| 三家 KD 接近 | 可信度上升,按 Semrush 数走 |
+| 三家差 ≥2 倍 | 记进 experiments 分歧标记,**真值只能靠 GSC 单页实测** |
+| Semrush 报"无数据"的极长尾词 | 换 SimilarWeb 口径再问一次,可能有 24 个月历史量 |
+
+它比 Semrush 多给的一样东西:**逐月搜索量历史(约 24 个月)**,判季节性和长期趋势比 Trends 的相对指数更实。
+
 ### Google Trends
 
 不在面板里,直接开,URL 完全参数化:
@@ -85,7 +123,7 @@ AI 工具站方向的选词/竞品分析应**优先用这条**,Semrush/SimilarWe
 | 工具 | 用途 | 替代了什么 |
 |---|---|---|
 | `list_filter_options(dimension="cat"/"sub"/"model"/"mv")` | 查有效品类/模型筛选值(**筛之前必须先查**,slug 错了会静默查不到) | 新增,无对应旧步骤 |
-| `list_sites(cat=, money=, mom=, dr=, ...)` | 按品类 + 变现方式(可筛 `money=affiliate`)+ 增长筛 AI 工具站列表 | Step 1 手工翻聚合平台找同类站的一部分 |
+| `list_sites(cat=, sub=, type=, mom=, reg=, dr=, visits=, organic=, model=, mv=, ...)` | 按品类 + 站点类型 + 增长/流量/DR 筛 AI 工具站列表。**`money=` 变现方式筛选已下线(2026-08-25 实测)**,要看变现标签只能逐站 `get_site_detail` 读 `tags.monetization` | Step 1 手工翻聚合平台找同类站的一部分 |
 | `list_keywords(contains=, min_frequency=, min_volume=, sort=)` | AI 工具词库排行:`frequency` = 有多少个站在打这个词(已验证需求信号),自带 volume/cpc | Semrush keywordmagic 词族扩展 |
 | `get_keyword_sites(keyword=)` | 单词竞争格局:每个竞品站的 volume/cpc/estimatedValue/**visits**/**MoM 增长**/**域名注册日期**/organic share/3 月趋势,按 MoM 排序(涨得最快的排最前) | Semrush KD + SimilarWeb 流量 + 问哥飞「竞品新注册动向」,**一次调用三合一** |
 | `get_site_detail(domain=, sections=[...])` | 单站深挖:DR、月流量、增长、Top 10 关键词、变现方式摘要 | Semrush Domain Overview |
