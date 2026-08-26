@@ -22,9 +22,34 @@
 
 ### doing
 
-*(空 — 等用户挑)*
+- [ ] **2026-08-26** · M4 · 复跑三件夹具,验证 partfit3d 颜色拆分的 Prusa 修复
+  - **为什么**:08-26 端到端验收 Bambu PASS / Orca PASS / **Prusa 产品级 FAIL**(filament 颜色被 fallback 替换、导出 STL 有非流形边却误报 watertight、UI 把 `mmu_segmentation` 错标为 `paint_color`)。三处代码已改并提交(`2a25698`),**但未复验**
+  - **动作**:用官方 issue 夹具(PrusaSlicer #7134 / BambuStudio #2411 / OrcaSlicer #12426)重跑,逐件检查 ①slot 颜色是否按原 index 保留 ②导出件 `edge multiplicity != 2` 与重复三角是否归零 ③UI source label 是否正确
+  - **⚠️ 这是 Step 3b 的前置**:带非流形边的导出接到已有曝光页,比没有功能更伤
+  - **关联**:[experiments.md 颜色拆分 A 路线](experiments.md#partfit3d-颜色拆分功能a-路线2026-08-25-立项)
+  - **预计耗时**:1 小时
 
 ### todo
+
+- [ ] **2026-08-26** · M4 · 把 A 路线时间盒从 09-08 改到 09-13
+  - **原因**:Step 3b 最早 08-30(要等 TDK 读数)上线,Step 4 要求「Step 3b 上线后重新锁 14 天窗口」→ 08-30+14 = **09-13**,原时间盒 09-08 物理上达不到
+  - **动作**:改 [experiments.md 颜色拆分 A 路线](experiments.md#partfit3d-颜色拆分功能a-路线2026-08-25-立项)的时间盒字段;GO 标准(CTR 0.3%→≥1.5%)不变
+  - **预计耗时**:5 分钟
+
+- [ ] **2026-08-30** · M4 · TDK 读数 → Step 3b:把颜色入口接到已有曝光页
+  - **动作**:① 拉 `/tools/3mf-splitter-online/` 的 TDK 实验读数(14 天窗口到期)② 读完立即把颜色模式接到该页(3,808 曝光)与 `/`(1,876 曝光)③ 重新锁 14 天窗口
+  - **前置**:上方「复跑三件夹具」必须先完成
+  - **说明**:在 Step 3b 之前,原假设「转化现成 ~3,000 曝光/月」**尚未开始验证**;独立页 `/tools/3mf-color-splitter` 新上线无基线,单独看收录/query,不与旧页混算
+
+- [ ] **2026-09-13** · M4 · partfit3d A 路线 GO/NO-GO + 按退出条件收尾
+  - **GO**(词族 page 维度 CTR ≥1.5%)→ 记下「补功能转化现成曝光」这个方法可复用,**站转维护态,不再投入新功能**
+  - **NO-GO**(CTR <0.8%)→ 确认那 3,000 曝光是纯品牌导航(在找 split3mf.com 这个牌子),**直接停,不转 B 路线**(stl-repair 同样是免费商品 + 同样的分母问题)
+  - **两种情况都不再为 partfit3d 做变现** —— 它的产出是方法,不是钱。依据见 [risks.md 做在被定价为 0 的那一层](risks.md)
+
+- [ ] **2026-09-13 之后** · M5 · 用新判据筛 [themes.md](themes.md) 的 6 个支付引荐候选
+  - **新判据(前四次一条都没用过)**:① [CPC 分层](principles.md#用-cpc-分层识别付费意愿大流量低-cpc-是免费用户池)——量最大的词 CPC < $1 就是流量池不是生意池;② [做在被定价为 0 的那一层](risks.md) 三问;③ **能不能在 2 周内验证付费意愿**——答不上来直接淘汰,不管词多好打
+  - **第一个看 `outrank.so`**:SEO 内容生成 SaaS,与自有四站技能栈重叠最高,且它卖的东西正好在「钱那一层」(帮别人做 SEO,而不是自己靠 SEO 拿流量)
+  - **⛔ 09-13 之前不开工** —— 会跟 A 路线抢那 18 小时/周
 
 - [ ] **2026-08-12 早上** · M4 · 复核 `CSV → QBO` 关键词数据,作为市场基准保留(**不启动 MVP**)
   - **动作**:① 两个估算源复核核心词 Volume / KD / CPC ② 无痕美区 SERP 重扫 Top 10 收费站与价格 ③ 查 Intuit Web Connect 对 FID / Financial Institution partner ID 的官方要求 ④ 记录结论为「数据成立 / 数据不成立」
@@ -314,6 +339,17 @@
 
 *(空)*
 
+### 已作废(2026-08-26)
+
+- ~~注册 3D 打印服务联盟,在拆分完成页加 CTA~~ — **2026-08-26 撤销,同日提出同日否掉**。两个问题:
+  ①**受众反了**——会来拆分模型的人,是因为模型放不下**自己的**打印床,他拆分恰恰是为了自己能打;颜色拆分用户更是一定有 AMS 多色打印机;
+  ②**分母不够**——54 点击/月(A 路线 GO 后乐观 ~100),漏斗算下来 0.02–0.18 单/月,14 天窗口期望值 0.01–0.09 单,**这个测量点测不出任何东西**
+- ~~aidepixelate 换词族到 photo restoration + 投放广告验证~~ — **2026-08-26 判 NO-GO(用户选 C)**。
+  Etsy 实测:全价位段($8 / $24.5 / $28)卖家**一致强调「by hand / not AI」**,Bestseller 原话
+  「restored by the real person, quality miles ahead of anything AI tools can offer」,且他们自己把 AI 当内部工具。
+  **市场已把 AI 修复定价为 0,溢价全部归给「不是 AI」。** 广告侧另有独立否决:$4.90 客单价配 ~$2 CPC,CAC 20 倍倒挂。
+  → **aidepixelate 停,Waffo 收款底座保留备用。** 详见 [experiments.md 2026-08-26 选词复盘](experiments.md#结果记录)
+
 ### 已作废(2026-08-09)
 
 - ~~等用户提供下一个热词候选跑三维探针~~ — 实际选词已换轨到极长尾工具词,不再走热词路径
@@ -321,6 +357,17 @@
 - ~~切美区 IP 跑 SERP 维度~~ — 建站已跑通,该阻塞不再挡路
 
 ## 最近完成(近 14 天)
+
+- [x] **2026-08-26 完成** · M4 · 修 partfit3d 颜色拆分的 Prusa 三个 bug + 提交 10 个未跟踪文件
+  - **修复**:① `Slic3r_PE.config` filament 颜色按原 slot index 映射(`three-mf-color.ts`)② 拓扑判定扩为 `multiplicity`(`color-splitter.ts`)③ `mmu_segmentation` source label 区分(`three-mf-paint.ts`)
+  - **顺带止损**:整个颜色拆分功能(路由页 / 解析 / 封盖 / 转换页共 10 个文件)此前**从未提交过 git**,线上活着但代码只在工作区。已提交 `2a25698`,工作区清空。**这是「写了没发」同型问题第 5 次**
+  - **⚠️ 未完成**:复跑夹具验证(已移入 doing)
+
+- [x] **2026-08-26 完成** · M4 · 接入并内化 payment-growth 数据源
+  - **产出**:`scripts/payment-growth/`(vendored,CLAUDE.md 零依赖约定的明文例外)+ `payment-growth` skill + [手册 8 条陷阱](sources/payment-growth.md);`seo-competitor` 新增 SimilarWeb API 直连作 KD 第三口径
+  - **本地 3 个补丁**:py3.9 `fromisoformat` 小数秒崩溃 / traffic-trend 批量+退避重试 / env 候选链加 `~/.config/shark-agent/.env`
+  - **首轮实战**:四平台 8/8 完整快照(4,908 行),品类涨跌 + 6 个候选(全部挂起);实战修订了 2 处 SOP 设计缺陷
+  - **沉淀**:[principles.md 用 CPC 分层识别付费意愿](principles.md) + [risks.md 免费 loss-leader 挤压 / 做在被定价为 0 的那一层](risks.md)
 
 - [x] **2026-08-11 完成** · M4 · 找 1 个 Build in Public「卖铲子」方向
   - **结果**:首选「SEO 工具站 Starter Kit + 自动防错规则」进入 48 小时预售验证;不是直接 GO。
