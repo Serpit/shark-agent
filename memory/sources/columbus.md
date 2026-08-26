@@ -6,6 +6,8 @@
 > **2026-08-14 更新:已接入 MCP,取代旧的 ego-browser 取数流程。** 工具前缀 `mcp__columbus__*`:
 > `list_sites` / `list_keywords` / `get_keyword_sites` / `get_site_detail` / `list_backlink_domains` /
 > `list_filter_options` / `list_model_releases`。**不用登录态、不用开浏览器、结构化 JSON 直接返回。**
+> **2026-08-25 复测:鉴权与四个主力端点(`list_filter_options` / `list_sites` / `list_keywords` /
+> `get_site_detail`)全部正常,数据快照到 2026-07;但 `list_sites` 的参数表有变动,见下方 ⚠️。**
 > `seo-competitor` skill 的 [Columbus 章节](../../.claude/skills/seo-competitor/SKILL.md#columbusai-工具站关键词与竞品mcp-直连)
 > 是主要执行入口;本文件只补充字段含义、分类体量参考和三条硬边界,不重复列已在那边的调用示例。
 >
@@ -25,7 +27,7 @@
 | 类型 | 具体字段 | 信任等级 | 落盘要求 |
 |---|---|---|---|
 | **估算值** | 月访问量(`visits`)、环比增长(`visitsMom`)、自然搜索占比(`tsSearchOrganic`)、DR、国家分布、跳出率 | **第三方估算**(同 SimilarWeb/Semrush 层) | 必须标「哥伦布 + 拉取日期」;与 GSC 冲突时**一律以 GSC 为准** |
-| **结构化事实** | 命中某词的站点名单、注册时间(`registDate`)、技术栈、广告网络、结构化数据类型、变现方式(`money`)/SEO 打法(`seo`)标签 | **可直接参考的观察** | 标来源即可,不必与 GSC 对质(它陈述的是"谁在做什么",不是量级) |
+| **结构化事实** | 命中某词的站点名单、注册时间(`registDate`)、技术栈、广告网络、结构化数据类型、变现方式(`tags.monetization`)/SEO 打法(`tags.seo_playbook`)标签 | **可直接参考的观察** | 标来源即可,不必与 GSC 对质(它陈述的是"谁在做什么",不是量级) |
 | **AI 生成段** | 网页版站点详情页底部「AI 分析 → 市场定位 / 观察」(**MCP 不返回这段**) | **他人观点**,页面自己也标了"仅供参考" | **不可直接落 memory**,同 `seo-advisor` 规则,须过 [`methods/axiom-scan.md`](../methods/axiom-scan.md) |
 
 数据自称"人工整理 + 公开数据源和第三方流量估算服务交叉印证"。
@@ -37,13 +39,20 @@
 | 工具 | 对应旧网页版 | 关键字段 |
 |---|---|---|
 | `list_filter_options(dimension="cat"/"sub"/"model"/"mv")` | 一级/二级分类筛选弹窗 | `value`(筛选用 slug)、`nameZh`/`nameEn`、`siteCount` |
-| `list_sites(cat=, sub=, money=, seo=, type=, emd=, mom=, reg=, dr=, visits=, organic=, sem=, genai=, status=, q=, sort=, order=, page=)` | `/ai-rank` 榜单 | domain / name / 一句话描述 / `regist_date` / `visits` / `visits_mom` / `est_organic` / DR / categories / 3 月趋势 |
-| `get_site_detail(domain=, sections=[])` | `/site/<domain>` | 月访问/增长/3月CAGR/自然搜索占比/DR/注册时间、全部标签、近12月流量、Top10关键词、变现摘要;`sections` 可加 `keywords_full`/`traffic_full`/`teardown`/`country_shares`/`traffic_meta` |
+| `list_sites(cat=, sub=, model=, mv=, type=, emd=, mom=, reg=, dr=, visits=, organic=, sem=, search=, status=, q=, read=, sort=, order=, page=)` | `/ai-rank` 榜单 | domain / name / 一句话描述 / `registDate` / `visits` / `visitsMom` / `estOrganic` / DR / categories / 3 月趋势 |
+| `get_site_detail(domain=, sections=[])` | `/site/<domain>` | 月访问/增长/3月CAGR/自然搜索占比/DR/注册时间、全部标签、近12月流量、Top10关键词、变现摘要;`sections` 可加 `keywords_full`/`traffic_full`/`teardown`/`country_shares`/`traffic_meta`/`backlinks` |
 | `list_keywords(contains=, min_frequency=, min_volume=, sort=, limit=)` | `/ai-keyword-rank` 榜单 | keyword / `frequency`(命中站点数)/ volume / cpc |
 | `get_keyword_sites(keyword=)` | `/ai-keyword-rank` →「查看命中网站」弹窗 | 每个命中站的 volume/cpc/estimatedValue/visits/`visitsMom`/`registDate`/`tsSearchOrganic`/3 月趋势,按 MoM 倒序 |
 | `list_backlink_domains(dr=, visits=, organic=, sort=, page=)` | `/ai-backlink-rank` — **仍不接入**,理由见下 |
 
 `list_model_releases`(模型发布时间线)与选词无关,不接入。
+
+> **⚠️ 2026-08-25 实测:`list_sites` 的 `money=` / `seo=` / `genai=` 三个筛选参数已从 MCP schema 中消失。**
+> 变现方式和 SEO 打法标签**不再能用来筛榜单**,只能逐站用 `get_site_detail` 读 `tags.monetization`
+> 和 `tags.seo_playbook`(实测 `imagetostl.org` 返回 `monetization: [credits, freemium, subscription]`、
+> `seo_playbook: [model_pages, tool_cluster]`,字段本身仍在)。
+> **影响**:下方硬边界 3 的"先用 `money=` 筛再复核"流程作废,改为「先按流量/增长筛出候选 → 逐站拉 detail 看标签」。
+> 新增可用参数:`model=` / `mv=`(按 AI 模型家族/具体版本筛)、`search=`(总搜索流量占比)、`read=`(已读标记)。
 
 **站点类型**(`list_sites` 的 `type` 参数)最有用的两个值:
 - `emd`(关键词驱动)—— 靠 SEO 长尾词起量,**这类才是可复刻对标**
@@ -85,9 +94,13 @@
 
 **规则:判断"谁在抢这条赛道"时,Trends 的 Rising 相关查询比哥伦布更早暴露新入场者,两个都要看。**
 
-### 3. 变现方式标签是 OR 逻辑,**必须用「广告网络」字段复核**
+### 3. 变现方式标签不可信,**必须用「广告网络」字段复核**
 
-`list_sites` 的 `money` 参数筛出的站,仍可能同时挂广告——
+> **2026-08-25 修订**:原来这条讲的是 `list_sites` 的 `money=` 筛选参数,该参数已下线(见上方 ⚠️)。
+> 现在拿变现标签只有一条路——逐站 `get_site_detail` 读 `tags.monetization`。**结论不变,只是入口变了**:
+> 标签仍是 OR 逻辑,仍必须复核。
+
+`tags.monetization` 里出现「订阅制 / 积分制」的站,仍可能同时挂广告——
 标签只表示"命中其中一种",不表示"不含其他"。
 实例:`phonkmaker.com` 标签是「免费增值 + 订阅制」、定价 $9/$18/$29.9,
 但 `get_site_detail(sections=["teardown"])` 的技术栈字段明写 AdSense;`astrocarto.org` 更甚,
@@ -95,7 +108,7 @@
 
 **规则:要找纯非广告站,以 `get_site_detail` 的 teardown 段「广告网络」字段为准,该字段为空才算数。**
 
-> **2026-08-13 实测误报率:5 抽 2,约 40%。** 用 `money=subscription,credits,one_time` 筛出的 5 个站里,
+> **2026-08-13 实测误报率:5 抽 2,约 40%。**(当时还能用 `money=subscription,credits,one_time` 筛)5 个站里,
 > `describemusic.net` 和 `detectvideo.ai` 广告网络明写 **AdSense**,且**定价线索只有 `Free`** —— 根本没有付费产品。
 > **加一个更快的判据:先看「定价线索」字段。只有 `Free` 而无任何价格档 = 没有付费产品,不必再看别的。**
 
@@ -119,6 +132,21 @@
 **规则:想找付费方向不要从这个库出发。** 哥伦布擅长回答「谁在打这个词、谁在涨谁在死」,
 不擅长回答「哪里有人愿意付钱」—— 它的分母本身就是一个低付费意愿池。
 **反向用法仍成立**:要找广告/联盟变现的流量站打法,它是合适的样本库。
+
+> **✅ 2026-08-25 全库普查,这条从抽样结论升级为封顶结论。**
+> `list_keywords(sort="cpc", min_volume=200, min_frequency=2)` → `totalMatched=370`,
+> **CPC > $4 的只有 3 个词**,且其中 2 个是别人的品牌名(`bland ai` $17.96、`peec ai` $12.84),
+> 唯一可建站的通用词是 `ai ad creatives`($25.46 / 36,460)。
+> 频次榜(所谓 validated demand)则是纯模型名抢注:`nano banana` 35 站、`seedance` 25 站,CPC $0.18–1.42。
+> **不必再重跑"换个筛法说不定有"—— 全库 CPC 倒序已经是最强口径,答案是没有。**
+
+### 6. 覆盖边界:非 AI 品类的词**一个都没有**(2026-08-25 实测)
+
+`list_keywords(contains="stl")` → `totalMatched=0`;`contains="3d"` 只返回 3 个词,全是 AI 生成类
+(`ai 3d model generator` / `hunyuan 3d` / `image to 3d model free`),**没有任何格式转换/修复词**。
+
+**规则:partfit3d 这类非 AI 工具站的选词,不要来哥伦布找**,走 Semrush + [`gefei-kd`](gefei-kd.md) + Trends。
+反过来,哥伦布对某个词返回空**不代表这个词没需求**,只代表它不在 AI 工具站样本库里。
 完整拆解见 [`risks.md` AI 工具站 CPC 系统性偏低](../risks.md#ai-工具站品类的-cpc-系统性低-1-2-个数量级用它找付费生意是池子选错违反公理-4)。
 
 > **反过来说一条正面结论**:曾实测同一天 `astrocartography` 哥伦布 39.9K/CPC $1.06 vs Semrush 49.5K/$0.96

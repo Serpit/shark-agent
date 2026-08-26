@@ -36,12 +36,16 @@ python3 scripts/backlink_ledger.py build --stats
 | 链接 | https://my.feishu.cn/base/OXvxbwoPDattP9sGAbPcZmNjnWb |
 | Base token | `OXvxbwoPDattP9sGAbPcZmNjnWb` |
 | 表 `外链记录` table_id | `tblBIw6xH6sLPn5c`(129 行) |
-| 表 `渠道池` table_id | `tbleU8fQxMCFmOTi`(**147 行**,2026-08-13 从 120 增补 27) |
+| 表 `渠道池` table_id | `tbleU8fQxMCFmOTi`(**739 行**,2026-08-26 从 147 增补 592) |
 | 身份 | `--as user`(Base 属个人云空间,bot 身份看不到) |
 
 视图(建于 2026-08-13):`外链记录` 默认视图按 Site 分组 + Recorded At 倒序;
 另有 `① 已上线 published` / `② 待回核 link_attr 未知` / `③ 失败受阻` / `④ 到期回核`(Review Due 非空)。
-`渠道池` 有 `未提交候选` / `A 级可直提`。
+`渠道池` 有 `未提交候选` / `A 级可直提`;2026-08-26 增建 `⑤ 悬赏榜 2026-08-26`(`vewXFqDOPp`,592 行)
+与 `⑥ 悬赏榜 ≥2票 未入池`(`vewwjwkGZk`,**140 行**,按 `Bounty Votes` 倒序)。
+
+⚠️ **`未提交候选` 视图已被稀释**:它按 `Submitted` 未勾选筛选,592 行悬赏数据全部落在里面。
+要看你自己评估过的那批,改用 `A 级可直提`,或加 `Source URL 为空` 条件。
 
 ## 3. 字段含义(只列不自明的)
 
@@ -76,6 +80,26 @@ python3 scripts/backlink_ledger.py build --stats
 >
 > `ia-insights.fr` 是唯一同时出现在两个对标站出站域名里的,共现信号强于单次出现,值得优先核。
 >
+> **2026-08-26 增补 592 行(第三来源:web.cafe 悬赏榜众包)**。来自哥飞站的悬赏
+> [「网站上线之后,你会去哪些地方提交外链?」](https://new.web.cafe/ask/bounty/wlhmhdaoqg)——
+> 已开榜,181 人参与、592 个选项、701 条推荐理由。页面是 JS 渲染的,WebFetch 拿不到,用 ego-browser 扒
+> (含点开 4 个「展开全部 N 条推荐理由」折叠区)。归一化脚本不管这批,载荷留在
+> `artifacts/backlink-ledger/bounty/batch{1,2,3}.json`(已 gitignore,可重建)。
+>
+> 识别方式:`Source URL` = 悬赏页 URL、`Notes` 以 `[source=webcafe-bounty-2026-08-26]` 开头、
+> `Route Type=unverified`、`Classification` 为空。新增 `Bounty Votes` 数字字段(`fld0DaSryP`)存推荐票数,
+> 其余 147 行为空。
+>
+> ⚠️ **这是本表信任度最低的一批,属「他人观点」层**。免费/收费、dofollow/nofollow、DR 数值
+> **全部是推荐人自述**,没有一条经过实访核验。而且 **592 条里 420 条是单票**——长尾没有交叉验证。
+> 真正有多人背书的是 `⑥` 视图那 140 条(≥2 票且不与既有池重复);其中 68 条 ≥3 票,是唯一值得先实访的子集。
+>
+> 46 行域名与既有 147 行重复,**没有删,而是打 `Duplicate Status=dup-existing-pool`**——
+> 悬赏行带票数和理由,既有行带 Classification,两边信息互补。回核时以既有行为准。
+>
+> 30 行没有 URL 也没有域名(`Notes` 带 `[no-url]`)。其中一部分压根不是站点而是打法描述
+> (如「博客评论区」「看竞品在哪里提交」「导航站」),**当渠道用之前先看一眼 Platform**。
+>
 > **Source 字段留空是刻意的**:新增 select 选项需改字段 schema(PUT 全量替换,会波及既有 120 行),
 > 权限策略拦截且拦得对。若要按来源筛选,需手动在 Base UI 给 `Source` 加一个 `columbus-benchmark-2026-08-13` 选项后回填。
 
@@ -97,7 +121,13 @@ python3 scripts/backlink_ledger.py build --stats
 4. **平台名在两张表里对不齐**。提交流水里常带 ` email outreach` / ` submission` 后缀,
    渠道池里没有。脚本用 `norm_platform()` 归一化后再交叉匹配,手工比对时注意。
 
-5. **`Evidence URL` / `Platform URL` 混有 `mailto:` 和空值**,所以在 Base 里是**文本字段不是 URL 字段**
+5. **lark-cli 写这张表的三个坑**(2026-08-26 踩到):`+record-list` 默认输出 **markdown 表格不是 JSON**,
+   且没有 `--json` 开关,要解析得自己切 `|`;`--json @file` **只认相对路径**,`/tmp/x.json` 会被拒,
+   得先把载荷放进仓库目录再用 `./` 引;`+view-set-sort` 必须传 `{"sort_config":[...]}`,
+   文档里说的裸数组形式会报 `sort_config: Provide a value of type array`。
+   另外 `base:*` scope 会过期,报 `need_user_authorization` 时跑 `lark-cli auth login --domain base`。
+
+6. **`Evidence URL` / `Platform URL` 混有 `mailto:` 和空值**,所以在 Base 里是**文本字段不是 URL 字段**
    ——URL 字段会因格式校验报 `1254068`。
 
 ## 5. 重新同步

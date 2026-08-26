@@ -116,14 +116,28 @@
 
 - [ ] ~~**2026-08-09** · 注册 Sudowrite 联盟 + 发 `best ai for novel writing` 长文~~ — **2026-08-10 作废**,Waffo 通道打通后变现载体从联盟换成自有收款,联盟路径整体降级(数据保留在 [experiments.md](experiments.md))
 
-- [ ] **2026-08-14 新增,优先级高于下面的转换页**· M4 · partfit3d 新建 `/tools/stl-repair` 页面
-  - **动作**:一页一词族,主攻 `stl repair`(1,900/月 KD18)+ `stl fixer`(1,000/月 KD14)+ `repair stl files`(720/月 KD9),TDK 命中 "free online stl repair tool"
+- [x] **2026-08-15 上线** · M4 · partfit3d 新建 `/tools/stl-repair` 页面
+  - **原动作**:一页一词族,主攻 `stl repair`(1,900/月 KD18)+ `stl fixer`(1,000/月 KD14)+ `repair stl files`(720/月 KD9),TDK 命中 "free online stl repair tool"
   - **为什么排第一**:量级(9,000+/月)与转换词族(11,190/月)相近,但 SERP 实查后**竞争强度差一个量级**——转换词前排卡着 zamzar.com(687万月访问通用权威站)+ meshy.ai(融资公司),修复词前排全是与 partfit3d 同量级的 indie 单功能工具站。KD 数字接近但真实难度不同,详见 [experiments.md 2026-08-14 赛道扫描](experiments.md#结果记录)
-  - **⚠️ 2026-08-15 用 `gefei-kd` + Trends 交叉验证过,排序不变但预期要调低**:难度分 30.2(三词最低)确认好打,
-    但盘面拆解标注这是"专门死磕这个词的红海"(8/9 竞品都是为这词做的专门页),不是"随便糊一个就能上"——
-    参照对象 `justfixstl.com`(DR14、6 个月新站排第 2)。产品质量要跟上,别只求有页面。详见 [experiments.md 2026-08-15 交叉验证](experiments.md#结果记录)
-  - **产品形态**:网格修复(补洞/合并顶点/修法线)可作为拆分前置步骤,与现有拆分工具用户高度重合,做站内互链
-  - **预计耗时**:2-3 小时(先做单功能页,修复算法可先接现成开源库如 meshlab/pymeshfix 或第三方 API,不必自研)
+  - **难度交叉验证**:`gefei-kd` + Trends + Ahrefs 三源确认过——难度分 30.2(三词最低)、最弱竞品 `justfixstl.com` 只用 10 个 dofollow 域名就排第 2,门票是三词里最低最扎实的。但盘面标注这是"专门死磕这个词的红海",产品质量要跟上,别只求有页面。详见 [experiments.md 2026-08-15 交叉验证](experiments.md#结果记录)
+  - **✅ 已实测确认(2026-08-15)**:页面已上线且**优于预期**——完全浏览器内处理(无需上传),不是退而求其次的服务端方案;TDK 与本轮规划完全吻合(`Repair STL Files Online — Fix Holes & Flip Normals`);检测破洞/非流形边/内翻壳体/重复面,一键修复;导航已加 `STL Repair` 入口
+  - **下一步**:提交 GSC 索引(参照 partfit3d TDK 实验的流程,先手动点"请求编入索引"),4-6 周后拉曝光/点击数据核实词是否真实带来流量
+  - **关联**:[experiments.md 2026-08-15 交叉验证](experiments.md#结果记录)
+
+- [x] **2026-08-15 完成** · M4 · `/tools/stl-repair` 提交 GSC 索引
+  - **实测确认**(`gsc.py inspect`):`coverageState` = **已提交,且已编入索引**,`verdict` = PASS,`robotsTxtState` = ALLOWED——收录本身没问题
+  - **⚠️ 发现一个眼熟的信号,待查**:`googleCanonical` 是 `https://partfit3d.com/tools/stl-repair`(不带斜杠),
+    但 `userCanonical`(页面自己声明的)是 `https://partfit3d.com/tools/stl-repair/`(**带**斜杠)——
+    和 08-11 诊断出的 [trailing slash 冲突](experiments.md#结果记录)是同一个模式(canonical 带斜杠 vs 服务器/Google 判定不带斜杠)。
+    当时那轮修复是不是没覆盖到新页面模板,还是这页单独遗漏了,需要回去确认;目前 Google 自己判对了(用不带斜杠版本),
+    没有阻塞收录,**不紧急,但别当没看见**
+  - **内链检查还没做**:`/tools/3mf-splitter-online` 页面正文是否加了链回 stl-repair 的交叉链接,只确认了导航栏有,没查正文
+  - **关联**:[experiments.md 2026-08-15 交叉验证](experiments.md#结果记录)
+
+- [ ] **2026-09-中 视 GSC 收录情况定**· M4 · `/tools/stl-repair` 4-6 周数据回收,判定是否达标
+  - **动作**:`python3 scripts/gsc.py queries "https://partfit3d.com/tools/stl-repair"`,核对 `stl repair` / `stl fixer` / `repair stl files` 三个词的曝光/点击/位置是否达到预期(参照 justfixstl.com 门票:10 个 dofollow 域名能排第 2,partfit3d 目前 0 外链,预期会比它慢)
+  - **判定线**:有曝光但排名靠后 → 正常,继续观察;完全 0 曝光 → 词或收录有问题,回头查;这一步也顺带验证"红海词但 indie 站能打"的假设在自己身上是否成立
+  - **关联**:[experiments.md 2026-08-15 交叉验证](experiments.md#结果记录)
 
 - [x] **2026-08-15 完成** · M4 · `3mf to stl` 优先级裁决——用 Ahrefs 查真实 dofollow 引荐域名后解决,**排第二,预算顾虑解除**
   - **原触发**:`gefei-kd` + Trends 交叉验证发现 `3mf to stl` 需求盘子(Trends 相对热度 61)比 `stl repair`(54)更大,
@@ -170,26 +184,48 @@
   - **SERP 约束**:美区非个性化结果前两名是精确匹配工具站,随后有 AI Overview;当前 PartFit 未稳定在首屏。因此 title 要强调独有结果「fit your printer」,后续仍要并行改善排名,不能把所有低 CTR 都归因于文案
   - **关联**:[experiments.md partfit3d query 级下钻](experiments.md#结果记录)
 
-- [ ] **2026-08-12** · M4 · 去 Search Console 网页版手动点「请求编入索引」(**阻塞 CTR 实验计时,script 不支持这步**)
+- [x] **2026-08-15 已不需要**(重抓已自然发生于 2026-08-14T10:20Z,见上)· M4 · ~~去 Search Console 网页版手动点「请求编入索引」~~
   - **动作**:登录 `search.google.com/search-console`,选 `partfit3d.com` property,URL 检查工具输入 `https://partfit3d.com/`,点「请求编入索引」。2026-08-12 用 `gsc.py inspect` 确认 `lastCrawlTime` 还停在 `2026-08-11T00:45`(改动前),说明 Google 还没抓到新标题
   - **为什么现在做**:14 天对比窗口必须从 Google 真正展示新标题开始算,不然会把"旧标题还在跑"的时间也算进实验窗口,拉低看到的效果
   - **预计耗时**:5 分钟
 
-- [ ] **2026-08-15**(视手动请求重抓后的确认时间调整)· M4 · 确认 Google 已用新标题重抓 partfit3d
-  - **动作**:`python3 scripts/gsc.py inspect https://partfit3d.com/ https://partfit3d.com/`,看 `lastCrawlTime` 是否已晚于 2026-08-12 上线时间;必要时用 site: 搜索或无痕窗口肉眼确认 SERP 标题已更新
-  - **确认后**:把重抓确认日期记回 [experiments.md](experiments.md#结果记录),作为 14 天对比窗口的**真正起点**(而不是代码上线日),同步更新下面「回收数据」条目的日期
-  - **预计耗时**:10 分钟
+- [x] **2026-08-15 完成** · M4 · 确认 Google 已用新标题重抓 partfit3d
+  - **结果**:`gsc.py inspect` 实测 `lastCrawlTime` = **2026-08-14T10:20:46Z**,晚于 08-12 上线时间,**重抓已发生**
+  - **因此 14 天对比窗口的真正起点 = 2026-08-14**,终点 08-27;GSC 数据有 2-3 天延迟(逐日实测确认数据只到 08-12),**最早 2026-08-30 才能拉到完整窗口**
+  - **关联**:[experiments.md 2026-08-15 TDK 中期检查](experiments.md#结果记录)
 
-- [ ] **2026-08-26**(占位,待上条确认重抓日期后改准)· M4 · 回收 partfit3d TDK 实验数据,判定 GO/NO-GO
-  - **动作**:`python3 scripts/gsc.py compare https://partfit3d.com/ ...`(或 `queries --days 14`),取重抓后等长 14 天窗口的 `split 3mf` CTR / 平均位置,与改前基线(2026-07-27~08-09:459 曝光 / 1 点击 / CTR 0.2% / 平均位置 9.4)对比
-  - **判定线**:平均位置未明显变差 + CTR ≥1% = 第一档成功;≥2-3% = 目标线;若 14 天后 CTR 仍 <0.5% 且位置未变,判定文案不是主因,回头看 SERP 结构(AI Overview / 竞品占位)
+- [x] **2026-08-24 完成** · M4 · 决定 TDK 实验的测量口径 —— 双页混合归因问题
+  - **问题**:改的是 `/`(新 title),但 `/tools/3mf-splitter-online/` **还挂着旧 title**;同期 `split 3mf` 单词的曝光被这两页分掉
+  - **裁决:选 ② —— page 维度只看 `/`,并把 `/tools/3mf-splitter-online/` 当对照组**
+  - **⚠️ 修正 08-15 的记法**:当时把 ② 写成「保住归因但**样本减半**」——**这个判断不成立**。旧 title 那页一直没动,它就是同站、同词族、同期曝光同涨的**天然对照组**,page 维度不是减半,是**能做差分**。选 ① 反而会把这个对照组毁掉,因此 ① 明确否掉
+  - **08-24 中期数据(9/14 天)已验证 query 维度确实读不出东西**:`split 3mf` 4 点击 / 1515 曝光 / **0.3%** @ 8.8,与基线 0.3% 完全一致 —— 混合归因污染兑现
+  - **关联**:[experiments.md 2026-08-24 TDK 中期读数与口径裁决](experiments.md#结果记录)
+
+- [ ] **2026-08-30** · M4 · 回收时按差分口径拉两页,并记录两页位置变化
+  - **动作**:`gsc.py pages` 分别取 `/`(实验组)与 `/tools/3mf-splitter-online/`(对照组)在 before 07-31:08-13 / after 08-14:08-27 两窗的 点击 / 曝光 / CTR / 平均位置,做差分
+  - **为什么要记位置**:08-24 中期读数里两页平均位置**走向相反**(`/` 10.3→9.1 变好,对照 9.6→10.4 变差),位置变化本身能解释一部分 CTR 差,**不记位置的差分不干净**
+  - **关联**:上一条口径裁决 · [experiments.md 2026-08-24 中期读数](experiments.md#结果记录)
+
+- [ ] **2026-08-30**(08-15 按实际重抓日 08-14 改准)· M4 · 回收 partfit3d TDK 实验数据,判定 GO/NO-GO
+  - **动作**:`python3 scripts/gsc.py compare https://partfit3d.com/ --before 2026-07-31:2026-08-13 --after 2026-08-14:2026-08-27`,**按 08-24 定好的口径 = page 维度只看 `/`**(不是 query 维度)
+  - **⚠️ 基线跟着口径换(2026-08-24 重锁)**:page 维度 `/` 改前 07-31~08-13 = **15 点击 / 960 曝光 / CTR 1.6% / pos 10.3**。
+    ~~08-15 锁的 query 维度 `split 3mf` 基线 1,245 曝光 / 4 点击 / 0.3% / pos 9.1~~ —— 那是混合归因口径,**换 page 维度后作废**
+  - **对照组基线**:`/tools/3mf-splitter-online/` 改前 = 12 点击 / 1644 曝光 / CTR 0.7% / pos 9.6
+  - **判定线**:平均位置未明显变差 + CTR ≥1% = 第一档成功;≥2-3% = 目标线;若 CTR 仍 <0.5% 且位置未变,判定文案不是主因,回头看 SERP 结构
+  - **⚠️ 判定纪律(防自我欺骗)**:曝光爬坡期新增的多是长尾低意图曝光,**天然压 CTR**。**不能只看 CTR 百分比,必须同时看点击绝对数** —— CTR 持平但点击明显上升,不判 NO-GO;CTR 上升但曝光腰斩,也不算 GO
+  - **⚠️ 2026-08-25 追加的硬约束(必须写进判定)**:`split 3mf` 的 SERP 意图是「按颜色拆分上色 3MF」,
+    partfit3d 只做「按平面切开」——**即便读出 GO,CTR 天花板也被意图错配锁死,不能把 GO 外推成
+    「这套文案可以复制到别的词」**。TDK 从"主要抓手"降级为"顺手做过的一次微调";
+    真正的抓手已转为[颜色拆分功能](experiments.md#partfit3d-颜色拆分功能a-路线2026-08-25-立项)。
+    依据见 [experiments.md 2026-08-25 词族意图诊断](experiments.md#结果记录)
   - **结果无论好坏都要回写**:[experiments.md](experiments.md#结果记录) 结果记录段 + 本文件对应条目转 done/blocked
   - **预计耗时**:15 分钟
 
-- [ ] **2026-08-18** · M4 · 复拉 partfit3d GSC,确认 ~3,780 曝光/月 是水位还是尖峰
-  - **动作**:`python3 scripts/gsc.py queries "https://partfit3d.com/" --days 7`,与 08-11 的 882 曝光/周对比。若回落到几十/周,说明 08 月首周是一次性尖峰,[experiments.md 08-11 订正](experiments.md#结果记录)的速率结论要按复拉值改写
-  - **为什么**:该速率只有一周观测(前一周仅 90 次,周环比 +880%),排名未变而曝光暴涨,尚不能确认是自然爬坡
-  - **预计耗时**:10 分钟
+- [x] **2026-08-15 提前完成**(原定 08-18)· M4 · 确认 ~3,780 曝光/月 是水位还是尖峰 —— **不是尖峰,还在往上走**
+  - **非重叠周对比**(`split 3mf`):07-30~08-05 **219 曝光 / 0 点击 / pos 9.7** → 08-06~08-12 **1,026 曝光 / 4 点击 / CTR 0.4% / pos 8.9**,**+369%**,而位置只微升
+  - **排除了数据回填的可能**:复拉 08-02~08-08 得到 276 曝光,与 08-11 当时记录的数字**完全一致** → 是真实增长,不是 GSC 延迟回填造成的错觉
+  - **含义**:[experiments.md 08-11 订正](experiments.md#结果记录)的速率结论**成立且偏保守**,不需要按尖峰改写
+  - **关联**:[experiments.md 2026-08-15 TDK 中期检查](experiments.md#结果记录)
 
 - [ ] **2026-08-09** · M4 · 查 partfit3d 品牌词 `partfit` 为什么只排 4.4 位
   - **动作**:自己的品牌名没排到第 1(15 曝光 0 点击),是站点权重/实体识别问题,与 title 无关。查:首页是否有明确品牌实体标记(Organization schema / about 页 / 一致的 brand naming)、`partfit` 这个词是否被其他实体占据
@@ -206,12 +242,44 @@
   - **为什么**:129 次提交里 `published` 只有 5 条、dofollow 只有 2 条,而 77% 的行连是不是 dofollow 都没核过。**不核就永远不知道这两个月的外链投入有多少是白干的**,也没法判断该不该继续投免费目录这条路
   - **预计耗时**:分批做,首批 20 行约 1 小时
 
-- [ ] **2026-08-11** · M4 · 修 partfit3d 的 trailing slash 冲突(**解 34 条未收录,ROI 最高**)
-  - **动作**:把 canonical + og:url + sitemap.xml 全部改成**不带**结尾斜杠,与 Cloudflare 现有去斜杠行为对齐(不动服务器);顺手把 307 改 301
-  - **为什么**:sitemap 说收录 `/about/` → 307 跳到 `/about` → canonical 又指回 `/about/`,**没有 URL 能自我声明 canonical**。30 个内容页(含工具主页 `/tools/3mf-splitter-online`)+ 4 条「已发现」全卡在这
-  - **关联**:[experiments.md partfit3d 索引诊断](experiments.md#结果记录)
-  - **前置**:需要 partfit3d 源码仓库路径(不在 `~/workspace` 下)
+- [x] **2026-08-25 完成**(2026-08-11 立项)· M4 · 修 partfit3d 的 trailing slash 冲突(**解 34 条未收录,ROI 最高**)
+  - **✅ 已部署验证(生产实测 2026-08-25)**:commit `76432be`,Worker 版本 `93dd1b48`。
+    `/tools/stl-repair/` → **301** → `/tools/stl-repair`;canonical 与 og:url 均**不带**斜杠、与 200 地址一致;
+    sitemap 全部 `<loc>` 去斜杠且根路径保留 `/`;`/` 不跳转
+  - **307 根因**:不是 Cloudflare,是 TanStack Router —— `router-core/dist/esm/redirect.js:3` 的
+    `statusCode = ... || 307`,**无配置开关**。解法是在 Worker 入口 `src/server.ts` 于请求进 router 前拦截返回 301,
+    守卫:根路径不跳、只对 GET/HEAD 用 301(POST 用 301 会被客户端改写成 GET)
+  - **og:url 无需单独修**:`seo()` 一次算出 url 同时喂 canonical / og:url / twitter:url,改一个函数覆盖全部
+  - **下一步**:GSC 重新提交 sitemap;约 2-4 周后复查 9 对重复 URL 是否合并、`how-to-split-stl-for-3d-printing`
+    合并后的位置(合并前 249+244 曝光分别趴在 pos 44.1 / 41.8)
+
+  - **⚠️ 拖了 4 个数据周期的真正原因:不是"没修",是"修完忘了发"。**
+    `src/lib/urls.ts` 与 `src/routes/sitemap[.]xml.ts` 的去斜杠逻辑早就写好,只是从未提交(working tree `M`),
+    线上一直跑旧构建。08-11 诊断 / 08-15 复现 / 08-24 复现 / 08-25 再复现,每次都当成"还没做"
+  - **关联**:[experiments.md 词族意图诊断 ⑤](experiments.md#结果记录)
+
+- [x] **2026-08-25 完成** · M4 · 发布 partfit3d 两个转换页(**同样是"写了没发"**)
+  - **✅ 生产实测**:`/tools/3mf-to-stl`、`/tools/stl-to-3mf` 均返回 200,已进 sitemap;
+    `/tools/3mf-splitter-online` 加了指向两页的内链
+  - **为什么**:08-14 定的转换词族(`3mf to stl` 合计 ≈11,190/月,KD 13-17)页面早就写好了,一天曝光都没吃到
+  - **未提交**:这两页及 `converter-workspace.tsx` / `stl-export.ts`(共 1,064 行)仍是未跟踪文件 ——
+    **已部署但未入 git**,下次改动前先补一次提交
+  - **下一步**:GSC 手动请求编入索引,4-6 周后拉曝光核实转换词族是否真实带量
+  - **关联**:[experiments.md 词族意图诊断 ⑤](experiments.md#结果记录)
   - **预计耗时**:30 分钟
+
+- [ ] **2026-08-25** · M4 · A 路线 Step 0 · 补查颜色拆分词族量级(**不再阻塞独立页,只校准 SEO 预期**)
+  - **动作**:用 `seo-competitor` 查 `3mf color splitter` / `split 3mf by color` / `separate colors 3mf` /
+    `3mf color separator` 的量级与 KD,决定是否另开 `/tools/3mf-color-splitter/` 独立页
+  - **动作出口**:决定做「一页两模式」还是「一页两模式 + 独立页」
+  - **关联**:[experiments.md partfit3d 颜色拆分功能](experiments.md#partfit3d-颜色拆分功能a-路线2026-08-25-立项)
+  - **预计耗时**:30 分钟
+
+- [x] **2026-08-26 完成** · M4 · A 路线主体 · 实现颜色解析 + 按色分组 / 封盖 / 导出,上线独立页
+  - **生产验收**:`/tools/3mf-color-splitter` 的站内三色样例可拆出 3 个 watertight parts;colour-tagged 3MF 与 3 STL ZIP 下载均进入可用状态
+  - **范围边界**:目前只上线独立页;已有约 3,000 曝光/月的 `/` 与 `/tools/3mf-splitter-online` 尚未承接颜色功能,所以原 CTR 假设还没有开始验证
+  - **下一步**:08-30 回收旧 TDK 数据后,给两个已有曝光页接入颜色入口,并从该次上线日重新锁 14 天窗口
+  - **关联**:[experiments.md partfit3d 颜色拆分功能](experiments.md#partfit3d-颜色拆分功能a-路线2026-08-25-立项)
 
 - [ ] **2026-08-11** · M4 · 修 partfit3d 三类链接生成 bug(**25 个 404 的真正成因**)
   - **动作**:① `$slug` 未插值(14 条)—— 查 `/printers` 列表页链接生成 ② 相对链接缺前导斜杠导致路径段重复(8 条)—— 全局搜 `href="` 后不是 `/` 或 `http` 的 ③ route group 括号泄漏(3 条)—— `(pages)` `(legals)` 不该出现在 URL 里
