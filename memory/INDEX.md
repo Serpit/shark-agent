@@ -77,6 +77,7 @@
 - [methods/axiom-scan.md](methods/axiom-scan.md) — 公理扫描 SOP（摄入文章/signals/教练对话三场景,9 条逐项问句）
 - [methods/community-demand-discovery.md](methods/community-demand-discovery.md) — 社群平台需求挖掘 SOP(小红书 / Reddit / X 通用,6 步)
 - [methods/search-engine-demand-discovery.md](methods/search-engine-demand-discovery.md) — 搜索引擎需求发现 SOP(Web/SaaS 出海,6 步,与社群版对位)
+- [methods/fast-payment-validation.md](methods/fast-payment-validation.md) — **付费意愿快速验证 SOP(2 周内拿到第 1 笔钱)**。接在需求发现之后,验的是钱不是需求;三类场所 A 交易平台 / B 付费惯例社区 / C 免费志愿社区(**不要去 C 卖**),含照片修复品类实测数字作校准参照
 - [methods/benchmark-five-filters.md](methods/benchmark-five-filters.md) — themes 候选五重过滤（骨架版，同模式/同阶段/同合规/同需求层/同验证）
 - [methods/x-tweet-writing-templates.md](methods/x-tweet-writing-templates.md) — X 推文起草 SOP(4 开头 + 10 模板 + 3 Thread + 发布前三问)
 - [methods/x-cold-start-and-amplification.md](methods/x-cold-start-and-amplification.md) — X 冷启动与放大 SOP(Premium/置顶推文/大 V 互动/信息监控/变现优先级)
