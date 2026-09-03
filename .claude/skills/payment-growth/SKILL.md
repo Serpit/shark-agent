@@ -52,10 +52,15 @@ python3 scripts/payment-growth/payment-growth-discovery/scripts/payment_growth.p
 
 | 段 | 读什么 | 阈值 |
 |---|---|---|
-| `category_conclusions` | 哪个品类的付款意图在涨/在跌 | 看方向,不看绝对值 |
 | `fast_rank_growth` | **表尾冲刺榜**,按 `rank_gain` 排序 | 位次增幅 ≥50 |
+| 榜 B 头部增长(手写 SQL,见下) | 已成规模、还在加速的 | 当前位次 ≤50 且引荐增幅 ≥50% |
 
 `new_product_growth` 作补充(找新面孔)。`traffic_gainers` / `newcomers` / `rank_risers` 是兼容用的旧口径,**不看**。
+
+⛔ **`category_conclusions` 不看。** 2026-08-28 对 Stripe 表逐品类拆解,14 个涨跌品类**全部**由单站贡献
+76–124% 的变化量(如「电脑/电子 +37.8%」= `higgsfield.ai` 一家占 81%),叠加 SimilarWeb 分类标签大量错标。
+要判品类冷热只能人工归类前 50 行再聚合。详见
+[`sources/payment-growth.md` 陷阱 6](../../../memory/sources/payment-growth.md)。
 
 ### ⚠️ 必须同时看第二张榜,否则会漏掉最大的鱼
 

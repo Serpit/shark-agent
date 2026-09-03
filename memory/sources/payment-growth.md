@@ -67,7 +67,7 @@ python3 scripts/payment-growth/payment-growth-discovery/scripts/payment_growth.p
 
 | 段 | 是什么 | 怎么用 |
 |---|---|---|
-| `category_conclusions.gainers/.decliners` | **品类级**支付意图涨跌 + 每类的头部代表产品 | 看赛道冷热,不看单品 |
+| `category_conclusions.gainers/.decliners` | 名义上是品类级支付意图涨跌 | ⛔ **不看**——2026-08-28 实测是单站伪装成品类,见[陷阱 6](#6-category_conclusions-是单站伪装成品类不要当赛道信号读2026-08-28-实测) |
 | `fast_rank_growth` | **表尾冲刺榜**。位次上升的产品,按位次增幅排序,不设流量下限 | 看,但**必须配「头部增长榜」**,见陷阱 5 |
 | `new_product_growth` | 上月不在表里、本月出现的产品 | 找新面孔 |
 | `traffic_gainers` / `newcomers` / `rank_risers` | 兼容用的旧口径列表 | 一般不看 |
@@ -154,17 +154,44 @@ location.href = 'https://dash.3ue.com?msg=登录过期或无效,请重新登录'
 **必须补一张「头部增长榜」**:当前位次 ≤50 且引荐访问增幅 ≥50%,直接查 SQLite。
 详见 [skill Step 2](../../.claude/skills/payment-growth/SKILL.md)。
 
-### 6. `complete=true` 是硬门槛,别绕过
+### 6. `category_conclusions` 是「单站伪装成品类」——不要当赛道信号读(2026-08-28 实测)
+
+2026-08-28 对 Stripe 表 06→07 逐品类拆解,**7 个涨榜品类 + 7 个跌榜品类,全部由单站贡献 76–124% 的变化量**:
+
+| 品类 | 表面结论 | 实际 |
+|---|---|---|
+| 电脑/电子/科技 +37.8% | "AI 付款意图在加速" | `higgsfield.ai` 一家占 **81%** |
+| 音乐 +122.9% | "音乐付款在涨" | `dearkellyfilm.com` 一家占 **105%**(其余全在跌) |
+| 影视/流媒体 +127.0% | 同上 | `covergirl.maxim.com` 占 **104%** |
+| 邮件 +50.6% | — | `my.brain.fm` 占 **79%**(而且它是助眠音频,不是邮件) |
+| 体育 +49.9% | — | `arenaclub.com` 占 **76%** |
+| 金融/投资 -24.3% | "投资付款意图在退潮" | `portal.nousresearch.com` 一家占 **111%** |
+| 电脑硬件 -75.6% | — | 该品类**全表只有 1 个域名**(`console.sakana.ai`) |
+
+两个独立成因,都不可修:
+
+1. **样本量太小**:多数品类在全表 968 行里只占 1–30 行,单站波动直接淹没品类信号。
+2. **SimilarWeb 的分类标签本身大量错标**:`app.kiro.dev`(AI IDE)标 Banking、`my.brain.fm`(助眠音频)标 Email、
+   `console.sakana.ai`(AI 实验室)标 Computer Hardware、`pslscale.com`(面部评分)标 Video Games、
+   `g.alipayplus.com`(支付)标 Beauty_and_Cosmetics。**错标 + 小样本叠加,品类聚合没有意义。**
+
+**处置**:`category_conclusions` 从「Step 2 必看两段之一」**降级为不看**。
+真要判品类冷热,只能人工归类前 50 行再聚合,而不是用它自带的 `category` 字段。
+
+> ⚠️ 这条**推翻了 2026-08-26 首轮落在 [`themes.md`](../themes.md) 的品类结论**
+> (「AI 工具付款意图 +37.9%,与『AI 已经卷完了』相反」)——那 37.9% 是 higgsfield 一家。已在 themes 就地更正。
+
+### 7. `complete=true` 是硬门槛,别绕过
 
 采集器只在上游明确报全表拉完时才存快照,拉不全就报错而不是存半张表。
 **不要为了省事去改这个逻辑**——半张表做出来的位次对比是错的,而且错得看不出来。
 
-### 7. 密码走 URL query
+### 8. 密码走 URL query
 
 登录是 `GET /api/account/login?username=...&password=...`(`similarweb_client.py:1679`)。
 上游设计如此,改不了。**别用在别处复用的重要密码。**
 
-### 8. 本地打过 3 个补丁,换版本要重打
+### 9. 本地打过 3 个补丁,换版本要重打
 
 vendored 代码,升级或重新解包时以下改动会丢:
 

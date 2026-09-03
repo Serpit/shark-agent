@@ -10,6 +10,11 @@ description: 查关键词与竞品的外部数据——Semrush(月搜索量、KD
 
 > **⛔ 不使用 Ahrefs。** 面板里第一个「打开」按钮是 Ahrefs,**另计费,不要点**。
 > KD / 搜索量一律走 Semrush。
+>
+> **引用域也不必动 Ahrefs(2026-08-27 交叉验证)**:Columbus `get_site_detail` 的
+> `backlinks.refdomains` × `dofollowRefdomainsPct` 与 Ahrefs 实测差 **<10%** ——
+> `magic3d.io` Columbus 口径 1,203×82%≈**986 dofollow**,Ahrefs 2026-08-15 实测 **902 dofollow**。
+> **AI 品类查引用域优先走 Columbus。** 非 AI 品类仍无替代源,此时才考虑动 Ahrefs(需用户明确批准)。
 
 ## 入口(全部实测于 2026-08-09)
 
