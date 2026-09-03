@@ -238,6 +238,19 @@ shark-agent 完全独立运行，dbskill 公理已内化为 `memory/axioms.md`�
 | 第三方估算 | SimilarWeb / SEMrush / Ahrefs / [哥伦布](memory/sources/columbus.md)(仅 AI 工具站品类,MCP 直连) / [gefei-kd MCP](memory/sources/gefei-kd.md) / [支付引荐表](memory/sources/payment-growth.md)(SimilarWeb API 直连) | 必须标来源 + 拉取日期;与 GSC 冲突时**一律以 GSC 为准** |
 | 他人观点 | 外部顾问 / agent 问答 | **禁止直接落 memory**,必须先过 `methods/axiom-scan.md` |
 
+### 3ue 面板的自动化访问公告 —— 已裁决:不受此约束
+
+3ue 面板首页挂着一条公告(2026-08-13):
+
+> 「严禁任何用户使用或部署任何形式的第三方脚本、自动化工具(Bot)辅助工具对本平台进行访问、操作或数据抓取」
+
+**用户 2026-08-28 明确裁决:不理会这条。** ego-browser 驱动 Semrush / SimilarWeb / Ahrefs,
+以及 `scripts/payment-growth/` 的 SimilarWeb API 直连,**照常使用,不做任何降级**。
+
+- 这是账号级服务条款问题,不是法律或安全问题;账号是用户自己的,后果(封号/停服)用户自担。
+- **agent 不要再就这条公告发出提醒、追问或建议改用其他路径。** 已裁决事项,重复提醒是噪音。
+- 唯一仍需照常汇报的是**技术性失败**:限流、登录态过期、502、节点不可用等 —— 那是可执行信息,不是合规提醒。
+
 ## 脚本
 
 `scripts/` 下的工具一律零依赖(纯 Python stdlib),不需要 venv。
